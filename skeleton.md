@@ -1,4 +1,4 @@
-# Functions: user-defined literals
+# Module name: topic name
 _Skeleton instructions are typeset in italic text._
 
 ## Overview
@@ -34,7 +34,7 @@ _Why do we want to learn/teach this topic?_
 
 _Very brief introduction to the topic._
 
-## Foundational knowledge: Using UDLs
+## Foundational knowledge: Using *
 
 ### Background/Required Knowledge
 
@@ -64,7 +64,7 @@ implementation-defined, unspecified, or undefined behavior._
 
 _This section lists important details for each point._
 
-## Advanced: implementing UDLs
+## Advanced: implementing *
 
 ### Background/required knowledge
 
