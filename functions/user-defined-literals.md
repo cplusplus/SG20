@@ -103,7 +103,7 @@ A student should be able to:
 2. separate unrelated UDLs into distinct namespaces.
 
 ### Caveats
-
+No caveats at present.
 ### Points to cover
 
 ## Further studies
