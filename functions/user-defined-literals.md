@@ -105,7 +105,7 @@ A student should be able to:
 ### Caveats
 No caveats at present.
 ### Points to cover
-
+No caveats at present.
 ## Further studies
 
 _These are important topics that are not expected to be covered but provide
