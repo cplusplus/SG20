@@ -119,7 +119,7 @@ _This section mentions subtle points to understand, like anything resulting in
 implementation-defined, unspecified, or undefined behavior._
 
 * Intricacies when implementing copy operations:
-  * Maybe: Copying going wrong? (std::auto_ptr …)
+  * Examples of how _not_ to write copy operations (e.g. `std::auto_ptr`)
 
 ### Points to cover
 
