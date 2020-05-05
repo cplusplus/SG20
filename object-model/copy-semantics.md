@@ -53,14 +53,14 @@ It helps when a student:
 
 ### Student outcomes
 
-_A list of things “a student should be able to” after the curriculum._
+_A list of things "a student should be able to" after the curriculum._
 _The next word should be an action word and testable in an exam._
 _Max 5 items._
 
 A student should be able to:
 
 1. explain what copy semantics accomplish
-  * establishing “equivalent” object state in another object
+  * establishing "equivalent" object state in another object
 2. explain difference between deep and shallow copy
 3. explain where copies are made
 
@@ -102,7 +102,7 @@ It helps when a student:
 
 ### Student outcomes
 
-_A list of things “a student should be able to” after the curriculum._
+_A list of things "a student should be able to" after the curriculum._
 _The next word should be an action word and testable in an exam._
 _Max 5 items._
 
