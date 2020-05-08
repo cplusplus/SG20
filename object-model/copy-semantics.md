@@ -93,7 +93,7 @@ _This section lists important details for each point._
 ### Background/Required Knowledge
 
 A student:
-* knows special member functions  [C++ object model: special member functions
+* knows special member functions  [[C++ object model: special member functions]][5]
 
 It helps when a student:
 * knows move semantics            [[C++ object model: move semantics]][4]
