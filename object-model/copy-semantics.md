@@ -71,7 +71,7 @@ A student should be able to:
 _This section mentions subtle points to understand, like anything resulting in
 implementation-defined, unspecified, or undefined behavior._
 
-* Compiler-provided (reference based) copies may result in ownership problems (e.g. `char*`).
+* Compiler-provided (reference based) copies may result in ownership problems (e.g., `char*`).
 
 ### Points to cover
 
@@ -121,7 +121,7 @@ _This section mentions subtle points to understand, like anything resulting in
 implementation-defined, unspecified, or undefined behavior._
 
 * Intricacies when implementing copy operations:
-  * Examples of how _not_ to write copy operations (e.g. `std::auto_ptr`)
+  * Examples of how _not_ to write copy operations (e.g., `std::auto_ptr`)
 
 ### Points to cover
 
