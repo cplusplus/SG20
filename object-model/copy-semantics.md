@@ -144,7 +144,7 @@ References:
 * [Abseil tip of the Week #166](https://abseil.io/tips/166)
 * [cppreference - Copy elision](https://en.cppreference.com/w/cpp/language/copy_elision)
 
-[1]: ../object-model/copy-semantics.md
+[1]: ../object-model/types.md
 [2]: ../object-model/objects.md
 [3]: ../object-model/constant-objects.md
 [4]: ../object-model/move-semantics.md
