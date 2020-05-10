@@ -42,14 +42,14 @@ Explains when and how objects are copied.
 
 ### Background/Required Knowledge
 
-A student:
-* knows what a type is?             [[C++ object model: types]][1]
-* knows what an object is?          [[C++ object model: objects]][2], [[C++ object model: constant objects]][3]
-* knows what class invariants are?
+A student is able to:
+* explain what a C++ type is?               [[C++ object model: types]][1]
+* explain what an object is?                [[C++ object model: objects]][2], [[C++ object model: constant objects]][3]
+* define and understand class invariants?
 
-It helps when a student:
-* knows move semantics              [[C++ object model: move semantics]][4]
-* knows special member functions    [[C++ object model: special member functions]][5]
+It helps when a student is able to:
+* use move semantics                        [[C++ object model: move semantics]][4]
+* explain special member functions          [[C++ object model: special member functions]][5]
 
 ### Student outcomes
 
@@ -94,13 +94,13 @@ _This section lists important details for each point._
 
 ### Background/Required Knowledge
 
-A student:
-* knows special member functions  [[C++ object model: special member functions]][5]
+A student is able to:
+* explain special member functions        [[C++ object model: special member functions]][5]
 
-It helps when a student:
-* knows move semantics            [[C++ object model: move semantics]][4]
-* knows the rule of five          [[C++ object model: rule-of-five]][6]
-* knows the rule of zero          [[C++ object model: rule-of-zero]][7]
+It helps when a student is able to:
+* use move semantics                      [[C++ object model: move semantics]][4]
+* explain the rule of zero                [[C++ object model: rule-of-zero]][7]
+* explain the rule of five                [[C++ object model: rule-of-five]][6]
 
 ### Student outcomes
 
