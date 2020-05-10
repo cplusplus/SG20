@@ -61,15 +61,17 @@ A student should be able to:
 
 1. explain what copy semantics accomplish
   * establishing "equivalent" object state in another object
-2. explain difference between deep and shallow copy
+2. explain difference between copying a reference and copying a value\*
 3. explain where copies are made
+
+\* In other languages these differences are sometimes referred to as shallow and deep copy.
 
 ### Caveats
 
 _This section mentions subtle points to understand, like anything resulting in
 implementation-defined, unspecified, or undefined behavior._
 
-* Compiler-provided (shallow) copies may result in ownership problems (e.g. `char*`).
+* Compiler-provided (reference based) copies may result in ownership problems (e.g. `char*`).
 
 ### Points to cover
 
@@ -80,12 +82,12 @@ _This section lists important details for each point._
   * Copying of non-trivial class types
   * Copying an object does not change the original
 * Copy Flavors
-  * Shallow copy
+  * Copy by value
+  * Copy by reference
   * No copy
-  * Deep copy
 * Practical applications
-  * Unique_ptr  (no copy)
-  * Strings (deep copy) 
+  * Unique_ptr  (has no copy)
+  * Strings (copies the value) 
 
 
 ## Advanced: Implementing user-defined copy operations
