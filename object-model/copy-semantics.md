@@ -113,7 +113,7 @@ A student should be able to:
   * Copy constructor
   * Copy assignment operator
 * implement copy operations for their own types
-* _Optional_: explain when copying with basic and strong exception guarantees is useful.
+* _Optional_: explain when copying with basic and strong exception guarantees is useful
 
 ### Caveats
 
