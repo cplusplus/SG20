@@ -30,7 +30,7 @@ _Specifies the different levels of teaching._
 _Why is this important?_
 _Why do we want to learn/teach this topic?_
 
-Copy semantics allows the user to determine how objects of a class get replicated and interact on a value level.
+Copy semantics allows the user to define how objects of a class get replicated and interact on a value level.
 
 ## Topic introduction
 
@@ -71,22 +71,22 @@ A student should be able to:
 _This section mentions subtle points to understand, like anything resulting in
 implementation-defined, unspecified, or undefined behavior._
 
-* Compiler-provided (reference based) copies may result in ownership problems (e.g., `char*`).
+* Compiler-provided copy operations may result in ownership problems (e.g., `char*`). These ownership problems can generally be solved by using types whose copy operations have the appropriate semantics, e.g., `std::string` instead of `char*` to hold string values.
 
 ### Points to cover
 
 _This section lists important details for each point._
 
 * Principle of copying
-  * Copying of trivially copyable types
-  * Copying of non-trivial class types
+  * Copying of types, which follow the rule of zero
+  * Copying of types, with user defined copy operations
   * Copying an object does not change the original
 * Copy Flavors
   * Copy by value
   * Copy by reference
   * No copy
 * Practical applications
-  * Unique_ptr  (has no copy)
+  * `std::unique_ptr`  (has no copy)
   * Strings (copies the value) 
 
 
@@ -95,7 +95,7 @@ _This section lists important details for each point._
 ### Background/Required Knowledge
 
 A student is able to:
-* explain special member functions        [[C++ object model: special member functions]][5]
+* identify special member functions       [[C++ object model: special member functions]][5]
 
 It helps when a student is able to:
 * use move semantics                      [[C++ object model: move semantics]][4]
@@ -121,7 +121,7 @@ _This section mentions subtle points to understand, like anything resulting in
 implementation-defined, unspecified, or undefined behavior._
 
 * Intricacies when implementing copy operations:
-  * Examples of how _not_ to write copy operations (e.g., `std::auto_ptr`)
+  * Examples of how _not_ to write copy operations (e.g., C++03 `std::auto_ptr`)
 
 ### Points to cover
 
@@ -132,7 +132,7 @@ _This section lists important details for each point._
   * =default, =delete (No copy)
   * How-to write your own copy operations
   * Rule-of-five
-  * Copy assignment operators can be ref-qualified to avoid assigning into temporary objects. (See example #1)
+  * Copy assignment operators can be ref-qualified to avoid assigning into temporary objects.
 
 ## Further studies
 
