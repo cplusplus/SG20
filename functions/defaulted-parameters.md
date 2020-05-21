@@ -1,9 +1,13 @@
-# Module name: topic name
+# Module name: defaulted parameters
 _Skeleton instructions are typeset in italic text._
 
 ## Overview
 
-Functions in C++ may be overloaded with different numbers and types of parameters. It may be of value to specify default values for some number of parameters, to allow a consumer to avoid specifying parameters that rarely change, or to enable expanding the set of parameters while maintaining backward compatibility with existing consumers.
+Functions in C++ may be overloaded with different numbers and types of 
+parameters. It may be of value to specify default values for some number 
+of parameters, to allow a caller to avoid specifying parameters that 
+rarely change, or to enable expanding the set of parameters while 
+maintaining backward compatibility with existing callers.
 
 <table>
   <thead>
@@ -26,30 +30,33 @@ Functions in C++ may be overloaded with different numbers and types of parameter
 
 ## Motivation
 
-Default parameters allow the omission of parameters with obvious or common values. Also may be utilized to extend an existing function signature without forcing changes to existing calling code.
+Default parameters allow the omission of parameters with obvious or common
+values. Also may be utilized to extend an existing function signature 
+without forcing changes to existing calling code.
 
 ## Topic introduction
 
 Explain how default parameters work and how to define them.
 
-## Foundational knowledge: Using *
+## Foundational knowledge: Using and defining functions with default arguments
 
 ### Background/Required Knowledge
 
 A student is able to:
 
-* Make calls to existing functions, passing parameters
+* Make calls to existing functions, passing parameters [[Functions: calling functions]][1]
 * Declare member and non-member functions, separate from definitions
-* Define member and non-member functions
-* Explain what a default constructor is and does
+* Define member and non-member functions [[Functions: member functions]][2]
+* Explain what a default constructor is and does [[C++ object model: constructors]][3]
 
 ### Student outcomes
 
 A student should be able to:
 
 1. Call to a function with a default parameter with or without that parameter specified
-2. Explain what the requirements are for a type to be usable with a default parameter
-3. Explain when the lifetime of a defaulted parameter begins and ends
+2. Declare a function with a default parameter, and omit the default in the definition's signature
+3. Explain what the requirements are for a type to be usable with a default parameter
+4. Explain when the lifetime of a defaulted parameter begins and ends
 
 
 ### Caveats
@@ -62,6 +69,8 @@ A student should be able to:
 ### Points to cover
 
 * Default value may only be specified once for each parameter among all declarations
+* Default values must start from the rightmost parameter and continue leftward without gaps
+* Considerations of when to use default arguments vs overload set
 
 ## Advanced: implementing *
 
@@ -73,15 +82,18 @@ A student should be able to:
 
 A student should be able to:
 
-1. Declare a function with a default parameter, and omit the default in the definition's signature
-
 ### Caveats
 
-* Default values must start from the right-most parameter and continue left-ward without gaps
 
 ### Points to cover
 
 ## Further studies
 
-Learning the extent to which you may further specify new default values and rules related to what is necessary for a consumer to take advantage of additionally defaulted values.
+Learning the extent to which you may further specify new default values and
+rules related to what is necessary for a caller to take advantage of
+additionally defaulted values.
+
+[1]: ../functions/calling-functions.md
+[2]: ../functions/member-functions.md
+[3]: ../object-model/constructors.md
 
