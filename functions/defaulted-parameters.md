@@ -16,11 +16,11 @@ maintaining backward compatibility with existing callers.
   </thead>
   <tr>
     <td>Foundational knowledge</td>
-    <td>can make calls to functions with or without defaulted parameters</td>
+    <td>Define and use functions with defaulted parameters</td>
   </tr>
   <tr>
     <td>Advanced</td>
-    <td>declares and defines functions with defaulted parameters</td>
+    <td></td>
   </tr>
   <tr>
     <td>Further studies</td>
@@ -89,9 +89,12 @@ A student should be able to:
 
 ## Further studies
 
-Learning the extent to which you may further specify new default values and
-rules related to what is necessary for a caller to take advantage of
-additionally defaulted values.
+Subsequent redeclarations of the same function may add default argument
+values, which are then usable by callers.
+Though a single argument cannot be given a default twice in the same 
+translation unit, it is legal, though perhaps ill-advised, to give the same
+function different default parameters in different translation units.
+
 
 [1]: ../functions/calling-functions.md
 [2]: ../functions/member-functions.md
