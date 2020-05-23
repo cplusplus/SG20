@@ -60,14 +60,15 @@ class SectionHeading:
     def convert_meta_text_to_lines(self) -> tp.List[str]:
         """
         Convert the sections meta text into separate lines for the document.
+        This does not include the header part because some headers contain user
+        specific text, which is not traced in the Skeleton.
         """
         heading_lines = []
         heading_lines.append(os.linesep)
 
-        meta_text = "".join(self.meta_text)
+        heading_lines.extend(self.meta_text)
         # Guarantee exactly one empty line after meta text
-        meta_text = meta_text.rstrip() + os.linesep * 2
-        heading_lines.append(meta_text)
+        heading_lines[-1] = heading_lines[-1].rstrip() + os.linesep * 2
 
         return heading_lines
 
@@ -154,73 +155,75 @@ class Skeleton:
 
             return True
 
-    def update_topic_meta_text(self, topic_file_path: Path) -> None:
+    def update_topic_meta_text(self, topic_file: tp.TextIO) -> tp.List[str]:
         """
-        Update the meta text of a topic file according to this skeleton.
+        Create updates of the meta text for a topic file according to this
+        skeleton.
 
         Args:
-            topic_file_path: path to the topic file
+            topic_file: the topic markdown file to update
+
+        Returns: updated topic lines
         """
-        doc_lines = []
+        updated_topic_lines = []
         headings_iter = iter(self.headings)
 
-        with open(topic_file_path, "r") as topic_file:
-            emitting_doc_text = True
-            for line in topic_file.readlines():
-                if line.startswith("##"):
+        emitting_doc_text = True
+        for line in topic_file.readlines():
+            if line.startswith("##"):
+                next_heading = next(headings_iter)
+                current_heading = self.lookup_heading(line.split(":")[0])
+
+                # Add headers that are completely missing
+                while (current_heading.header_text !=
+                       next_heading.header_text):
+                    print(f"Could not find section "
+                          f"({next_heading.header_text}) before section "
+                          f"({current_heading.header_text}).")
+                    if _cli_yn_choice("Should I insert it before?"):
+                        updated_topic_lines.append(next_heading.header_text)
+                        updated_topic_lines.extend(
+                            next_heading.convert_meta_text_to_lines())
+
                     next_heading = next(headings_iter)
-                    current_heading = self.lookup_heading(line.split(":")[0])
 
-                    # Add headers that are completely missing
-                    while (current_heading.header_text !=
-                           next_heading.header_text):
-                        print(f"Could not find section "
-                              f"({next_heading.header_text}) before section "
-                              f"({current_heading.header_text}).")
-                        if _cli_yn_choice("Should I insert it before?"):
-                            doc_lines.append(next_heading.header_text)
-                            doc_lines.extend(
-                                next_heading.convert_meta_text_to_lines())
+                emitting_doc_text = False
 
-                        next_heading = next(headings_iter)
+                # Write out heading
+                updated_topic_lines.append(line)
+                updated_topic_lines.extend(
+                    current_heading.convert_meta_text_to_lines())
 
-                    emitting_doc_text = False
-
-                    # Write out heading
-                    doc_lines.append(line)
-                    doc_lines.extend(
-                        current_heading.convert_meta_text_to_lines())
-
-                elif line.startswith("#"):
-                    # Verify that the title heading has correct meta text
-                    emitting_doc_text = False
-                    next_heading = next(headings_iter)
-                    doc_lines.append(line)
-                    doc_lines.extend(
-                        self.get_title_heading().convert_meta_text_to_lines())
-                elif line.startswith("_") or line.strip().endswith("_"):
-                    # Ignore meta lines
-                    continue
-                elif emitting_doc_text or line != "\n":
-                    # Skip new lines if we aren't emitting normal document text
-                    emitting_doc_text = True
-                    doc_lines.append(line)
+            elif line.startswith("#"):
+                # Verify that the title heading has correct meta text
+                emitting_doc_text = False
+                next_heading = next(headings_iter)
+                updated_topic_lines.append(line)
+                updated_topic_lines.extend(
+                    self.get_title_heading().convert_meta_text_to_lines())
+            elif line.startswith("_") or line.strip().endswith("_"):
+                # Ignore meta lines
+                continue
+            elif emitting_doc_text or line != "\n":
+                # Skip new lines if we aren't emitting normal document text
+                emitting_doc_text = True
+                updated_topic_lines.append(line)
 
         # Add missing section headings at the end
         try:
             while True:
                 next_heading = next(headings_iter)
-                doc_lines.append(next_heading.header_text + os.linesep)
-                doc_lines.extend(next_heading.convert_meta_text_to_lines())
+                updated_topic_lines.append(next_heading.header_text +
+                                           os.linesep)
+                updated_topic_lines.extend(
+                    next_heading.convert_meta_text_to_lines())
         except StopIteration:
             pass
 
         # Remove excessive newlines
-        doc_lines[-1] = doc_lines[-1].rstrip() + os.linesep
+        updated_topic_lines[-1] = updated_topic_lines[-1].rstrip() + os.linesep
 
-        with open(topic_file_path, "w") as tmp_file:
-            for line in doc_lines:
-                tmp_file.write(line)
+        return updated_topic_lines
 
     def __parse_headings(self) -> None:
         with open(self.__skeleton_file_path, "r") as skeleton_file:
@@ -265,7 +268,15 @@ def update_skeletons(skeleton: Skeleton,
         topic_paths: list of paths to topic files
     """
     for path in topic_paths:
-        skeleton.update_topic_meta_text(path)
+        updated_topic_content = []
+        with open(path, "r") as topic_file:
+            updated_topic_content = skeleton.update_topic_meta_text(topic_file)
+
+        if updated_topic_content:
+            # Write update content to topic file
+            with open(path, "w") as topic_file:
+                for line in updated_topic_content:
+                    topic_file.write(line)
 
 
 def main() -> None:
