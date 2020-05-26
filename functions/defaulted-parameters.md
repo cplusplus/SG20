@@ -92,7 +92,7 @@ A student should be able to:
 Subsequent redeclarations of the same function may add default argument
 values, which are then usable by callers.
 Though a single argument cannot be given a default twice in the same 
-translation unit, it is legal, though perhaps ill-advised, to give the same
+translation unit, it is legal, though ill-advised, to give the same
 function different default parameters in different translation units.
 
 
