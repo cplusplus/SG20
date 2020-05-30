@@ -73,6 +73,10 @@ To require expressions which evaluate to a boolean value, such as `sizeof(t) == 
 * All of the above.
 * Knowledge of `noexcept`
 
+A student is able to:
+
+* Write a concept [[Compile-time programming: concepts]][1]
+
 ### Student outcomes
 
 A student should be able to:
