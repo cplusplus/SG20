@@ -23,7 +23,7 @@
 
 ## Motivation
 
-Requires-expressions allow a developer to perform compile-time evaluation on the validity of other expressions. These are fundamental to the ability to write concepts.[1]
+Requires-expressions allow a developer to perform compile-time evaluation on the validity of other expressions. These are fundamental to the ability to write concepts.[[Compile-time programming: concepts]][1]
 
 ## Topic introduction
 
@@ -35,7 +35,7 @@ Requires-expressions are compile-time predicates which evaluate to true when the
 
 A student is able to:
 
-* Write and use a function template [2]
+* Write and use a function template [[Compile-time programming: function templates]][2]
 * Differentiate between expressions and statements
 
 It is helpful if:
