@@ -12,15 +12,15 @@ _Specifies the different levels of teaching._
     <th>Objectives</th>
   </thead>
   <tr>
-    <td>Foundational knowledge</td>
+    <td>Foundational</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Main</td>
     <td></td>
   </tr>
   <tr>
     <td>Advanced</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Further studies</td>
     <td></td>
   </tr>
 </table>
@@ -34,7 +34,7 @@ _Why do we want to learn/teach this topic?_
 
 _Very brief introduction to the topic._
 
-## Foundational knowledge: Using *
+## Foundational: Using *
 
 ### Background/Required Knowledge
 
@@ -64,7 +64,7 @@ implementation-defined, unspecified, or undefined behavior._
 
 _This section lists important details for each point._
 
-## Advanced: implementing *
+## Main: implementing *
 
 ### Background/required knowledge
 
@@ -84,7 +84,7 @@ A student should be able to:
 
 ### Points to cover
 
-## Further studies
+## Advanced
 
 _These are important topics that are not expected to be covered but provide
 guidance where one can continue to investigate this topic in more depth._
