@@ -12,15 +12,15 @@ _Specifies the different levels of teaching._
     <th>Objectives</th>
   </thead>
   <tr>
-    <td>Foundational knowledge</td>
+    <td>Foundational</td>
     <td>understanding how and when are copies made</td>
   </tr>
   <tr>
-    <td>Advanced</td>
+    <td>Main</td>
     <td>implementing user-defined copy operations</td>
   </tr>
   <tr>
-    <td>Further studies</td>
+    <td>Advanced</td>
     <td>special cases: copy elision</td>
   </tr>
 </table>
@@ -38,7 +38,7 @@ _Very brief introduction to the topic._
 
 Explains when and how objects are copied.
 
-## Foundational knowledge: How and when are copies made
+## Foundational: How and when are copies made
 
 ### Background/Required Knowledge
 
@@ -90,7 +90,7 @@ _This section lists important details for each point._
   * Strings (copies the value) 
 
 
-## Advanced: Implementing user-defined copy operations
+## Main: Implementing user-defined copy operations
 
 ### Background/Required Knowledge
 
@@ -134,7 +134,7 @@ _This section lists important details for each point._
   * Rule-of-five
   * Copy assignment operators can be ref-qualified to avoid assigning into temporary objects.
 
-## Further studies
+## Advanced
 
 _These are not expected to be covered but provide guidance where one can
 continue to investigate this topic in more depth._
