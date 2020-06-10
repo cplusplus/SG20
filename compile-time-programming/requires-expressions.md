@@ -75,7 +75,7 @@ not on the result of the operation.
 * Checks are performed by the compiler, not at run time.
 * If covering usage of requires-expression with requires-clause, [[Compile-time programming: requires clause]][3] demonstrate `requires requires` and show how to ever avoid writing it by using a concept. [[Compile-time programming: concepts]][1]
 
-## Advanced: Advanced requirements
+## Main: Advanced requirements
 
 ### Background/required knowledge
 
@@ -115,5 +115,4 @@ static_assert(requires(S s) { { s.bar() } noexcept; } ); // Fails. s.bar() is no
 [1]: ../compile-time-programming/concepts.md
 [2]: ../compile-time-programming/function-templates.md
 [3]: ../compile-time-programming/requires-clause.md
-
 
