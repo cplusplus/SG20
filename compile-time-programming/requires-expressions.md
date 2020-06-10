@@ -16,7 +16,7 @@
     <td>Define and use requires-expressions to check properties of expressions</td>
   </tr>
   <tr>
-    <td>Further studies</td>
+    <td>Advanced</td>
     <td></td>
   </tr>
 </table>
@@ -115,7 +115,6 @@ static_assert(requires(S s) { { s.bar() } noexcept; } ); // Fails. s.bar() is no
 [1]: ../compile-time-programming/concepts.md
 [2]: ../compile-time-programming/function-templates.md
 [3]: ../compile-time-programming/requires-clause.md
-
 
 
 
