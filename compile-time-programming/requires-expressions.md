@@ -110,9 +110,8 @@ static_assert(requires(S s) { { s.bar() } noexcept; } ); // Fails. s.bar() is no
   ```
 * If the return-type-requirement of a compound-requirement is a concept, that concept is given the resulting type as the first parameter, followed by the specified parameters in the compound-requirement. `{ ++x } -> C<int>` would substitute `C<decltype((++x)), int>` and check that concept C is satisfied for those parameters.
 
-## Further studies
+## Advanced
 
 [1]: ../compile-time-programming/concepts.md
 [2]: ../compile-time-programming/function-templates.md
 [3]: ../compile-time-programming/requires-clause.md
-
