@@ -8,7 +8,7 @@
     <th>Objectives</th>
   </thead>
   <tr>
-    <td>Foundational knowledge</td>
+    <td>Foundational</td>
     <td>Define and use requires-expressions to check satisfaction of expressions by given parameters</td>
   </tr>
   <tr>
@@ -115,7 +115,6 @@ static_assert(requires(S s) { { s.bar() } noexcept; } ); // Fails. s.bar() is no
 [1]: ../compile-time-programming/concepts.md
 [2]: ../compile-time-programming/function-templates.md
 [3]: ../compile-time-programming/requires-clause.md
-
 
 
 
