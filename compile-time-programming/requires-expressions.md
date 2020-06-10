@@ -12,7 +12,7 @@
     <td>Define and use requires-expressions to check satisfaction of expressions by given parameters</td>
   </tr>
   <tr>
-    <td>Advanced</td>
+    <td>Main</td>
     <td>Define and use requires-expressions to check properties of expressions</td>
   </tr>
   <tr>
