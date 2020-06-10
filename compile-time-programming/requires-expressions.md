@@ -33,7 +33,7 @@ Requires-expressions are compile-time predicates which evaluate to true
 when their specified set of expressions are all valid for a given set of 
 inputs.
 
-## Foundational knowledge: Writing requires-expressions
+## Foundational: Writing requires-expressions
 
 ### Background/Required Knowledge
 
@@ -115,6 +115,5 @@ static_assert(requires(S s) { { s.bar() } noexcept; } ); // Fails. s.bar() is no
 [1]: ../compile-time-programming/concepts.md
 [2]: ../compile-time-programming/function-templates.md
 [3]: ../compile-time-programming/requires-clause.md
-
 
 
