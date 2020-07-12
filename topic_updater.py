@@ -166,12 +166,44 @@ class Skeleton:
         Returns: updated topic lines
         """
         updated_topic_lines = []
-        headings_iter = iter(self.headings)
+        skeleton_headings_iter = iter(self.headings)
 
+        updated_topic_lines.extend(
+            self.__process_existing_topic_content(topic_file,
+                                                  skeleton_headings_iter))
+
+        # Add missing section headings at the end
+        updated_topic_lines.extend(
+            self.__get_remaining_section_headings(skeleton_headings_iter))
+
+        # Remove excessive newlines
+        updated_topic_lines[-1] = updated_topic_lines[-1].rstrip() + os.linesep
+
+        return updated_topic_lines
+
+    def __process_existing_topic_content(
+        self, topic_file: tp.TextIO,
+        skeleton_headings_iter: tp.Iterator[SectionHeading]
+    ) -> tp.List[str]:
+        """
+        This method checks that all heading related lines in the topic file
+        correspond correctly to the skeleton. If lines are missing, the user is
+        asked if the missing heading should be added.
+
+        Args:
+            topic_file: the topic markdown file to update
+            skeleton_headings_iter: iterator that points to the next expected
+                                    topic heading
+
+        Returns: existing topic lines, where headings were updated according to
+                 the skeleton
+        """
+        updated_topic_lines = []
         emitting_doc_text = True
+
         for line in topic_file.readlines():
             if line.startswith("##"):
-                next_heading = next(headings_iter)
+                next_heading = next(skeleton_headings_iter)
                 current_heading = self.lookup_heading(line.split(":")[0])
 
                 # Add headers that are completely missing
@@ -185,7 +217,7 @@ class Skeleton:
                         updated_topic_lines.extend(
                             next_heading.convert_meta_text_to_lines())
 
-                    next_heading = next(headings_iter)
+                    next_heading = next(skeleton_headings_iter)
 
                 emitting_doc_text = False
 
@@ -197,33 +229,48 @@ class Skeleton:
             elif line.startswith("#"):
                 # Verify that the title heading has correct meta text
                 emitting_doc_text = False
-                next_heading = next(headings_iter)
+                next_heading = next(skeleton_headings_iter)
                 updated_topic_lines.append(line)
                 updated_topic_lines.extend(
                     self.get_title_heading().convert_meta_text_to_lines())
             elif line.startswith("_") or line.strip().endswith("_"):
                 # Ignore meta lines
+                # Meta lines are not allowed to contain modifications by the
+                # topic writer and are always inserted with the title heading
+                # from the skeleton.
                 continue
             elif emitting_doc_text or line != "\n":
                 # Skip new lines if we aren't emitting normal document text
                 emitting_doc_text = True
                 updated_topic_lines.append(line)
 
-        # Add missing section headings at the end
+        return updated_topic_lines
+
+    @staticmethod
+    def __get_remaining_section_headings(
+        skeleton_headings_iter: tp.Iterator[SectionHeading]
+    ) -> tp.List[str]:
+        """
+        Returns a list of all `SectionHeading`s that are still missing and
+        should be added at the end of the topic.
+
+        Args:
+            skeleton_headings_iter: iterator that points to the next expected
+                                    topic heading
+        Returns: missing topic lines, which are not present and have not been
+                 added up to now
+        """
+        missing_headings: tp.List[str] = []
         try:
             while True:
-                next_heading = next(headings_iter)
-                updated_topic_lines.append(next_heading.header_text +
-                                           os.linesep)
-                updated_topic_lines.extend(
+                next_heading = next(skeleton_headings_iter)
+                missing_headings.append(next_heading.header_text + os.linesep)
+                missing_headings.extend(
                     next_heading.convert_meta_text_to_lines())
         except StopIteration:
             pass
 
-        # Remove excessive newlines
-        updated_topic_lines[-1] = updated_topic_lines[-1].rstrip() + os.linesep
-
-        return updated_topic_lines
+        return missing_headings
 
     def __parse_headings(self) -> None:
         with open(self.__skeleton_file_path, "r") as skeleton_file:
