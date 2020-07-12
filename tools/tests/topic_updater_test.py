@@ -298,3 +298,42 @@ class TestSkeletonTopicUpdates(unittest.TestCase):
                              "No newline between heading and meta text.")
             self.assertTrue(
                 start_test_scope_lines[2].startswith("_ Example section"))
+
+
+class TestSkeletonTopicChecker(unittest.TestCase):
+    """
+    Test skeleton topic checker function. This test covers different scenarios
+    that should or should not be detected by the topic checker.
+    """
+    @classmethod
+    def setUpClass(cls):
+        """ Setup small test skeleton which contains all edge cases. """
+        cls.test_skeleton = tu.Skeleton(TEST_INPUTS / "test_skeleton.md")
+
+    def test_if_good_topic_passes_check(self):
+        """
+        Checks that we do not fail on correct topics and user provided document
+        content.
+        """
+        topic_file_path = TEST_INPUTS / "user_content_heading_topic.md"
+        with open(topic_file_path, "r") as topic_file:
+            self.assertTrue(
+                self.test_skeleton.check_if_topic_file_matches(topic_file))
+
+    def test_that_check_detects_missing_sections(self):
+        """
+        Checks that check detects missing sections in topic documents.
+        """
+        topic_file_path = TEST_INPUTS / "missing_sections.md"
+        with open(topic_file_path, "r") as topic_file:
+            self.assertFalse(
+                self.test_skeleton.check_if_topic_file_matches(topic_file))
+
+    def test_that_check_detects_wrong_sections(self):
+        """
+        Checks that check detects wrong sections in topic documents.
+        """
+        topic_file_path = TEST_INPUTS / "fix_wrong_sections.md"
+        with open(topic_file_path, "r") as topic_file:
+            self.assertFalse(
+                self.test_skeleton.check_if_topic_file_matches(topic_file))
