@@ -114,46 +114,60 @@ class Skeleton:
                 "First heading in the skeleton was not the title.")
         return self.headings[0]
 
-    def check_if_topic_file_matches(self, topic_file_path: Path) -> bool:
+    def check_if_topic_file_matches(self, topic_file: tp.TextIO) -> bool:
         """
         Checks if the topic file headings and meta text matches the skeleton.
         Prints the differences between the topic file and the skeleton, if a
         miss mach is detected.
 
         Args:
-            topic_file_path: path to the topic file to check
+            topic_file: the topic markdown file to update
 
         Returns: `True` if the topic matches, otherwise, `False`
         """
-        with open(topic_file_path, "r") as topic_file:
-            current_heading_iter = iter(self.headings)
-            current_heading = None
-            expected_meta_text: tp.List[str] = []
+        current_heading_iter = iter(self.headings)
+        current_heading = None
+        processing_meta_text = False
+        expected_meta_text: tp.List[str] = []
 
-            for line in topic_file.readlines():
-                if line.startswith("#"):
-                    if current_heading is not None and expected_meta_text:
-                        print("Found missing italics:")
-                        print(f"Expected: {expected_meta_text[0]}")
-                        return False
+        for line in topic_file.readlines():
+            if line.startswith("#"):
+                if current_heading and expected_meta_text:
+                    print("Found missing italics:")
+                    print(f"Expected: {expected_meta_text[0]}")
+                    return False
 
-                    current_heading = next(current_heading_iter)
-                    expected_meta_text = copy(current_heading.meta_text)
-                if line.startswith("_"):
-                    if not expected_meta_text:
-                        print("Did not expect further italics but found:")
-                        print(line)
-                        return False
+                current_heading = next(current_heading_iter)
+                expected_meta_text = copy(
+                    self.lookup_heading(current_heading.header_text).meta_text)
+                processing_meta_text = False
 
-                    if line == expected_meta_text[0]:
-                        expected_meta_text.pop(0)
-                    else:
-                        print("Found italics text did not match the skeleton:")
-                        print(f"Found:\n{line}")
-                        print(f"Expected:\n{expected_meta_text[0]}")
-                        return False
+            # Check if the required section headings are present
+            if line.startswith("##") and current_heading:
+                if current_heading.header_text.split(":")[0] != line.split(
+                        ":")[0].strip():
+                    print("Found wrong section title:")
+                    print(f"Found:\n{line.strip()}")
+                    print(f"Expected:\n{current_heading.header_text}")
+                    return False
 
-            return True
+            # Check if the correct meta text is below the  section heading
+            if line.startswith("_") or processing_meta_text:
+                if not expected_meta_text:
+                    print("Did not expect further italics but found:")
+                    print(line)
+                    return False
+
+                if line == expected_meta_text[0]:
+                    processing_meta_text = not line.strip().endswith("_")
+                    expected_meta_text.pop(0)
+                else:
+                    print("Found italics text did not match the skeleton:")
+                    print(f"Found:\n{line}")
+                    print(f"Expected:\n{expected_meta_text[0]}")
+                    return False
+
+        return True
 
     def update_topic_meta_text(self, topic_file: tp.TextIO) -> tp.List[str]:
         """
@@ -292,17 +306,25 @@ class Skeleton:
 
 
 def check_skeletons(skeleton: Skeleton,
-                    topic_paths: tp.Iterator[Path]) -> None:
+                    topic_paths: tp.Iterator[Path]) -> bool:
     """
     Check of the topics files match the skeleton.
 
     Args:
         skeleton: base skeleton to compare the topics against
         topic_paths: list of paths to topic files
+
+    Returns: True, if all topic files matched the skeleton
     """
+    all_files_matched = True
     for topic_path in topic_paths:
-        if skeleton.check_if_topic_file_matches(topic_path):
-            print(f"All meta-text in {topic_path} matched the skeleton.")
+        with open(topic_path, "r") as topic_file:
+            if skeleton.check_if_topic_file_matches(topic_file):
+                print(f"All meta-text in {topic_path} matched the skeleton.")
+            else:
+                all_files_matched = False
+
+    return all_files_matched
 
 
 def update_skeletons(skeleton: Skeleton,
