@@ -85,7 +85,7 @@ class TestSkeleton(unittest.TestCase):
         self.assertEqual(headings[1], "## Overview")
 
         self.assertEqual(headings[-2], "### Points to cover")
-        self.assertEqual(headings[-1], "## Further studies")
+        self.assertEqual(headings[-1], "## Advanced")
 
     def test_heading_lookup(self):
         """
