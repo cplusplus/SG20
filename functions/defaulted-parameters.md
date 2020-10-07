@@ -23,7 +23,7 @@ maintaining backward compatibility with existing callers.
     <td></td>
   </tr>
   <tr>
-    <td>Further studies</td>
+    <td>Advanced</td>
     <td>refinement of defaulted parameters through multiple declarations</td>
   </tr>
 </table>
