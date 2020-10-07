@@ -72,7 +72,7 @@ A student should be able to:
 * Default values must start from the rightmost parameter and continue leftward without gaps
 * Considerations of when to use default arguments vs overload set
 
-## Advanced: implementing *
+## Main: implementing *
 
 ### Background/required knowledge
 
