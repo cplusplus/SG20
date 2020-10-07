@@ -87,7 +87,7 @@ A student should be able to:
 
 ### Points to cover
 
-## Further studies
+## Advanced
 
 Subsequent redeclarations of the same function may add default argument
 values, which are then usable by callers.
