@@ -19,7 +19,7 @@ maintaining backward compatibility with existing callers.
     <td>Define and use functions with defaulted parameters</td>
   </tr>
   <tr>
-    <td>Advanced</td>
+    <td>Main</td>
     <td></td>
   </tr>
   <tr>
