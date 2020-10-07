@@ -15,7 +15,7 @@ maintaining backward compatibility with existing callers.
     <th>Objectives</th>
   </thead>
   <tr>
-    <td>Foundational knowledge</td>
+    <td>Foundational</td>
     <td>Define and use functions with defaulted parameters</td>
   </tr>
   <tr>
@@ -99,4 +99,3 @@ function different default parameters in different translation units.
 [1]: ../functions/calling-functions.md
 [2]: ../functions/member-functions.md
 [3]: ../object-model/constructors.md
-
