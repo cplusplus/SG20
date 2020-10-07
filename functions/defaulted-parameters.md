@@ -38,7 +38,7 @@ without forcing changes to existing calling code.
 
 Explain how default parameters work and how to define them.
 
-## Foundational knowledge: Using and defining functions with default arguments
+## Foundational: Using and defining functions with default arguments
 
 ### Background/Required Knowledge
 
