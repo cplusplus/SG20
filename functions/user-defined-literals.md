@@ -12,15 +12,15 @@ _Specifies the different levels of teaching._
     <th>Objectives</th>
   </thead>
   <tr>
-    <td>Foundational knowledge</td>
+    <td>Foundational</td>
     <td>using and understanding UDLs</td>
   </tr>
   <tr>
-    <td>Advanced</td>
+    <td>Main</td>
     <td>implementing your own UDLs</td>
   </tr>
   <tr>
-    <td>Further studies</td>
+    <td>Advanced</td>
     <td>Advanced use (<code>"{}, {}!"_fmt("Hello", "World")</code>)</td>
   </tr>
 </table>
@@ -41,12 +41,12 @@ _Very brief introduction to the topic._
 * Explain the existence of user defined literals. Example: `12m + 17s` is terse,
   expressive and type safe.
 
-## Foundational knowledge: Using UDLs
+## Foundational: Using UDLs
 
 ### Background/Required Knowledge
 
 A student:
-* knows how to form numeric literals e.g. `1.5f` means a `float` of value `1.5`.
+* knows how to form numeric literals, e.g., `1.5f` means a `float` of value `1.5`.
 * is familiar with the major C++ types:
   * `bool` (Boolean type)
   * `int`  (Integer type)
@@ -54,7 +54,7 @@ A student:
   * `std::string` (Text type)
   * `std::vector` (Collection type)
 * knows that namespaces exist, and namespace `std`.
-* knows what using-declarations and using-directives are.
+* knows what using-declarations and using-directives are. [[C++ object model: declarations]][2]
 
 ### Student outcomes
 
@@ -89,7 +89,7 @@ implementation-defined, unspecified, or undefined behavior._
 
 _This section lists important details for each point._
 
-## Advanced: implementing UDLs
+## Main: implementing UDLs
 
 ### Background/required knowledge
 
@@ -106,7 +106,10 @@ A student should be able to:
 No caveats at present.
 ### Points to cover
 No caveats at present.
-## Further studies
+## Advanced
 
 _These are important topics that are not expected to be covered but provide
 guidance where one can continue to investigate this topic in more depth._
+
+[1]: ../object-model/types.md
+[2]: ../object-model/declarations.md
