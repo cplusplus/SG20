@@ -81,10 +81,6 @@ _This section lists important details for each point._
   * Copying of types, which follow the rule of zero
   * Copying of types, with user defined copy operations
   * Copying an object does not change the original
-* Copy Flavors
-  * Copy by value
-  * Copy by reference
-  * No copy
 * Practical applications
   * `std::unique_ptr`  (has no copy)
   * Strings (copies the value) 
