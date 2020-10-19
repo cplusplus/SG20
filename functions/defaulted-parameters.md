@@ -4,7 +4,7 @@ _Skeleton instructions are typeset in italic text._
 ## Overview
 
 Functions in C++ may be overloaded with different numbers and types of 
-parameters. It may be of value to specify default values for some number 
+parameters. It may be of value to specify default arguments for some number 
 of parameters, to allow a caller to avoid specifying arguments that 
 rarely change, or to enable expanding the set of parameters while 
 maintaining backward compatibility with existing callers.
@@ -56,7 +56,7 @@ A student should be able to:
 1. Call to a function with a default argument with or without that argument specified
 2. Declare a function with a default argument, and omit the default in the definition's signature
 3. Explain what the requirements are for a type to be usable as a default argument
-4. Explain when the lifetime of a defaulted argument begins and ends
+4. Explain when the lifetime of a default argument begins and ends
 
 
 ### Caveats
@@ -91,7 +91,7 @@ A student should be able to:
 
 Subsequent redeclarations of the same function may add default argument
 values, which are then usable by callers.
-Though a single argument cannot be given a default twice in the same 
+Though a single parameter cannot be given a default argument twice in the same 
 translation unit, it is legal, though ill-advised, to give the same
 function different default arguments in different translation units.
 
