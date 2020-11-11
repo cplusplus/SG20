@@ -1,4 +1,4 @@
-# Module name: default argument
+# Functions: default argument
 _Skeleton instructions are typeset in italic text._
 
 ## Overview
