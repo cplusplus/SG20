@@ -43,7 +43,7 @@ A student:
 
 ### Student outcomes
 
-_A list of things “a student should be able to” after the curriculum._
+_A list of things "a student should be able to" after the curriculum._
 _The next word should be an action word and testable in an exam._
 _Max 5 items._
 
@@ -66,7 +66,7 @@ _This section lists important details for each point._
 
 ## Main: implementing *
 
-### Background/required knowledge
+### Background/Required Knowledge
 
 * All of the above.
 

@@ -1,4 +1,5 @@
 # Functions: user-defined literals
+
 _Skeleton instructions are typeset in italic text._
 
 ## Overview
@@ -43,7 +44,9 @@ _Very brief introduction to the topic._
 
 ## Foundational: Using UDLs
 
+
 ### Background/Required Knowledge
+
 
 A student:
 * knows how to form numeric literals, e.g., `1.5f` means a `float` of value `1.5`.
@@ -58,7 +61,7 @@ A student:
 
 ### Student outcomes
 
-_A list of things “a student should be able to” after the curriculum._
+_A list of things "a student should be able to" after the curriculum._
 _The next word should be an action word and testable in an exam._
 _Max 5 items._
 
@@ -91,11 +94,17 @@ _This section lists important details for each point._
 
 ## Main: implementing UDLs
 
-### Background/required knowledge
+
+### Background/Required Knowledge
+
 
 * All of the above.
 
 ### Student outcomes
+
+_A list of things "a student should be able to" after the curriculum._
+_The next word should be an action word and testable in an exam._
+_Max 5 items._
 
 A student should be able to:
 
@@ -103,8 +112,15 @@ A student should be able to:
 2. separate unrelated UDLs into distinct namespaces.
 
 ### Caveats
+
+_This section mentions subtle points to understand, like anything resulting in
+implementation-defined, unspecified, or undefined behavior._
+
 No caveats at present.
 ### Points to cover
+
+_This section lists important details for each point._
+
 No caveats at present.
 ## Advanced
 
