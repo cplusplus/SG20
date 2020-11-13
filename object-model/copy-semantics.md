@@ -1,4 +1,5 @@
 # C++ object model: copy semantics
+
 _Skeleton instructions are typeset in italic text._
 
 ## Overview
@@ -40,7 +41,9 @@ Explains when and how objects are copied.
 
 ## Foundational: How and when are copies made
 
+
 ### Background/Required Knowledge
+
 
 A student is able to:
 * explain what a C++ type is?               [[C++ object model: types]][1]
@@ -88,7 +91,9 @@ _This section lists important details for each point._
 
 ## Main: Implementing user-defined copy operations
 
+
 ### Background/Required Knowledge
+
 
 A student is able to:
 * identify special member functions       [[C++ object model: special member functions]][5]
@@ -132,8 +137,8 @@ _This section lists important details for each point._
 
 ## Advanced
 
-_These are not expected to be covered but provide guidance where one can
-continue to investigate this topic in more depth._
+_These are important topics that are not expected to be covered but provide
+guidance where one can continue to investigate this topic in more depth._
 
 When can copies be elided and when does the standard guarantee copy elision.
 References:

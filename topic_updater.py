@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Small tool for generating and fixing teaching topics.
 
@@ -196,8 +197,8 @@ class Skeleton:
         return updated_topic_lines
 
     def __process_existing_topic_content(
-        self, topic_file: tp.TextIO,
-        skeleton_headings_iter: tp.Iterator[SectionHeading]
+            self, topic_file: tp.TextIO,
+            skeleton_headings_iter: tp.Iterator[SectionHeading]
     ) -> tp.List[str]:
         """
         This method checks that all heading related lines in the topic file
@@ -262,7 +263,7 @@ class Skeleton:
 
     @staticmethod
     def __get_remaining_section_headings(
-        skeleton_headings_iter: tp.Iterator[SectionHeading]
+            skeleton_headings_iter: tp.Iterator[SectionHeading]
     ) -> tp.List[str]:
         """
         Returns a list of all `SectionHeading`s that are still missing and
