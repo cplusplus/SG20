@@ -3,6 +3,9 @@ _Skeleton instructions are typeset in italic text._
 
 ## Overview
 
+_Provides a short natural language abstract of the module’s contents._
+_Specifies the different levels of teaching._
+
 `static_assert` is a compile-time evaluated function that asserts the 
 truth of a supplied predicate, issuing an optional user-supplied error 
 message if the predicate is `false`.
