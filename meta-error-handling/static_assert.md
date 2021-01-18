@@ -58,7 +58,7 @@ A student should be able to:
 
 ## Main: Contracts and `static_assert`
 
-### Background/required knowledge
+### Background/Required Knowledge
 
 * All of the above.
 * General understanding of compile-time requirements
