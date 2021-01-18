@@ -81,6 +81,9 @@ A student should be able to:
 
 ### Caveats
 
+_This section mentions subtle points to understand, like anything resulting in
+implementation-defined, unspecified, or undefined behavior._
+
 ### Points to cover
 
 * When writing a meta-function, use `static_assert` to test the results
