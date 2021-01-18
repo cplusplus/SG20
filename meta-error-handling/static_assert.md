@@ -31,6 +31,9 @@ message if the predicate is `false`.
 
 ## Motivation
 
+_Why is this important?_
+_Why do we want to learn/teach this topic?_
+
 `static_assert` allows the developer to enforce that conditions which can 
 be checked during compilation will force build errors when violated. 
 Additionally, they are the best mechanism by which a developer can pass 
