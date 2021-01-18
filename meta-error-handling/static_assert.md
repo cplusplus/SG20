@@ -74,6 +74,10 @@ A student should be able to:
 
 ### Student outcomes
 
+_A list of things "a student should be able to" after the curriculum._
+_The next word should be an action word and testable in an exam._
+_Max 5 items._
+
 A student should be able to:
 
 1. Utilize `static_assert` to verify pre-conditions of a meta-function
