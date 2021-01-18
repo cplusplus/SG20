@@ -58,10 +58,9 @@ A student should be able to:
 
 ### Caveats
 
-To require expressions which evaluate to a boolean value, such as 
-`sizeof(t) == 4`, to only be satisfied when the result of the expression is 
-`true`, you must use a nested-requirement, such as 
-`requires sizeof(t) == 4;`. Omitting the `requires` results in a 
+To require that expressions, which evaluate to a boolean value 
+like `sizeof(t) == 4`, evaluate to `true` a nested-requirement is needed 
+(e.g., `requires sizeof(t) == 4;`). Omitting the `requires` results in a 
 simple-requirement, which is satisfied based purely on syntactic validity, 
 not on the result of the operation.
 
