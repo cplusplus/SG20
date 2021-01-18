@@ -13,11 +13,11 @@ message if the predicate is `false`.
   </thead>
   <tr>
     <td>Foundational</td>
-    <td>Calling `static_assert` with a constant expression</td>
+    <td>Calling <code>static_assert</code> with a constant expression</td>
   </tr>
   <tr>
     <td>Main</td>
-    <td>Using `static_assert` to detect contract violations and improve error messages</td>
+    <td>Using <code>static_assert</code> to detect contract violations and improve error messages</td>
   </tr>
   <tr>
     <td>Advanced</td>
@@ -67,8 +67,8 @@ A student should be able to:
 
 A student should be able to:
 
-1. Test pre-conditions of a meta-function
-2. Test meta-functions for known values
+1. Utilize `static_assert` to verify pre-conditions of a meta-function
+2. Utilize `static_assert` to verify the results of meta-functions for known values
 
 ### Caveats
 
