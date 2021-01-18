@@ -1,4 +1,5 @@
 # Meta-error handling: `static_assert`
+_Skeleton instructions are typeset in italic text._
 
 ## Overview
 
