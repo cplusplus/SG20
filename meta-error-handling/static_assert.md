@@ -6,10 +6,6 @@ _Skeleton instructions are typeset in italic text._
 _Provides a short natural language abstract of the module’s contents._
 _Specifies the different levels of teaching._
 
-`static_assert` is a compile-time evaluated function that asserts the 
-truth of a supplied predicate, issuing an optional user-supplied error 
-message if the predicate is `false`.
-
 <table>
   <thead>
     <th>Level</th>
@@ -43,6 +39,10 @@ what must be done, instead.
 ## Topic introduction
 
 _Very brief introduction to the topic._
+
+`static_assert` is a compile-time evaluated function that asserts the 
+truth of a supplied predicate, issuing an optional user-supplied error 
+message if the predicate is `false`.
 
 ## Foundational: Calling `static_assert` with a constant expression
 
