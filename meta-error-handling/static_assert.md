@@ -42,6 +42,8 @@ what must be done, instead.
 
 ## Topic introduction
 
+_Very brief introduction to the topic._
+
 ## Foundational: Calling `static_assert` with a constant expression
 
 ### Background/Required Knowledge
