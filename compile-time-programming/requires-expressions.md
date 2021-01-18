@@ -44,7 +44,7 @@ A student is able to:
 
 It is helpful if:
 
-* A student is aware of the constraints imposed by their template definitions
+* The student is aware that attempting to specialize the template with types or values which do not match otherwise unstated assumptions will cause errors within the template.
 
 ### Student outcomes
 
