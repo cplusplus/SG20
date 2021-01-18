@@ -1,1 +1,1 @@
-See [../functions/user-defined-literals.md].
+See [user-defined-literals](../functions/user-defined-literals.md).
