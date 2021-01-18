@@ -62,7 +62,7 @@ To require expressions which evaluate to a boolean value, such as
 `sizeof(t) == 4`, to only be satisfied when the result of the expression is 
 `true`, you must use a nested-requirement, such as 
 `requires sizeof(t) == 4;`. Omitting the `requires` results in a 
-simple-requirement, which is satisfied based purely on syntact validity, 
+simple-requirement, which is satisfied based purely on syntactic validity, 
 not on the result of the operation.
 
 ### Points to cover
@@ -97,7 +97,7 @@ A student should be able to:
 
 ### Points to cover
 
-* Compound-requirements allow the optional ability to test whether an expression is marked as `noexcept`, by using the `noexcept` keyword.
+* Compound-requirements allow the optional ability to test whether an expression is marked as `noexcept`, by using a trailing `noexcept` keyword.
   ```
 struct S
 {
