@@ -1,4 +1,4 @@
-# Module name: `static_assert`
+# Meta-error handling: `static_assert`
 
 ## Overview
 
@@ -110,4 +110,3 @@ c.add(42, NoDefCtor(1.0));
 ```
 
 ## Advanced
-
