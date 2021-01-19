@@ -164,7 +164,7 @@ def create_module_title_with_header_link(module: TeachingModule) -> str:
 
 def create_topic_path_link(topic: TeachingTopic) -> str:
     """
-    Creates a link for the specified path.
+    Creates a link for the specified topic.
 
     >>> create_topic_path_link(TeachingTopic(\
                                "Constant objects",\
