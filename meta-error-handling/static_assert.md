@@ -55,14 +55,24 @@ A student:
 
 ### Student outcomes
 
+_A list of things "a student should be able to" after the curriculum._
+_The next word should be an action word and testable in an exam._
+_Max 5 items._
+
 A student should be able to:
 
 1. Assert the expected size of a structure using `static_assert`
 
 ### Caveats
 
+_This section mentions subtle points to understand, like anything resulting in
+implementation-defined, unspecified, or undefined behavior._
+
 ### Points to cover
 
+_This section lists important details for each point._
+
+* X
 * In addition to what is wrong, a good error message will inform the user of how to correct it
 
 ## Main: Contracts and `static_assert`
@@ -89,6 +99,8 @@ _This section mentions subtle points to understand, like anything resulting in
 implementation-defined, unspecified, or undefined behavior._
 
 ### Points to cover
+
+_This section lists important details for each point._
 
 * When writing a meta-function, use `static_assert` to test the results
 * Write `static_assert` calls at the scope of the code they are guarding
@@ -126,3 +138,6 @@ c.add(42, NoDefCtor(1.0));
 ```
 
 ## Advanced
+
+_These are important topics that are not expected to be covered but provide
+guidance where one can continue to investigate this topic in more depth._
