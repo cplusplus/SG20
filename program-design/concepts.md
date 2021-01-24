@@ -1,1 +1,1 @@
-See [../compile-time-programmings/concepts.md](../compile-time-programmings/concepts.md).
+See [concepts](../compile-time-programmings/concepts.md).
