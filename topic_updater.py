@@ -102,8 +102,8 @@ class Skeleton:
         Returns: the section heading that starts like the heading line
         """
         for heading in self.headings:
-            if start_heading_line.startswith(
-                    heading.header_text.split(":")[0]):
+            if start_heading_line.lower().startswith(
+                    heading.header_text.split(":")[0].lower()):
                 return heading
         raise LookupError(
             f"Could not find heading that starts with: {start_heading_line}")
