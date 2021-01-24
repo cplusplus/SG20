@@ -1,5 +1,5 @@
 # Module name: topic name
-_Skeleton instructions are typeset in italic text._
+_Skeleton descriptions are typeset in italic text._
 
 ## Overview
 
