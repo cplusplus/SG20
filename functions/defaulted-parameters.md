@@ -55,8 +55,7 @@ A student should be able to:
 
 1. Call to a function with a default argument with or without that argument specified
 2. Declare a function with a default argument, and omit the default in the definition's signature
-3. Explain what the requirements are for a type to be usable as a default argument
-4. Explain when the lifetime of a default argument begins and ends
+3. Explain when the lifetime of a default argument begins and ends
 
 
 ### Caveats
