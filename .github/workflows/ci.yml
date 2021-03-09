@@ -1,0 +1,15 @@
+name: ci
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Prebuild
+      shell: bash
+      run: build/prebuild
+    - name: Build
+      shell: bash
+      run: build/build -d ${{runner.temp}}/output -z ${{github.ref}} -s

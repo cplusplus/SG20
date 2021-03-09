@@ -1,0 +1,61 @@
+#! /usr/bin/env sh
+# Michael Adams (mdadams@ece.uvic.ca)
+
+program_dir="$(dirname "$0")" || exit 1
+program_pathname="$0"
+
+panic()
+{
+	echo "ERROR: $@"
+	exit 1
+}
+
+usage()
+{
+	echo "bad usage: $@"
+	exit 2
+}
+
+level=0
+version=
+
+while getopts v:l: opt; do
+	case $opt in
+	v)
+		version="$OPTARG";;
+	l)
+		level="$OPTARG";;
+	\?)
+		usage
+		break;;
+	esac
+done
+shift $((OPTIND - 1))
+
+if [ -z "$version" ]; then
+	usage "no version specified"
+fi
+if [ "$level" -gt 10 ]; then
+	panic "recursion too deep"
+fi
+
+awk -v program="$program_pathname" -v level="$level" -v version="$version" '
+	/^__INCLUDE__(.*)/ {
+		i = length("__INCLUDE__(");
+		start = i + 1;
+		while (substr($0, i, 1) != ")") {
+			++i;
+		}
+		end = i;
+		path = substr($0, start, end - start);
+		result = system(sprintf("cat %s | %s -l %d -v %s", path, program, level + 1, version));
+		if (result) {
+			exit 1;
+		}
+		next;
+	}
+	{
+		print $0;
+	}
+' - | \
+  sed -e 's/__VERSION__/'"$version"'/g'

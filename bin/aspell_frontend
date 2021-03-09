@@ -1,0 +1,15 @@
+#! /usr/bin/env bash
+# Michael Adams (mdadams@ece.uvic.ca)
+
+cmd_dir="$(dirname "$0")" || exit 1
+
+# Get an absolute pathname.
+#cmd_dir=$(realpath "$cmd_dir") || exit 1
+
+spellcheck_dir="$cmd_dir/../spellcheck"
+wordlist="wordlist"
+if [ ! -f "$spellcheck_dir/$wordlist" ]; then
+	echo "ERROR"
+	exit 1
+fi
+exec aspell --home-dir="$spellcheck_dir" --personal "$wordlist" "$@"

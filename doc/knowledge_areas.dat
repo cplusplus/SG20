@@ -1,0 +1,76 @@
+CM Compilation Model
+	? ? ? ? Translation Units
+	? ? ? ? Headers
+	? ? ? ? Modules
+	? ? ? ? Name Mangling
+	? ? ? ? Phases of Translation
+	? ? ? ? Separate Compilation
+	? ? ? ? Linkage
+P Preprocessor
+	? ? ? ? Preprocessor Metaprogramming
+	? ? ? ? Inclusion
+	? ? ? ? Macros
+B Basics Types, Objects, Values, Expressions, Statements, and Control-Flow Constructs
+	? ? ? ? Constant Objects
+	? ? ? ? Declarations and Definitions
+	? ? ? ? Selection Constructs (e.g., if, ternary)
+	? ? ? ? Looping Constructs (e.g., for, while, etc.)
+F Functions
+	? ? ? ? Calling Functions
+	? ? ? ? Parameter Passing (e.g., Passing By Value and Reference)
+	func_args y n n Default Arguments
+	? ? ? ? Returning Multiple Values
+	? ? ? ? Overloading
+	udl y y n User-Defined Literals
+C User-Defined Types (Classes)
+	? ? ? ? Special Member Functions
+	copy_elision n y y Copy Elision and Implicit Moving (e.g., RVO and NRVO, etc.)
+	? ? ? ? Types
+	? ? ? ? Conversions
+	? ? ? ? Constructors and Destructors
+	? ? ? ? Move/Copy Constructors and Assignment Operators
+	? ? ? ? Member Functions
+	? ? ? ? Sum Types
+	? ? ? ? User-Defined Literals
+	? ? ? ? Special Member Functions
+	? ? ? ? Guidelines for Special Member Functions (e.g., Rule of Five, Rule of Zero)
+	copy y y n Copy Semantics
+	? ? ? ? Moving and Copying
+	? ? ? ? Lambdas
+I Inheritance and Class Hierarchies
+	? ? ? ? Virtual Functions
+	? ? ? ? Run-Time Type Information
+CT Compile-Time Computation
+	? ? ? ? Constant Expressions and Constant Evaluation
+	? ? ? ? static_assert
+T Generic Programming (Templates)
+	? ? ? ? Concepts
+	? ? ? ? SFINAE
+	? ? ? ? Template Metaprogramming
+	? ? ? ? Function Templates
+	? ? ? ? Requires Clauses
+	req_expr y y n Requires Expressions
+EH Error Handling
+	? ? ? ? Classes of Errors
+	? ? ? ? errno
+	? ? ? ? Error Codes
+	? ? ? ? Exception Handling
+SL Standard Library
+	? ? ? ? Input/Output (I/O)
+	? ? ? ? Containers, Iterators, and Algorithms
+EL External (i.e., Non Standard) Libraries
+	? ? ? ? Graphical User Interfaces
+BLD Building
+	? ? ? ? Software Build Tools
+	? ? ? ? Strategies for Handling Build Problems
+TD Testing and Debugging
+	? ? ? ? Source-Level Debuggers
+	? ? ? ? Code Sanitizers
+	? ? ? ? Test Frameworks
+	? ? ? ? Debugging Strategies
+TOOL Tooling
+	? ? ? ? Compiler Toolchains
+	? ? ? ? IDEs
+SD Software Design
+	? ? ? ? Design by Contract
+

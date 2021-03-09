@@ -1,0 +1,10 @@
+#! /usr/bin/env bash
+# Michael Adams (mdadams@ece.uvic.ca)
+
+packages=()
+packages+=(pandoc)
+packages+=(texinfo)
+packages+=(aspell)
+#packages+=(hunspell)
+
+sudo apt-get install -y "${packages[@]}"

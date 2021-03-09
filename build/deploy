@@ -1,0 +1,155 @@
+#! /usr/bin/env bash
+# Michael Adams (mdadams@ece.uvic.ca)
+
+cmd_dir=$(dirname "$0") || exit 1
+source_dir="$cmd_dir/.."
+
+panic()
+{
+	echo "ERROR: $@"
+	exit 1
+}
+
+usage()
+{
+	echo "bad usage: $@"
+	exit 2
+}
+
+branch="gh-pages"
+in_dir=
+repo_name=
+tmp_dir="${TMPDIR:-/tmp}"
+github_ref=
+force=0
+prepare_only=0
+
+while getopts b:i:r:t:z:fn opt; do
+	case $opt in
+	b)
+		branch="$OPTARG";;
+	t)
+		tmp_dir="$OPTARG";;
+	i)
+		in_dir="$OPTARG";;
+	r)
+		repo_name="$OPTARG";;
+	z)
+		github_ref="$OPTARG";;
+	f)
+		force=1;;
+	n)
+		prepare_only=1;;
+	\?)
+		usage
+		break;;
+	esac
+done
+shift $((OPTIND - 1))
+
+if [ -z "$github_ref" ]; then
+	usage "no github ref specified"
+fi
+if [ -z "$tmp_dir" ]; then
+	usage "no temporary directory specified"
+fi
+if [ -z "$in_dir" ]; then
+	usage "no input directory specified"
+fi
+if [ -z "$repo_name" ]; then
+	usage "no repository name specified"
+fi
+if [ -z "$DEPLOY_KEY" ]; then
+	usage "DEPLOY_KEY environment variable not set"
+fi
+
+echo "temporary directory $tmp_dir"
+echo "input directory $in_dir"
+echo "repository name $repo_name"
+echo "github ref $github_ref"
+
+version="$(awk -v FS="/" '{print $3;}' <<< "$github_ref")" || panic
+echo "version $version"
+
+tmp_dir="$tmp_dir/deploy"
+
+git_dir="$tmp_dir/git"
+ssh_dir="$HOME/.ssh"
+private_key_file="$ssh_dir/private_key"
+
+if [ "$force" -eq 0 -a -e "$private_key_file" ]; then
+	panic "private key file already exists"
+fi
+
+if [ ! -d "$ssh_dir" ]; then
+	mkdir -p "$ssh_dir" || panic "cannot make directory $ssh_dir"
+fi
+if [ ! -d "$tmp_dir" ]; then
+	mkdir -p "$ssh_dir" || panic "cannot make directory $ssh_dir"
+fi
+
+echo "$DEPLOY_KEY" > "$private_key_file" || \
+  panic "cannot create private key file"
+chmod u+rw,g=,o= "$private_key_file" || \
+  panic "cannot set permissions for private key file"
+
+version_dir="$git_dir/$version"
+repo_url="ssh://git@github.com/$repo_name.git"
+
+if [ -z "$SSH_AGENT_PID" ]; then
+	eval $(ssh-agent) || panic "cannot start ssh-agent"
+fi
+ssh-add "$private_key_file" || panic "ssh-add failed"
+
+git clone "$repo_url" "$git_dir" || \
+  panic "clone failed"
+
+git -C "$git_dir" ls-remote --exit-code --heads "$repo_url" "$branch" \
+  > /dev/null
+status=$?
+if [ "$status" -ne 0 -a "$status" -ne 2 ]; then
+	panic "git ls-remote failed"
+fi
+if [ "$status" -eq 2 ]; then
+	git -C "$git_dir" checkout --orphan "$branch" || \
+	  panic "cannot create orphan branch $branch"
+fi
+
+git -C "$git_dir" checkout "$branch" || \
+  panic "cannot checkout branch $branch"
+
+git -C "$git_dir" config --local user.name "Michael Adams"
+git -C "$git_dir" config --local user.email "mdadams@ece.uvic.ca"
+
+if [ -e "$version_dir" ]; then
+	panic "directory already exist for $version"
+fi
+mkdir -p "$version_dir" || \
+  panic "cannot make directory $version_dir"
+(cd "$in_dir" && tar -cf - .) | (cd "$version_dir" && tar -xf -) || \
+  panic "tar failed"
+
+target="$git_dir/latest"
+if [ -h "$target" -o -e "$target" ]; then
+	rm -f "$target" || panic "rm failed"
+fi
+ln -s "$version" "$target" || \
+  panic "ln failed"
+target="$git_dir/index.html"
+if [ -h "$target" -o -e "$target" ]; then
+	rm -f "$target" || panic "rm failed"
+fi
+ln -s "latest/index.html" "$target" || \
+  panic "ln failed"
+
+ls -al "$git_dir"/*
+
+git -C "$git_dir" add . || \
+  panic "git add failed"
+git -C "$git_dir" commit -m "Deploying" || \
+  panic "git commit failed"
+if [ "$prepare_only" -eq 0 ]; then
+	echo "Pushing changes."
+	git -C "$git_dir" push || \
+	  panic "git push failed"
+fi

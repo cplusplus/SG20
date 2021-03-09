@@ -1,0 +1,23 @@
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Prebuild
+      shell: bash
+      run: build/prebuild
+    - name: Build
+      shell: bash
+      run: build/build -d ${{runner.temp}}/output -z ${{github.ref}}
+    - name: Deploy
+      env:
+        DEPLOY_KEY: ${{secrets.DEPLOY_KEY}}
+      shell: bash
+      run: build/deploy -t ${{runner.temp}}/deploy_tmp -r mdadams/sg20_guidelines_for_teaching_cpp -i ${{runner.temp}}/output -z ${{github.ref}}
