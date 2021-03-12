@@ -107,6 +107,28 @@ class TestSkeleton(unittest.TestCase):
             missing_mid.meta_text[0].rstrip(),
             "_ This section could be missing in the middle of the topics _")
 
+    def test_heading_lookup_wrong_capitalization(self):
+        """
+        Checks if we can lookup different section headings in the skeleton,
+        even if the original text is wrongly capitialized.
+        """
+        wrong_upper_case_heading = self.test_skeleton.lookup_heading(
+            "## Section with User content:")
+        wrong_lower_case_heading = self.test_skeleton.lookup_heading(
+            "## missing mid section")
+
+        self.assertEqual(wrong_upper_case_heading.header_text,
+                         "## Section with user content: provided by the user")
+        self.assertEqual(
+            wrong_upper_case_heading.meta_text[0].rstrip(),
+            "_ Example section where user text is in the header _")
+
+        self.assertEqual(wrong_lower_case_heading.header_text,
+                         "## Missing mid section")
+        self.assertEqual(
+            wrong_lower_case_heading.meta_text[0].rstrip(),
+            "_ This section could be missing in the middle of the topics _")
+
     def test_title_heading_lookup(self):
         """
         Checks if we get the correct title heading from the test skeleton.

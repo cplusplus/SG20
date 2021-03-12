@@ -102,8 +102,8 @@ class Skeleton:
         Returns: the section heading that starts like the heading line
         """
         for heading in self.headings:
-            if start_heading_line.startswith(
-                    heading.header_text.split(":")[0]):
+            if start_heading_line.lower().startswith(
+                    heading.header_text.split(":")[0].lower()):
                 return heading
         raise LookupError(
             f"Could not find heading that starts with: {start_heading_line}")
@@ -306,8 +306,7 @@ class Skeleton:
         return skeleton_text
 
 
-def check_skeletons(skeleton: Skeleton,
-                    topic_paths: tp.Iterator[Path]) -> bool:
+def check_skeletons(skeleton: Skeleton, topic_paths: tp.List[Path]) -> bool:
     """
     Check of the topics files match the skeleton.
 
@@ -328,8 +327,7 @@ def check_skeletons(skeleton: Skeleton,
     return all_files_matched
 
 
-def update_skeletons(skeleton: Skeleton,
-                     topic_paths: tp.Iterator[Path]) -> None:
+def update_skeletons(skeleton: Skeleton, topic_paths: tp.List[Path]) -> None:
     """
     Update the topics files to match the skeleton.
 
@@ -381,11 +379,16 @@ def main() -> None:
     if not args.topic_paths:
 
         def exclude_non_topic_files(path: Path) -> bool:
-            return not (path.name == "skeleton.md"
-                        or str(path).startswith(".github"))
+            excluded_files = ["skeleton.md", "Readme.md"]
+            excluded_folders = [".github", "tools"]
+            for exclude_folder in excluded_folders:
+                if str(path).startswith(exclude_folder):
+                    return False
+            return path.name not in excluded_files
 
-        topic_paths = filter(exclude_non_topic_files,
-                             Path(".").glob("**/*.md"))
+        topic_paths = list(
+            filter(exclude_non_topic_files,
+                   Path(".").glob("**/*.md")))
     else:
         topic_paths = args.topic_paths
 
