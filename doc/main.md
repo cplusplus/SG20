@@ -18,14 +18,15 @@ are presented.
 There is one section per module/area.
 For each module/area, a table listing the various topics in that module/area
 is provided.
-The ID for a module/area is linked to the detailed coverage of that
-module/area that comes later in the document.
-In the table, a checkmark indicates that learning outcomes exist for the
-specific proficiency level.
-A dash indicates that no learning outcomes exist for the specific
-proficiency level (simply because there
-are not any, not because the information is missing).
-In the case that the information for a knowledge unit is completely
+The ID for a topic is linked to the detailed coverage of that
+topic that comes later in the document.
+If a topic has any learning outcomes at a given proficiency level, this is
+indicated by a checkmark ("✔️").
+If a topic has no learning outcomes
+(simply because there
+are not any, not because the information is missing),
+this is indicated by an em dash ("—").
+In the case that the information for a topic is completely
 missing, a "❌" symbol is used.
 
 [**NOTE**: These topics are taken mostly from the SG20 GitHub repository.
