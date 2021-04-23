@@ -42,7 +42,7 @@ _Very brief introduction to the topic._
 * Explain the existence of user defined literals. Example: `12m + 17s` is terse,
   expressive and type safe.
 
-### Foundational: Using UDLs
+### Foundational: Using UDLs {#udl-basic}
 
 
 #### Background/Required Knowledge
@@ -59,7 +59,7 @@ A student:
 * knows that namespaces exist, and namespace `std`.
 * knows what using-declarations and using-directives are. [[C++ object model: declarations]][2]
 
-#### Student outcomes {#udl-basic}
+#### Student outcomes
 
 _A list of things "a student should be able to" after the curriculum._
 _The next word should be an action word and testable in an exam._
@@ -92,7 +92,7 @@ implementation-defined, unspecified, or undefined behavior._
 
 _This section lists important details for each point._
 
-### Main: implementing UDLs
+### Main: implementing UDLs {#udl-intermediate}
 
 
 #### Background/Required Knowledge
@@ -100,7 +100,7 @@ _This section lists important details for each point._
 
 * All of the above.
 
-#### Student outcomes {#udl-intermediate}
+#### Student outcomes
 
 _A list of things "a student should be able to" after the curriculum._
 _The next word should be an action word and testable in an exam._

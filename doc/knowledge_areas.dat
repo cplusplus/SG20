@@ -18,13 +18,13 @@ B Basics Types, Objects, Values, Expressions, Statements, and Control-Flow Const
 F Functions
 	? ? ? ? Calling Functions
 	? ? ? ? Parameter Passing (e.g., Passing By Value and Reference)
-	func_args y n n Default Arguments
+	func-args y n n Default Arguments
 	? ? ? ? Returning Multiple Values
 	? ? ? ? Overloading
 	udl y y n User-Defined Literals
 C User-Defined Types (Classes)
 	? ? ? ? Special Member Functions
-	copy_elision n y y Copy Elision and Implicit Moving (e.g., RVO and NRVO, etc.)
+	copy-elision n y y Copy Elision and Implicit Moving (e.g., RVO and NRVO, etc.)
 	? ? ? ? Types
 	? ? ? ? Conversions
 	? ? ? ? Constructors and Destructors
@@ -49,7 +49,7 @@ T Generic Programming (Templates)
 	? ? ? ? Template Metaprogramming
 	? ? ? ? Function Templates
 	? ? ? ? Requires Clauses
-	req_expr y y n Requires Expressions
+	req-expr y y n Requires Expressions
 EH Error Handling
 	? ? ? ? Classes of Errors
 	? ? ? ? errno

@@ -39,8 +39,7 @@ _Very brief introduction to the topic._
 
 Explains when and how objects are copied.
 
-### Foundational: How and when are copies made
-
+### Foundational: How and when are copies made {#copy-basic}
 
 #### Background/Required Knowledge
 
@@ -54,7 +53,7 @@ It helps when a student is able to:
 * use move semantics                        [[C++ object model: move semantics]][4]
 * explain special member functions          [[C++ object model: special member functions]][5]
 
-#### Student outcomes {#copy-basic}
+#### Student outcomes
 
 _A list of things "a student should be able to" after the curriculum._
 _The next word should be an action word and testable in an exam._
@@ -89,7 +88,7 @@ _This section lists important details for each point._
   * Strings (copies the value) 
 
 
-### Main: Implementing user-defined copy operations
+### Main: Implementing user-defined copy operations {#copy-intermediate}
 
 
 #### Background/Required Knowledge
@@ -103,7 +102,7 @@ It helps when a student is able to:
 * explain the rule of zero                [[C++ object model: rule-of-zero]][7]
 * explain the rule of five                [[C++ object model: rule-of-five]][6]
 
-#### Student outcomes {#copy-intermediate}
+#### Student outcomes
 
 _A list of things "a student should be able to" after the curriculum._
 _The next word should be an action word and testable in an exam._
@@ -135,7 +134,7 @@ _This section lists important details for each point._
   * Rule-of-five
   * Copy assignment operators can be ref-qualified to avoid assigning into temporary objects.
 
-### Advanced
+### Advanced {#copy-advanced}
 
 _These are important topics that are not expected to be covered but provide
 guidance where one can continue to investigate this topic in more depth._

@@ -1,8 +1,8 @@
-## Copy Elision and Implicit Moving {#copy_elision}
+## Copy Elision and Implicit Moving {#copy-elision}
 
-### Basic Learning Outcomes {#copy_elision-basic}
+### Basic Learning Outcomes {#copy-elision-basic}
 
-### Intermediate Learning Outcomes {#copy_elision-intermediate}
+### Intermediate Learning Outcomes {#copy-elision-intermediate}
 
 After completing this unit, the student should be able to:
 
@@ -15,7 +15,7 @@ After completing this unit, the student should be able to:
 - for certain common code patterns, be able identify whether copy, move, or
   copy elision takes place.
 
-### Advanced Learning Outcomes {#copy_elision-advanced}
+### Advanced Learning Outcomes {#copy-elision-advanced}
 
 After completing this unit, the student should be able to:
 

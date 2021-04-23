@@ -1,4 +1,4 @@
-## Module name: Requires Expressions {#req_expr}
+## Module name: Requires Expressions {#req-expr}
 
 ### Overview
 
@@ -33,7 +33,7 @@ Requires-expressions are compile-time predicates which evaluate to true
 when their specified set of expressions are all valid for a given set of 
 inputs.
 
-### Foundational: Writing requires-expressions
+### Foundational: Writing requires-expressions {#req-expr-basic}
 
 #### Background/Required Knowledge
 
@@ -46,7 +46,7 @@ It is helpful if:
 
 * The student is aware that attempting to specialize the template with types or values which do not match otherwise unstated assumptions will cause errors within the template.
 
-#### Student outcomes {#req_expr-basic}
+#### Student outcomes
 
 A student should be able to:
 
@@ -74,7 +74,7 @@ not on the result of the operation.
 * Checks are performed by the compiler, not at run time.
 * If covering usage of requires-expression with requires-clause, [[Compile-time programming: requires clause]][3] demonstrate `requires requires` and show how to ever avoid writing it by using a concept. [[Compile-time programming: concepts]][1]
 
-### Main: Advanced requirements
+### Main: Advanced requirements {#req-expr-intermediate}
 
 #### Background/required knowledge
 
@@ -85,7 +85,7 @@ A student is able to:
 
 * Write a concept [[Compile-time programming: concepts]][1]
 
-#### Student outcomes {#req_expr-intermediate}
+#### Student outcomes
 
 A student should be able to:
 
@@ -109,7 +109,7 @@ static_assert(requires(S s) { { s.bar() } noexcept; } ); // Fails. s.bar() is no
   ```
 * If the return-type-requirement of a compound-requirement is a concept, that concept is given the resulting type as the first parameter, followed by the specified parameters in the compound-requirement. `{ ++x } -> C<int>` would substitute `C<decltype((++x)), int>` and check that concept C is satisfied for those parameters.
 
-### Advanced {#req_expr-advanced}
+### Advanced {#req-expr-advanced}
 
 [1]: ../compile-time-programming/concepts.md
 [2]: ../compile-time-programming/function-templates.md

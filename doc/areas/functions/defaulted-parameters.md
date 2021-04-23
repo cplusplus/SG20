@@ -1,4 +1,4 @@
-## Functions: default argument {#func_args}
+## Functions: default argument {#func-args}
 _Skeleton instructions are typeset in italic text._
 
 ### Overview
@@ -38,7 +38,7 @@ without forcing changes to existing calling code.
 
 Explain how default arguments work and how to define them.
 
-### Foundational: Using and defining functions with default arguments
+### Foundational: Using and defining functions with default arguments {#func-args-basic}
 
 #### Background/Required Knowledge
 
@@ -49,7 +49,7 @@ A student is able to:
 * Define member and non-member functions [[Functions: member functions]][2]
 * Explain what a default constructor is and does [[C++ object model: constructors]][3]
 
-#### Student outcomes {#func_args-basic}
+#### Student outcomes
 
 A student should be able to:
 
@@ -71,13 +71,13 @@ A student should be able to:
 * Default values must start from the rightmost parameter and continue leftward without gaps
 * Considerations of when to use default arguments vs overload set
 
-### Main: implementing *
+### Main: implementing * {#func-args-intermediate}
 
 #### Background/required knowledge
 
 * All of the above.
 
-#### Student outcomes {#func_args-intermediate}
+#### Student outcomes
 
 A student should be able to:
 
@@ -86,7 +86,7 @@ A student should be able to:
 
 #### Points to cover
 
-### Advanced
+### Advanced {#func-args-advanced}
 
 Subsequent redeclarations of the same function may add default argument
 values, which are then usable by callers.
