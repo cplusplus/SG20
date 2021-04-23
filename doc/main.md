@@ -11,12 +11,12 @@ __INCLUDE__(doc/disclaimer.md)
 
 __INCLUDE__(doc/introduction.md)
 
-# Summary of Modules/Areas and Topics
+# Summary of Modules and Topics
 
-In the sections that follow, the various modules/areas and topics
+In the sections that follow, the various modules and topics
 are presented.
-There is one section per module/area.
-For each module/area, a table listing the various topics in that module/area
+There is one section per module.
+For each module, a table listing the various topics in that module
 is provided.
 The ID for a topic is linked to the detailed coverage of that
 topic that comes later in the document.
@@ -27,7 +27,7 @@ If a topic has no learning outcomes
 are not any, not because the information is missing),
 this is indicated by an em dash ("—").
 In the case that the information for a topic is completely
-missing, a "❌" symbol is used.
+missing, a question mark ("?") symbol is used.
 
 [**NOTE**: These topics are taken mostly from the SG20 GitHub repository.
 They are not intended to be complete in any sense.
@@ -37,7 +37,7 @@ obvious.]
 
 __INCLUDE__(knowledge_areas_summary.md)
 
-# Detailed Information for Modules/Areas and Topics
+# Detailed Information for Modules and Topics
 
 [//]: # ( ********** START OF DETAILED TOPIC DOCUMENTS ********** )
 
@@ -50,6 +50,8 @@ __INCLUDE__(doc/areas/functions/defaulted-parameters.md)
 __INCLUDE__(doc/areas/compile-time-programming/requires-expressions.md)
 
 __INCLUDE__(doc/areas/object-model/copy_elision.md)
+
+__INCLUDE__(doc/areas/meta-error-handling/static_assert.md)
 
 [//]: # ( ********** END OF DETAILED TOPIC DOCUMENTS ********** )
 

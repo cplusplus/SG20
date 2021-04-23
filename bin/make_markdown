@@ -4,7 +4,8 @@
 awk '
 function output(level, old_level, label, basic, intermediate, advanced, text) {
 	#bad_char = "🤢";
-	bad_char = "❌";
+	#bad_char = "❌";
+	bad_char = "?";
 	#check_char = "✓"
 	check_char = "✔️";
 	emdash = "—";

@@ -42,7 +42,7 @@ I Inheritance and Class Hierarchies
 	? ? ? ? Run-Time Type Information
 CT Compile-Time Computation
 	? ? ? ? Constant Expressions and Constant Evaluation
-	? ? ? ? static_assert
+	static-assert y y n `static_assert`
 T Generic Programming (Templates)
 	? ? ? ? Concepts
 	? ? ? ? SFINAE

@@ -18,6 +18,12 @@ curricula for a wide variety of courses that differ in focus and level
 of sophistication.
 (This said, however, some links to other documents with examples of
 curricula for specific courses may be included herein.)
+This document only intends to target the teaching of the
+most recently ratified version of the C++ standard.
+(This said, however, since older versions of this document are also
+available, these older versions may be of some use to those who need
+guidance in older versions of the standard, at least versions that
+do not predate C++20.)
 
 # Use of This Document
 
@@ -38,14 +44,14 @@ please read the section [How to Contribute](#contributing).
 # Organization of This Document
 
 The various concepts (i.e., ideas) to potentially be covered 
-are partitioned into modules/areas.
-A module/area is very broad in scope and consists of numerous topics.
+are partitioned into modules.
+A module is very broad in scope and consists of numerous topics.
 **[Note: Can I suggest that we use the term "area" or "unit" instead of
 "module"?  I think that these other choices are better and also
 avoid any potential confusion over what is meant by "module"
 (i.e., C++ term versus plain English term).]**
 
-For each module/area, topics related to the module/area are identified.
+For each module, topics related to the module are identified.
 Then, for each topic, learning outcomes are specified.
 In order to address a wide variety of courses on C++, each topic
 is addressed at three proficiency levels.
@@ -61,35 +67,27 @@ The three proficiency levels are as follows:
 
   - main.  This level shows mainstream uses and techniques.
     For abstraction and organizational mechanisms it also demonstrates how to
-    build them.  Note that a main description typically cannot be written
-    concisely without relying on the foundational sections for a variety of
-    facilities. This is a major reason to separate foundational and main
-    sections of the presentation of a facility. The main section should
-    give the learner a basic (but not detailed) understanding of how a
+    build them.
+    This level should also give the learner a basic (but not detailed)
+    understanding of how a
     facility might be implemented so that the learner can have a first-order
     understanding of any costs involved.
-    Avoid language lawyering in the main section.
     **[Note: The term "main" is not very descriptive/helpful.  Could I suggest
     using "intermediate"?]**
 
   - advanced.  This level gives information suitable for an expert.
     For most topics there is an expert level of knowledge that most
     programmers rarely need and techniques that require detailed understanding
-    of language rules or library implementation.  Delving into advanced topics
-    early would be distracting and reinforce C++’s unfortunate reputation of
-    being “expert only.”  The advanced features often are “expert only” but
-    the foundational and main descriptions should not be.  Finally, we
-    explicitly mention subjects that are considered too advanced for inclusion
-    in the guidelines.
+    of language rules or library implementation.
 
 The remainder of this document is organized as follows.
-The various topics are listed grouped by module/area.
+The various topics are listed grouped by module.
 In cases where a topic might be classified into more
-than one module/area, the topic is listed under the module/area of most direct
+than one module, the topic is listed under the module of most direct
 relevance.
 This is done in order to avoid duplication of content.
-(In the case that a module/unit is equally relevant to multiple modules/areas,
+(In the case that a topic is equally relevant to multiple modules,
 the decision of which to select is made by a proverbial coin toss.)
-The order in which modules/areas are presented
+The order in which modules and topics are presented
 is not meant to imply any order of coverage in a course.
 The order in which items are listed is essentially arbitrary.
