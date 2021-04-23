@@ -34,3 +34,13 @@
   P2193 ---
   How to structure a teaching topic.
   <https://wg21.link/p2193>.
+
+- JC van Winkel and Christopher Di Bella.
+  P1231 ---
+  Proposal for Study Group: C++ Education.
+  <https://wg21.link/p1231>.
+
+- H. Hinnant, R. Orr, B. Stroustrup, D. Vandevoorde, and M. Wong.
+  P2000 ---
+  Direction for ISO C++, Section 5.1.
+  <https://wg21.link/p2000r0>.
