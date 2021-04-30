@@ -98,7 +98,7 @@ A student should be able to:
 
 * Compound-requirements allow the optional ability to test whether an expression is marked as `noexcept`, by using a trailing `noexcept` keyword.
 
-```
+```cpp
 struct S
 {
 	void foo() noexcept {}
