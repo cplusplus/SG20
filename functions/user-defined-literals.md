@@ -34,13 +34,13 @@ _Why do we want to learn/teach this topic?_
 
 * Allows clearer expression of intent in C++.
 * `std::string`: `"Hello, world!"s`
-* `std::chrono`: `3h + 10m + 5s`
+* `std::chrono`: `3h + 10min + 5s`
 
 ## Topic introduction
 
 _Very brief introduction to the topic._
 
-* Explain the existence of user defined literals. Example: `12m + 17s` is terse,
+* Explain the existence of user defined literals. Example: `12min + 17s` is terse,
   expressive and type safe.
 
 ## Foundational: Using UDLs
