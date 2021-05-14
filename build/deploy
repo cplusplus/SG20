@@ -31,8 +31,11 @@ usage()
 	    Set the temporary directory to $\tmp_dir.
 	-i \$in_dir
 	    Set the input directory to \$in_dir.
+	    This is the directory containing the output of the document build
+	    process.
 	-r \$repo_name
 	    Set the deployment repository to \$repo_name.
+	    This includes both the user/organization and repository name.
 	-z \$github_ref
 	    Set the GitHub ref to \$github_ref.
 	-f
@@ -40,6 +43,13 @@ usage()
 	-n
 	    Prepare to push to deployment repository but do not actually
 	    push the changes.  (This is only for testing purposes.)
+
+	Examples
+	========
+
+	export DEPLOY_KEY=.... # private SSH key
+	$0 -n -f -r mdadams/sg20_guidelines_for_teaching_cpp -b gh-pages \\
+	  -t /tmp/sg20_test/tmp -i /tmp/sg20_test/install -z refs/tags/v1.0.0
 	EOF
 	exit 2
 }
@@ -120,6 +130,8 @@ ssh_dir="$HOME/.ssh"
 private_key_file="$ssh_dir/private_key"
 version_dir="$git_dir/$version"
 repo_url="ssh://git@github.com/$repo_name.git"
+
+echo "repository URL: $repo_url"
 
 ################################################################################
 # Setup SSH client configuration.

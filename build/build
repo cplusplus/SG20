@@ -32,6 +32,11 @@ usage()
 	-z \$github_ref
 	Set the GitHub ref to $\github_ref.
 	(This is used to determine the version of the document being released.)
+
+	Examples
+	========
+
+	$0 -d /tmp/sg20_test/install -z refs/tags/v0.0.1
 	EOF
 	exit 2
 }
@@ -92,5 +97,5 @@ fi
   make DOC_VERSION="$version" DOC_SPELLCHECK_MUST_PASS="$spellcheck" all) || \
   panic "cannot build document"
 
-INSTALL_DIR="$install_dir" make install || \
+make INSTALL_DIR="$install_dir" install || \
   panic "cannot install release"
