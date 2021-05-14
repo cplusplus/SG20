@@ -200,7 +200,7 @@ target="$git_dir/latest"
 if [ -h "$target" -o -e "$target" ]; then
 	rm -f "$target" || panic "rm failed"
 fi
-ln -s "$version" "$target" || \
+ln -s "$version/html" "$target" || \
   panic "ln failed"
 #target="$git_dir/index.html"
 #if [ -h "$target" -o -e "$target" ]; then
