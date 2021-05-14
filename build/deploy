@@ -202,12 +202,12 @@ if [ -h "$target" -o -e "$target" ]; then
 fi
 ln -s "$version" "$target" || \
   panic "ln failed"
-target="$git_dir/index.html"
-if [ -h "$target" -o -e "$target" ]; then
-	rm -f "$target" || panic "rm failed"
-fi
-ln -s "latest/index.html" "$target" || \
-  panic "ln failed"
+#target="$git_dir/index.html"
+#if [ -h "$target" -o -e "$target" ]; then
+#	rm -f "$target" || panic "rm failed"
+#fi
+#ln -s "latest/html" "$target" || \
+#  panic "ln failed"
 
 if [ "$verbose" -ne 0 ]; then
 	ls -al "$git_dir"/*
