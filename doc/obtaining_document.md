@@ -9,12 +9,14 @@ following formats:
 
   1. online (HTML) format as a single large HTML document:
   <https://mdadams.github.io/sg20_guidelines_for_teaching_cpp/__VERSION__/>
+  (or equivalently,
+  <https://mdadams.github.io/sg20_guidelines_for_teaching_cpp/__VERSION__/html>)
 
   2. EPUB format:
   <https://mdadams.github.io/sg20_guidelines_for_teaching_cpp/__VERSION__/guidelines.epub>
 
   3. online (HTML) format, split across multiple HTML documents:
-  <https://mdadams.github.io/sg20_guidelines_for_teaching_cpp/__VERSION__/split/>
+  <https://mdadams.github.io/sg20_guidelines_for_teaching_cpp/__VERSION__/html_split/>
   **[Note: The support for this format needs more work to look nice.]**
 
 Older versions of this document are also available.

@@ -1,23 +1,51 @@
 #! /usr/bin/env bash
-# Michael Adams (mdadams@ece.uvic.ca)
 
-cmd_dir=$(dirname "$0") || exit 1
-source_dir="$cmd_dir/.."
+################################################################################
+# Some helper functions.
+################################################################################
 
+# Terminate with error.
 panic()
 {
-	echo "ERROR: $@"
+	echo "ERROR: $@" 1>&2
 	exit 1
 }
 
+# Print usage information.
 usage()
 {
 	echo "bad usage: $@"
 	cat <<- EOF
-	$0 -d install_dir -z github_ref
+	build - Build the document.
+
+	Usage
+	=====
+
+	$0 -d \$install_dir -z \$github_ref
+
+	Options
+	=======
+
+	-d \$install_dir
+	Set the installation directory for the built release to \$install_dir.
+
+	-z \$github_ref
+	Set the GitHub ref to $\github_ref.
+	(This is used to determine the version of the document being released.)
 	EOF
 	exit 2
 }
+
+################################################################################
+# Perform some basic initialization.
+################################################################################
+
+cmd_dir=$(dirname "$0") || panic "cannot determine directory name"
+source_dir="$cmd_dir/.."
+
+################################################################################
+# Parse command line.
+################################################################################
 
 install_dir=
 github_ref=
@@ -45,18 +73,24 @@ if [ -z "$github_ref" ]; then
 	usage "no github ref specified"
 fi
 
-version="$(awk -v FS="/" '{print $3;}' <<< "$github_ref")" || panic
+################################################################################
+# Build the document.
+################################################################################
+
+version="$(awk -v FS="/" '{print $3;}' <<< "$github_ref")" || \
+  panic "cannot determine document version"
 
 if [ ! -d "$install_dir" ]; then
-	mkdir -p "$install_dir" || panic
+	mkdir -p "$install_dir" || \
+	  panic "cannot make installation directory $install_dir"
 fi
 
-(cd "$source_dir" && make clean) || panic
+(cd "$source_dir" && make clean) || \
+  panic "cannot make clean"
 
 (cd "$source_dir" && \
   make DOC_VERSION="$version" DOC_SPELLCHECK_MUST_PASS="$spellcheck" all) || \
-  panic
+  panic "cannot build document"
 
-INSTALL_DIR="$install_dir" make install
-#cp "$source_dir/guidelines.html" "$install_dir/index.html" || panic
-#cp "$source_dir/pandoc.css" "$install_dir" || panic
+INSTALL_DIR="$install_dir" make install || \
+  panic "cannot install release"

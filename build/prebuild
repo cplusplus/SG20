@@ -1,10 +1,19 @@
 #! /usr/bin/env bash
-# Michael Adams (mdadams@ece.uvic.ca)
 
+# Terminate with error.
+panic()
+{
+	echo "ERROR: $@" 1>&2
+	exit 1
+}
+
+# Initialize the list of required packages.
 packages=()
 packages+=(pandoc)
 packages+=(texinfo)
 packages+=(aspell)
 #packages+=(hunspell)
 
-sudo apt-get install -y "${packages[@]}"
+# Install the packages.
+sudo apt-get install -y "${packages[@]}" || \
+  panic "unable to install packages"

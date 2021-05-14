@@ -1,3 +1,6 @@
+# This action is used to perform a test build of the document that includes
+# performing spell checking.
+
 name: ci
 
 on: [push]

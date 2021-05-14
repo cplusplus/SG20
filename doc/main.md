@@ -1,6 +1,7 @@
 ---
+title_logo: images/cpp_logo.png
 title: Guidelines for Teaching C++
-author: SG20
+author: SG20 (ISO C++ Study Group on Education)
 geometry: margin=1in
 output: pdf_document
 ---

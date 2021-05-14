@@ -1,3 +1,6 @@
+# This is an action that builds the document and deploys the build document
+# to its associated GitHub pages site.
+
 name: release
 
 on:
