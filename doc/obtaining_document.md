@@ -8,9 +8,7 @@ The version of the document that you are currently reading is available in the
 following formats:
 
   1. online (HTML) format as a single large HTML document:
-  <https://mdadams.github.io/sg20_guidelines_for_teaching_cpp/__VERSION__/>
-  (or equivalently,
-  <https://mdadams.github.io/sg20_guidelines_for_teaching_cpp/__VERSION__/html>)
+  <https://mdadams.github.io/sg20_guidelines_for_teaching_cpp/__VERSION__/html>
 
   2. EPUB format:
   <https://mdadams.github.io/sg20_guidelines_for_teaching_cpp/__VERSION__/guidelines.epub>
