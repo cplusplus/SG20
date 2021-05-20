@@ -21,13 +21,20 @@ The following software is needed to build the document:
 
 To build, simply type:
 
-  - make clean
-  - make all
+  1. make clean
+  2. make all
+  3. make install
 
-This will build the document in multiple formats.
-The main two formats are:
+(Strictly speaking, step 2 can be skipped, since the install target
+has a dependency on the all target.)
 
-  - HTML format as a single HTML document: guidelines.html
-  - EPUB format: guidelines.epub
+The above commands will build the document in several formats:
+
+  - HTML format as a single HTML document:
+    install/html/index.html
+  - EPUB format:
+    guidelines.epub
+  - HTML format split across multiple HTML documents:
+    install/html_split/index.html
 
 The build process performs spell checking.
