@@ -191,10 +191,10 @@ fi
 if [ "$status" -eq 2 ]; then
 	git -C "$git_dir" checkout --orphan "$branch" || \
 	  panic "cannot create orphan branch $branch"
+else
+	git -C "$git_dir" checkout "$branch" || \
+	  panic "cannot checkout branch $branch"
 fi
-
-git -C "$git_dir" checkout "$branch" || \
-  panic "cannot checkout branch $branch"
 
 git -C "$git_dir" config --local user.name "Michael Adams" || \
   panic "cannot set Git user name"
