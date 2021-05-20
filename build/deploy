@@ -177,6 +177,8 @@ ssh-add "$private_key_file" || \
 # Add new release to GitHub pages repository.
 ################################################################################
 
+git_push_options=()
+
 git clone "$repo_url" "$git_dir" || \
   panic "clone failed"
 
@@ -191,8 +193,7 @@ fi
 if [ "$status" -eq 2 ]; then
 	git -C "$git_dir" checkout --orphan "$branch" || \
 	  panic "cannot create orphan branch $branch"
-	git -C "$git_dir" branch --set-upstream-to "origin/$branch" || \
-	  panic "cannot set upstream branch"
+	git_push_options+=(-u origin)
 else
 	git -C "$git_dir" checkout "$branch" || \
 	  panic "cannot checkout branch $branch"
@@ -236,6 +237,6 @@ if [ "$prepare_only" -eq 0 ]; then
 	if [ "$verbose" -ge 0 ]; then
 		echo "Pushing changes."
 	fi
-	git -C "$git_dir" push || \
+	git -C "$git_dir" push "${git_push_options[@]}" || \
 	  panic "git push failed"
 fi
