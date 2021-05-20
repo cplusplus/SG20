@@ -76,19 +76,25 @@ install: all
 	done
 	cp -f images/cpp_logo.png $(INSTALL_DIR)/html/images
 	cp -f guidelines.html $(INSTALL_DIR)/html/index.html
-	ln -s -f html/index.html $(INSTALL_DIR)
 	cp -r -f guidelines_html $(INSTALL_DIR)/html_split
 	cp -f guidelines.epub $(INSTALL_DIR)
+
+################################################################################
+# Some additional configuration.
+################################################################################
+
+MD_PREPROCESSOR = tools/build/preprocessor
+MAKE_MARKDOWN = tools/build/make_markdown
 
 ################################################################################
 # Preprocessing setup.
 ################################################################################
 
-knowledge_areas_summary.md: $(SOURCES) doc/knowledge_areas.dat
-	bin/make_markdown < doc/knowledge_areas.dat > knowledge_areas_summary.md
-
 main.gen.md: $(SOURCES) doc/main.md
-	bin/preprocessor -v $(DOC_VERSION) < doc/main.md > main.gen.md
+	$(MD_PREPROCESSOR) -v $(DOC_VERSION) < doc/main.md > main.gen.md
+
+knowledge_areas_summary.md: $(SOURCES) doc/knowledge_areas.dat
+	$(MAKE_MARKDOWN) < doc/knowledge_areas.dat > knowledge_areas_summary.md
 
 ################################################################################
 # Establish Pandoc settings.
@@ -142,7 +148,7 @@ spellcheck_result.txt: guidelines.html
 	rm -f $@
 	rm -f spellcheck/spellcheck_expected_sorted.txt
 	sort spellcheck/spellcheck_expected.txt | uniq > spellcheck/spellcheck_expected_sorted.txt
-	PATH="bin:$$PATH" pandoc --from $(INPUT_FORMAT) --lua-filter filters/spellcheck.lua main.gen.md | sort | uniq > $@
+	PATH="tools/build:$$PATH" pandoc --from $(INPUT_FORMAT) --lua-filter tools/pandoc_filters/spellcheck.lua main.gen.md | sort | uniq > $@
 	@status=0; \
 	  diff -q spellcheck/spellcheck_expected_sorted.txt $@ || status=1; \
 	  if [ $$status -ne 0 ]; then \

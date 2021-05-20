@@ -15,17 +15,17 @@ jobs:
     - uses: actions/checkout@v2
     - name: Prebuild
       shell: bash
-      run: build/prebuild
+      run: tools/build/prebuild
     - name: Build
       shell: bash
-      run: build/build -d ${{runner.temp}}/output -z ${{github.ref}}
+      run: tools/build/build -d ${{runner.temp}}/output -z ${{github.ref}}
     - name: Deploy
       env:
         DEPLOY_KEY: ${{secrets.DEPLOY_KEY}}
       shell: bash
-      run: build/deploy -f -t ${{runner.temp}}/deploy_tmp -r mdadams/sg20_guidelines_for_teaching_cpp -i ${{runner.temp}}/output -z ${{github.ref}}
+      run: tools/build/deploy -f -t ${{runner.temp}}/deploy_tmp -r mdadams/sg20_guidelines_for_teaching_cpp -i ${{runner.temp}}/output -z ${{github.ref}}
     - name: Deploy internal
       env:
         DEPLOY_KEY: ${{secrets.ALT_DEPLOY_KEY}}
       shell: bash
-      run: build/deploy -f -t ${{runner.temp}}/deploy_tmp_2 -r mdadams/SG20 -i ${{runner.temp}}/output -z ${{github.ref}}
+      run: tools/build/deploy -f -t ${{runner.temp}}/deploy_tmp_2 -r mdadams/SG20 -i ${{runner.temp}}/output -z ${{github.ref}}

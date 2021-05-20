@@ -46,7 +46,7 @@ usage()
 ################################################################################
 
 cmd_dir=$(dirname "$0") || panic "cannot determine directory name"
-source_dir="$cmd_dir/.."
+source_dir="$cmd_dir/../.."
 
 ################################################################################
 # Parse command line.

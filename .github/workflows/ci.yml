@@ -12,7 +12,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Prebuild
       shell: bash
-      run: build/prebuild
+      run: tools/build/prebuild
     - name: Build
       shell: bash
-      run: build/build -d ${{runner.temp}}/output -z ${{github.ref}} -s
+      run: tools/build/build -d ${{runner.temp}}/output -z ${{github.ref}} -s
