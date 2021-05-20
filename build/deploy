@@ -122,6 +122,11 @@ fi
 # Perform some basic initialization.
 ################################################################################
 
+verbose=10
+if [ "$verbose" -ge 10 ]; then
+	set -xv
+fi
+
 cmd_dir=$(dirname "$0") || \
   panic "cannot determine directory"
 source_dir="$cmd_dir/.."
