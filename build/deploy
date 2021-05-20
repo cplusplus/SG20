@@ -48,8 +48,8 @@ usage()
 	Examples
 	========
 
-	export DEPLOY_KEY=.... # private SSH key
-	$0 -n -f -r mdadams/sg20_guidelines_for_teaching_cpp -b gh-pages \\
+	export DEPLOY_KEY=.... # set DEPLOY_KEY to private SSH key
+	$0 -n -f -r mdadams/sg20 -b gh-pages \\
 	  -t /tmp/sg20_test/tmp -i /tmp/sg20_test/install -z refs/tags/v1.0.0
 	EOF
 	exit 2
@@ -111,7 +111,7 @@ if [ -z "$DEPLOY_KEY" ]; then
 	usage "DEPLOY_KEY environment variable not set"
 fi
 
-if [ "$verbose" -ge 0 ]; then
+if [ "$verbose" -ge 1 ]; then
 	echo "temporary directory $tmp_dir"
 	echo "input directory $in_dir"
 	echo "repository name $repo_name"
@@ -122,8 +122,7 @@ fi
 # Perform some basic initialization.
 ################################################################################
 
-verbose=10
-if [ "$verbose" -ge 10 ]; then
+if [ "$verbose" -ge 3 ]; then
 	set -xv
 fi
 
@@ -133,7 +132,7 @@ source_dir="$cmd_dir/.."
 
 version="$(awk -v FS="/" '{print $3;}' <<< "$github_ref")" || \
   panic "cannot determine document version"
-if [ "$verbose" -ge 0 ]; then
+if [ "$verbose" -ge 1 ]; then
 	echo "version $version"
 fi
 
@@ -145,7 +144,7 @@ private_key_file="$ssh_dir/private_key"
 version_dir="$git_dir/$version"
 repo_url="ssh://git@github.com/$repo_name.git"
 
-if [ "$verbose" -ge 0 ]; then
+if [ "$verbose" -ge 1 ]; then
 	echo "repository URL: $repo_url"
 fi
 
@@ -182,10 +181,11 @@ ssh-add "$private_key_file" || \
 # Add new release to GitHub pages repository.
 ################################################################################
 
-git_push_options=()
+git_push_extra_args=()
 
+# Clone the repository.
 git clone "$repo_url" "$git_dir" || \
-  panic "clone failed"
+  panic "cannot clone repository $repo_url"
 
 # Create an orphaned branch for the web site content if the branch does
 # not already exist.
@@ -198,21 +198,19 @@ fi
 if [ "$status" -eq 2 ]; then
 	git -C "$git_dir" checkout --orphan "$branch" || \
 	  panic "cannot create orphan branch $branch"
-#	git -C "$git_dir" commit --allow-empty -m "Root commit" || \
-#	  panic "commit failed"
-#	git -C "$git_dir" push -u origin "$branch" || \
-#	  panic "cannot push new branch $branch"
-	git_push_options=(-u origin "$branch")
+	git_push_extra_args=(-u origin "$branch")
 else
 	git -C "$git_dir" checkout "$branch" || \
 	  panic "cannot checkout branch $branch"
 fi
 
+# Set the Git user.
 git -C "$git_dir" config --local user.name "Michael Adams" || \
   panic "cannot set Git user name"
 git -C "$git_dir" config --local user.email "mdadams@ece.uvic.ca" || \
   panic "cannot set Git user email"
 
+# Add the content for the new release.
 if [ -e "$version_dir" ]; then
 	panic "directory already exist for $version"
 fi
@@ -221,6 +219,7 @@ mkdir -p "$version_dir" || \
 (cd "$in_dir" && tar -cf - .) | (cd "$version_dir" && tar -xf -) || \
   panic "tar failed"
 
+# Update the symlink for the latest release.
 target="$git_dir/latest"
 if [ -h "$target" -o -e "$target" ]; then
 	rm -f "$target" || panic "rm failed"
@@ -228,24 +227,26 @@ fi
 ln -s "$version/html" "$target" || \
   panic "ln failed"
 
+# Add a top-level index.html file to redirect to the latest release.
 target="$git_dir/index.html"
 if [ -e "$target" ]; then
 	rm -f "$target" || panic "cannot remove $target"
 fi
 cp "$cmd_dir/index.html" "$target" || panic "cannot copy $target"
 
-if [ "$verbose" -ge 1 ]; then
+if [ "$verbose" -ge 2 ]; then
 	ls -al "$git_dir"/*
 fi
 
+# Commit and push all of the changes.
 git -C "$git_dir" add . || \
   panic "git add failed"
 git -C "$git_dir" commit -m "Deploying release $version" || \
   panic "git commit failed"
 if [ "$prepare_only" -eq 0 ]; then
-	if [ "$verbose" -ge 0 ]; then
+	if [ "$verbose" -ge 1 ]; then
 		echo "Pushing changes."
 	fi
-	git -C "$git_dir" push "${git_push_options[@]}" || \
+	git -C "$git_dir" push "${git_push_extra_args[@]}" || \
 	  panic "git push failed"
 fi
