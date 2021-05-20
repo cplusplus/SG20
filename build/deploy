@@ -11,6 +11,7 @@ panic()
 	exit 1
 }
 
+# Print usage information and exit.
 usage()
 {
 	echo "bad usage: $@"
@@ -67,8 +68,12 @@ force=0
 prepare_only=0
 verbose=1
 
-while getopts b:i:r:t:z:fn opt; do
+while getopts b:i:r:t:z:fnvq opt; do
 	case $opt in
+	v)
+		verbose=$((verbose + 1));;
+	q)
+		verbose=$((verbose - 1));;
 	b)
 		branch="$OPTARG";;
 	t)
@@ -106,10 +111,12 @@ if [ -z "$DEPLOY_KEY" ]; then
 	usage "DEPLOY_KEY environment variable not set"
 fi
 
-echo "temporary directory $tmp_dir"
-echo "input directory $in_dir"
-echo "repository name $repo_name"
-echo "github ref $github_ref"
+if [ "$verbose" -ge 0 ]; then
+	echo "temporary directory $tmp_dir"
+	echo "input directory $in_dir"
+	echo "repository name $repo_name"
+	echo "GitHub ref $github_ref"
+fi
 
 ################################################################################
 # Perform some basic initialization.
@@ -121,7 +128,9 @@ source_dir="$cmd_dir/.."
 
 version="$(awk -v FS="/" '{print $3;}' <<< "$github_ref")" || \
   panic "cannot determine document version"
-echo "version $version"
+if [ "$verbose" -ge 0 ]; then
+	echo "version $version"
+fi
 
 tmp_dir="$tmp_dir/deploy"
 
@@ -131,7 +140,9 @@ private_key_file="$ssh_dir/private_key"
 version_dir="$git_dir/$version"
 repo_url="ssh://git@github.com/$repo_name.git"
 
-echo "repository URL: $repo_url"
+if [ "$verbose" -ge 0 ]; then
+	echo "repository URL: $repo_url"
+fi
 
 ################################################################################
 # Setup SSH client configuration.
@@ -185,8 +196,10 @@ fi
 git -C "$git_dir" checkout "$branch" || \
   panic "cannot checkout branch $branch"
 
-git -C "$git_dir" config --local user.name "Michael Adams"
-git -C "$git_dir" config --local user.email "mdadams@ece.uvic.ca"
+git -C "$git_dir" config --local user.name "Michael Adams" || \
+  panic "cannot set Git user name"
+git -C "$git_dir" config --local user.email "mdadams@ece.uvic.ca" || \
+  panic "cannot set Git user email"
 
 if [ -e "$version_dir" ]; then
 	panic "directory already exist for $version"
@@ -202,14 +215,8 @@ if [ -h "$target" -o -e "$target" ]; then
 fi
 ln -s "$version/html" "$target" || \
   panic "ln failed"
-#target="$git_dir/index.html"
-#if [ -h "$target" -o -e "$target" ]; then
-#	rm -f "$target" || panic "rm failed"
-#fi
-#ln -s "latest/html" "$target" || \
-#  panic "ln failed"
 
-if [ "$verbose" -ne 0 ]; then
+if [ "$verbose" -ge 1 ]; then
 	ls -al "$git_dir"/*
 fi
 
@@ -218,7 +225,9 @@ git -C "$git_dir" add . || \
 git -C "$git_dir" commit -m "Deploying release $version" || \
   panic "git commit failed"
 if [ "$prepare_only" -eq 0 ]; then
-	echo "Pushing changes."
+	if [ "$verbose" -ge 0 ]; then
+		echo "Pushing changes."
+	fi
 	git -C "$git_dir" push || \
 	  panic "git push failed"
 fi
