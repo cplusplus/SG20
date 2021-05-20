@@ -128,7 +128,7 @@ fi
 
 cmd_dir=$(dirname "$0") || \
   panic "cannot determine directory"
-source_dir="$cmd_dir/../.."
+top_dir="$cmd_dir/../.."
 
 version="$(awk -v FS="/" '{print $3;}' <<< "$github_ref")" || \
   panic "cannot determine document version"
@@ -232,7 +232,7 @@ target="$git_dir/index.html"
 if [ -e "$target" ]; then
 	rm -f "$target" || panic "cannot remove $target"
 fi
-cp "$cmd_dir/index.html" "$target" || panic "cannot copy $target"
+cp "$top_dir/sources/index.html" "$target" || panic "cannot copy $target"
 
 if [ "$verbose" -ge 2 ]; then
 	ls -al "$git_dir"/*

@@ -50,6 +50,7 @@ awk -v program="$program_pathname" -v level="$level" -v version="$version" '
 		path = substr($0, start, end - start);
 		result = system(sprintf("cat %s | %s -l %d -v %s", path, program, level + 1, version));
 		if (result) {
+			printf "error processing %s\n", path > "/dev/stderr";
 			exit 1;
 		}
 		next;
@@ -59,3 +60,10 @@ awk -v program="$program_pathname" -v level="$level" -v version="$version" '
 	}
 ' - | \
   sed -e 's/__VERSION__/'"$version"'/g'
+
+status=("${PIPESTATUS[@]}")
+for i in "${status[@]}"; do
+	if [ "$i" -ne 0 ]; then
+		panic "preprocessor failed"
+	fi
+done

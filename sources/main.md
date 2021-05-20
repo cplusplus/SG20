@@ -6,11 +6,11 @@ geometry: margin=1in
 output: pdf_document
 ---
 
-__INCLUDE__(doc/obtaining_document.md)
+__INCLUDE__(obtaining_document.md)
 
-__INCLUDE__(doc/disclaimer.md)
+__INCLUDE__(disclaimer.md)
 
-__INCLUDE__(doc/introduction.md)
+__INCLUDE__(introduction.md)
 
 # Summary of Modules and Topics
 
@@ -42,21 +42,21 @@ __INCLUDE__(knowledge_areas_summary.md)
 
 [//]: # ( ********** START OF DETAILED TOPIC DOCUMENTS ********** )
 
-__INCLUDE__(doc/areas/object-model/copy-semantics.md)
+__INCLUDE__(modules/object-model/copy-semantics.md)
 
-__INCLUDE__(doc/areas/functions/user-defined-literals.md)
+__INCLUDE__(modules/functions/user-defined-literals.md)
 
-__INCLUDE__(doc/areas/functions/defaulted-parameters.md)
+__INCLUDE__(modules/functions/defaulted-parameters.md)
 
-__INCLUDE__(doc/areas/compile-time-programming/requires-expressions.md)
+__INCLUDE__(modules/compile-time-programming/requires-expressions.md)
 
-__INCLUDE__(doc/areas/object-model/copy_elision.md)
+__INCLUDE__(modules/object-model/copy_elision.md)
 
-__INCLUDE__(doc/areas/meta-error-handling/static_assert.md)
+__INCLUDE__(modules/meta-error-handling/static_assert.md)
 
 [//]: # ( ********** END OF DETAILED TOPIC DOCUMENTS ********** )
 
-__INCLUDE__(doc/course_examples.md)
+__INCLUDE__(course_examples.md)
 
 # License {#license}
 
@@ -70,8 +70,8 @@ __INCLUDE__(LICENSE.txt)
 For a complete list of contributors, please refer to the repository
 containing this document on [GitHub](https://github.com/cplusplus/SG20).
 
-__INCLUDE__(doc/contributing.md)
+__INCLUDE__(contributing.md)
 
-__INCLUDE__(doc/glossary.md)
+__INCLUDE__(glossary.md)
 
-__INCLUDE__(doc/references.md)
+__INCLUDE__(references.md)
