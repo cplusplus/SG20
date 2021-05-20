@@ -216,6 +216,12 @@ fi
 ln -s "$version/html" "$target" || \
   panic "ln failed"
 
+target="$git_dir/index.html"
+if [ -e "$target" ]; then
+	rm -f "$target" || panic "cannot remove $target"
+fi
+cp "$cmd_dir/index.html" "$target" || panic "cannot copy $target"
+
 if [ "$verbose" -ge 1 ]; then
 	ls -al "$git_dir"/*
 fi
