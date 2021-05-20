@@ -1,4 +1,4 @@
-#! /usr/bin/env sh
+#! /usr/bin/env bash
 # Michael Adams (mdadams@ece.uvic.ca)
 
 program_dir="$(dirname "$0")" || exit 1
