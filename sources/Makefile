@@ -102,8 +102,7 @@ knowledge_areas_summary.md: $(SOURCES) knowledge_areas.dat
 	$(MAKE_MARKDOWN) < knowledge_areas.dat > knowledge_areas_summary.md
 
 contributors.md:
-	rm -f $@
-	git log --all --pretty="%an; %ae" | sort | uniq | sed -e 's/@/ at /g' | sed -e 's/\./ dot /g' >> contributors.md
+	git log --all --pretty="%an" | sort | uniq > contributors.md
 
 ################################################################################
 # Establish Pandoc settings.
