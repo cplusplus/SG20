@@ -15,7 +15,7 @@ following formats:
 
   3. online (HTML) format, split across multiple HTML documents:
   <https://mdadams.github.io/sg20_guidelines_for_teaching_cpp/__VERSION__/html_split/>
-  **[Note: The support for this format needs more work to look nice.]**
+  **[Note: The support for this format needs more work (to beautify and fix linking issues.]**
 
 Older versions of this document are also available.
 In general version _ver_ is available at
