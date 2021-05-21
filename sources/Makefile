@@ -45,13 +45,18 @@ GENERATED_MARKDOWN = \
 .PHONY: all
 all: documents spellcheck
 
+# The world target is similar to the all target except that it builds the
+# document in some additional formats.
+.PHONY: world
+world: all documents_extra
+
 # The documents target builds the document in a minimal set of formats.
 .PHONY: documents
 documents: guidelines.html guidelines_html guidelines.epub
 
-# The world target builds the document in a few extra formats.
+# The documents_extra target builds the document in a few extra formats.
 .PHONY: world
-world: documents guidelines.pdf
+documents_extra: guidelines.pdf
 
 # The spellcheck format performs a spell check on the document.
 .PHONY: spellcheck
@@ -72,16 +77,17 @@ clean:
 # in the directory $(INSTALL_DIR).
 .PHONY: install
 install: all
-	if [ ! -d $(INSTALL_DIR) ]; then mkdir -p $(INSTALL_DIR) || exit 1; fi
+	if [ ! -d "$(INSTALL_DIR)" ]; then mkdir -p "$(INSTALL_DIR)" || exit 1; fi
 	for dir in html html/images; do \
 		if [ ! -d "$(INSTALL_DIR)/$$dir" ]; then \
 			mkdir -p "$(INSTALL_DIR)/$$dir" || exit 1; \
 		fi; \
 	done
-	cp -f images/cpp_logo.png $(INSTALL_DIR)/html/images
-	cp -f guidelines.html $(INSTALL_DIR)/html/index.html
-	cp -r -f guidelines_html $(INSTALL_DIR)/html_split
-	cp -f guidelines.epub $(INSTALL_DIR)
+	cp -f images/cpp_logo.png "$(INSTALL_DIR)/html/images"
+	cp -f guidelines.html "$(INSTALL_DIR)/html/index.html"
+	cp -r -f guidelines_html "$(INSTALL_DIR)/html_split"
+	cp -f guidelines.epub "$(INSTALL_DIR)"
+	[ -f guidelines.pdf ] && cp -f guidelines.pdf "$(INSTALL_DIR)"
 
 ################################################################################
 # Some additional configuration.
