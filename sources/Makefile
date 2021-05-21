@@ -77,17 +77,21 @@ clean:
 # in the directory $(INSTALL_DIR).
 .PHONY: install
 install: all
-	if [ ! -d "$(INSTALL_DIR)" ]; then mkdir -p "$(INSTALL_DIR)" || exit 1; fi
+	if [ ! -d "$(INSTALL_DIR)" ]; then \
+	    mkdir -p "$(INSTALL_DIR)" || exit 1; \
+	  fi
 	for dir in html html/images; do \
-		if [ ! -d "$(INSTALL_DIR)/$$dir" ]; then \
-			mkdir -p "$(INSTALL_DIR)/$$dir" || exit 1; \
-		fi; \
-	done
+	    if [ ! -d "$(INSTALL_DIR)/$$dir" ]; then \
+	        mkdir -p "$(INSTALL_DIR)/$$dir" || exit 1; \
+	    fi; \
+	  done
 	cp -f images/cpp_logo.png "$(INSTALL_DIR)/html/images"
 	cp -f guidelines.html "$(INSTALL_DIR)/html/index.html"
 	cp -r -f guidelines_html "$(INSTALL_DIR)/html_split"
 	cp -f guidelines.epub "$(INSTALL_DIR)"
-	[ -f guidelines.pdf ] && cp -f guidelines.pdf "$(INSTALL_DIR)"
+	if [ -f guidelines.pdf ]; then \
+	      cp -f guidelines.pdf "$(INSTALL_DIR)"; \
+	  fi
 
 ################################################################################
 # Some additional configuration.
