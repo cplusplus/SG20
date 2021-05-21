@@ -34,6 +34,7 @@ SOURCES = \
 GENERATED_MARKDOWN = \
   knowledge_areas_summary.md \
   main.gen.md \
+  contributors.md \
 
 ################################################################################
 # Define primary targets.
@@ -59,13 +60,13 @@ spellcheck: spellcheck_result.txt
 # The clean target removes all files generated during the build process.
 .PHONY: clean
 clean:
+	rm -f $(GENERATED_MARKDOWN)
 	rm -f guidelines.html guidelines.pdf guidelines.epub guidelines.tex
 	rm -rf guidelines.texi
-	rm -f main.gen.md knowledge_areas_summary.md
-	rm -f missfont.log
 	rm -rf guidelines_html
 	rm -f spellcheck_result.txt
 	rm -f spellcheck_expected_sorted.txt
+	rm -f missfont.log
 
 # The install target installs the build document (in various formats)
 # in the directory $(INSTALL_DIR).
@@ -94,11 +95,15 @@ SPELLCHECK_DIR = $(TOP_DIR)/config/spellcheck
 # Preprocessing setup.
 ################################################################################
 
-main.gen.md: $(SOURCES) main.md
+main.gen.md: $(SOURCES) contributors.md main.md
 	$(MD_PREPROCESSOR) -v $(DOC_VERSION) < main.md > main.gen.md
 
 knowledge_areas_summary.md: $(SOURCES) knowledge_areas.dat
 	$(MAKE_MARKDOWN) < knowledge_areas.dat > knowledge_areas_summary.md
+
+contributors.md:
+	rm -f $@
+	git log --pretty="%an; %ae" | sort | uniq | sed -e 's/@/ at /g' | sed -e 's/\./ dot /g' >> contributors.md
 
 ################################################################################
 # Establish Pandoc settings.

@@ -61,14 +61,15 @@ __INCLUDE__(course_examples.md)
 # License {#license}
 
 **[NOTE: This license is copied verbatim from the C++ Core Guidelines.]**
-<pre>
+```
 __INCLUDE__(../LICENSE.txt)
-</pre>
+```
 
 # Contributors
 
-For a complete list of contributors, please refer to the repository
-containing this document on [GitHub](https://github.com/cplusplus/SG20).
+```
+__INCLUDE__(contributors.md)
+```
 
 __INCLUDE__(contributing.md)
 
