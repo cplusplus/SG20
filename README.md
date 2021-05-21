@@ -8,7 +8,9 @@ This repository contains the source for the document:
 When the repository is tagged, this document is automatically built
 and made available via GitHub Pages at:
 
+  - https://cplusplus.github.io/sg20/latest
   - https://mdadams.github.io/sg20_guidelines_for_teaching_cpp/latest
+  - https://mdadams.github.io/sg20/latest
 
 The following software is needed to build the document:
 
