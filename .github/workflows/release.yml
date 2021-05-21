@@ -21,23 +21,25 @@ jobs:
     - name: Build the document.
       shell: bash
       run: tools/build/build -d ${{runner.temp}}/output -z ${{github.ref}}
-    - name: Deploy the built document to a GitHub Pages branch (in a different repository).
+    - name: Deploy the built document to a GitHub Pages branch.
       env:
         DEPLOY_KEY: ${{secrets.DEPLOY_KEY}}
       shell: bash
       run: |
         tools/build/deploy \
-          -f -t ${{runner.temp}}/deploy_tmp \
-          -r mdadams/sg20_guidelines_for_teaching_cpp \
+          -f \
+          -t ${{runner.temp}}/deploy_tmp_2 \
           -i ${{runner.temp}}/output \
+          -r mdadams/SG20 \
           -z ${{github.ref}}
-    - name: Deploy the built document to a GitHub Pages branch (in the same repository).
+    - name: Deploy the built document to a GitHub Pages branch.
       env:
         DEPLOY_KEY: ${{secrets.ALT_DEPLOY_KEY}}
       shell: bash
       run: |
         tools/build/deploy \
-          -f -t ${{runner.temp}}/deploy_tmp_2 \
-          -r mdadams/SG20 \
+          -f \
+          -t ${{runner.temp}}/deploy_tmp \
           -i ${{runner.temp}}/output \
+          -r mdadams/sg20_guidelines_for_teaching_cpp \
           -z ${{github.ref}}
