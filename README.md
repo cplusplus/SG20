@@ -63,7 +63,8 @@ into two categories:
 
   1. valid English words (such as technical terms) that are not in
      the spell checker's dictionary
-  2. words that are not really words, but are flagged as erroneous
+  2. words that are not really "proper" English words but are also not
+     really errors either (e.g., people's names)
 
 Words in category 1 should be added to the file
 config/spellcheck/wordlist.

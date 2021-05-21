@@ -1,4 +1,4 @@
-personal_ws-1.1 en 11
+personal_ws-1.1 en 14
 destructors
 invariants
 metaprogramming
@@ -10,3 +10,8 @@ toolchains
 toolchain
 boolean
 lawyering
+computable
+UDL
+UDLs
+IDEs
+SFINAE

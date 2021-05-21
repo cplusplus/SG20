@@ -1,7 +1,6 @@
 args
 Bjarne
 checkmark
-computable
 constexpr
 cppreference
 decltype
@@ -13,7 +12,6 @@ Florian
 func
 Furst
 Hyland
-IDEs
 JC
 Krathwohl
 ness
@@ -22,13 +20,10 @@ NRVO
 req
 RVO
 Sattler
-SFINAE
 SG
 Stroustrup
 struct
 udl
-UDL
-UDLs
 ver
 Winkel
 Hinnant
