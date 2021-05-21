@@ -7,24 +7,15 @@ _Skeleton instructions are typeset in italic text._
 _Provides a short natural language abstract of the module’s contents._
 _Specifies the different levels of teaching._
 
-<table>
-  <thead>
-    <th>Level</th>
-    <th>Objectives</th>
-  </thead>
-  <tr>
-    <td>Foundational</td>
-    <td>understanding how and when are copies made</td>
-  </tr>
-  <tr>
-    <td>Main</td>
-    <td>implementing user-defined copy operations</td>
-  </tr>
-  <tr>
-    <td>Advanced</td>
-    <td>special cases: copy elision</td>
-  </tr>
-</table>
+---------------------------------------------------------
+Level         Objectives
+------------- -------------------------------------------
+Foundational  understanding how and when are copies made
+
+Main          implementing user-defined copy operations
+
+Advanced      special cases: copy elision
+---------------------------------------------------------
 
 ### Motivation
 

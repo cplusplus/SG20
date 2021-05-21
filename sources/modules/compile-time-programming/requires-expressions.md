@@ -2,24 +2,17 @@
 
 ### Overview
 
-<table>
-  <thead>
-    <th>Level</th>
-    <th>Objectives</th>
-  </thead>
-  <tr>
-    <td>Foundational</td>
-    <td>Define and use requires-expressions to check satisfaction of expressions by given parameters</td>
-  </tr>
-  <tr>
-    <td>Main</td>
-    <td>Define and use requires-expressions to check properties of expressions</td>
-  </tr>
-  <tr>
-    <td>Advanced</td>
-    <td></td>
-  </tr>
-</table>
+-------------------------------------------------------------------------
+Level              Objectives
+------------------ ------------------------------------------------------
+Foundational       Define and use requires-expressions to check
+                   satisfaction of expressions by given parameters
+
+Main               Define and use requires-expressions to check
+                   properties of expressions
+
+Advanced           ---
+-------------------------------------------------------------------------
 
 ### Motivation
 

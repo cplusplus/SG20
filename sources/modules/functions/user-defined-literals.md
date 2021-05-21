@@ -7,24 +7,15 @@ _Skeleton instructions are typeset in italic text._
 _Provides a short natural language abstract of the module’s contents._
 _Specifies the different levels of teaching._
 
-<table>
-  <thead>
-    <th>Level</th>
-    <th>Objectives</th>
-  </thead>
-  <tr>
-    <td>Foundational</td>
-    <td>using and understanding UDLs</td>
-  </tr>
-  <tr>
-    <td>Main</td>
-    <td>implementing your own UDLs</td>
-  </tr>
-  <tr>
-    <td>Advanced</td>
-    <td>Advanced use (<code>"{}, {}!"_fmt("Hello", "World")</code>)</td>
-  </tr>
-</table>
+-------------------------------------------------------------------------
+Level            Objectives
+---------------- --------------------------------------------------------
+Foundational     using and understanding UDLs
+
+Main             implementing your own UDLs
+
+Advanced         Advanced use (```"{}, {}!"_fmt("Hello", "World")```)
+-------------------------------------------------------------------------
 
 ### Motivation
 

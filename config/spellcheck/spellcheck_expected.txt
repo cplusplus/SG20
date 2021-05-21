@@ -10,7 +10,6 @@ EPUB
 errno
 expr
 Florian
-fmt
 func
 Furst
 Hyland

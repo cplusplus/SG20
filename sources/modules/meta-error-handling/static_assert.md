@@ -8,24 +8,16 @@ _so please don't remove these descriptions when editing the topic._
 _Provides a short natural language abstract of the module’s contents._
 _Specifies the different levels of teaching._
 
-<table>
-  <thead>
-    <th>Level</th>
-    <th>Objectives</th>
-  </thead>
-  <tr>
-    <td>Foundational</td>
-    <td>Calling <code>static_assert</code> with a constant expression</td>
-  </tr>
-  <tr>
-    <td>Main</td>
-    <td>Using <code>static_assert</code> to detect contract violations and improve error messages</td>
-  </tr>
-  <tr>
-    <td>Advanced</td>
-    <td></td>
-  </tr>
-</table>
+----------------------------------------------------------------------------
+Level            Objectives
+---------------- -----------------------------------------------------------
+Foundational     Calling ```static_assert``` with a constant expression
+
+Main             Using ```static_assert``` to detect contract violations
+                 and improve error messages
+
+Advanced         ---
+----------------------------------------------------------------------------
 
 ### Motivation
 

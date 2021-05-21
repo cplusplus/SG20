@@ -9,24 +9,16 @@ of parameters, to allow a caller to avoid specifying arguments that
 rarely change, or to enable expanding the set of parameters while 
 maintaining backward compatibility with existing callers.
 
-<table>
-  <thead>
-    <th>Level</th>
-    <th>Objectives</th>
-  </thead>
-  <tr>
-    <td>Foundational</td>
-    <td>Define and use functions with default arguments</td>
-  </tr>
-  <tr>
-    <td>Main</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Advanced</td>
-    <td>refinement of default arguments through multiple declarations</td>
-  </tr>
-</table>
+------------------------------------------------------------------------
+Level             Objective
+----------------- ------------------------------------------------------
+Foundational      Define and use functions with default arguments
+
+Main              ---
+
+Advanced          refinement of default arguments through multiple
+                  declarations
+------------------------------------------------------------------------
 
 ### Motivation
 

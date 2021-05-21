@@ -65,7 +65,7 @@ clean:
 	rm -f missfont.log
 	rm -rf guidelines_html
 	rm -f spellcheck_result.txt
-	rm -f spellcheck/spellcheck_expected_sorted.txt
+	rm -f spellcheck_expected_sorted.txt
 
 # The install target installs the build document (in various formats)
 # in the directory $(INSTALL_DIR).
@@ -150,18 +150,18 @@ guidelines.tex:
 
 spellcheck_result.txt: guidelines.html
 	rm -f $@
-	rm -f $(SPELLCHECK_DIR)/spellcheck_expected_sorted.txt
+	rm -f spellcheck_expected_sorted.txt
 	sort $(SPELLCHECK_DIR)/spellcheck_expected.txt | \
-	  uniq > $(SPELLCHECK_DIR)/spellcheck_expected_sorted.txt
+	  uniq > spellcheck_expected_sorted.txt
 	PATH="$(TOP_DIR)/tools/build:$$PATH" pandoc --from $(INPUT_FORMAT) \
 	  --lua-filter $(TOP_DIR)/tools/pandoc_filters/spellcheck.lua \
 	  main.gen.md | sort | uniq > $@
 	@status=0; \
-	  diff -q $(SPELLCHECK_DIR)/spellcheck_expected_sorted.txt $@ || \
+	  diff -q spellcheck_expected_sorted.txt $@ || \
 	  status=1; \
 	  if [ $$status -ne 0 ]; then \
 	      echo "SPELLING ERRORS DETECTED:"; \
-	      diff -u $(SPELLCHECK_DIR)/spellcheck_expected_sorted.txt $@ | \
+	      diff -u spellcheck_expected_sorted.txt $@ | \
 		  grep '^[+-]'; \
 	      if [ $(DOC_SPELLCHECK_MUST_PASS) -ne 0 ]; then \
 	          echo "ERROR: spelling errors detected"; \
