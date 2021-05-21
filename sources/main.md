@@ -62,7 +62,7 @@ __INCLUDE__(course_examples.md)
 
 **[NOTE: This license is copied verbatim from the C++ Core Guidelines.]**
 <pre>
-__INCLUDE__(LICENSE.txt)
+__INCLUDE__(../LICENSE.txt)
 </pre>
 
 # Contributors
