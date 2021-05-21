@@ -155,7 +155,7 @@ guidelines.tex:
 spellcheck_result.txt: guidelines.html
 	rm -f $@
 	rm -f spellcheck_expected_sorted.txt
-	sort $(SPELLCHECK_DIR)/spellcheck_expected.txt | \
+	sort $(SPELLCHECK_DIR)/ignored_words.txt | \
 	  uniq > spellcheck_expected_sorted.txt
 	PATH="$(TOP_DIR)/tools/build:$$PATH" pandoc --from $(INPUT_FORMAT) \
 	  --lua-filter $(TOP_DIR)/tools/pandoc_filters/spellcheck.lua \

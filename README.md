@@ -22,7 +22,7 @@ The following software is needed to build the document:
       - awk
       - sed
 
-To build, simply type:
+To build the document, simply type:
 
   1. make clean
   2. make all
@@ -41,3 +41,18 @@ The above commands will build the document in several formats:
     install/html_split/index.html
 
 The build process performs spell checking.
+
+Words that are flagged as having spelling errors can be classified
+into two categories:
+
+  1. valid English words (such as technical terms) that are not in
+     the spell checker's dictionary
+  2. words that are not really words, but are flagged as erroneous
+
+Words in category 1 should be added to the file
+config/spellcheck/wordlist.
+Words in category 2 should be added to the file
+config/spellcheck/ignored_words.txt
+
+
+
