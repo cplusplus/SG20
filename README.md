@@ -19,8 +19,8 @@ The following software is needed to build the document:
 
   - pandoc
   - aspell
-  - make
   - various basic POSIX utilities, including (amongst others):
+      - make
       - awk
       - sed
 
