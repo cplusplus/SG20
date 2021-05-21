@@ -24,6 +24,11 @@ The following software is needed to build the document:
       - awk
       - sed
 
+If one would like to build the document in PDF format, the
+following software is also required:
+
+  - LaTex
+
 # Building the Document
 
 To build the document, simply type:
