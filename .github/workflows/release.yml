@@ -28,7 +28,7 @@ jobs:
       run: |
         tools/build/deploy \
           -f \
-          -t ${{runner.temp}}/deploy_tmp_2 \
+          -t ${{runner.temp}}/deploy_tmp \
           -i ${{runner.temp}}/output \
           -r mdadams/SG20 \
           -z ${{github.ref}}
@@ -39,7 +39,7 @@ jobs:
       run: |
         tools/build/deploy \
           -f \
-          -t ${{runner.temp}}/deploy_tmp \
+          -t ${{runner.temp}}/deploy_tmp_2 \
           -i ${{runner.temp}}/output \
           -r mdadams/sg20_guidelines_for_teaching_cpp \
           -z ${{github.ref}}
