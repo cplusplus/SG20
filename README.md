@@ -75,38 +75,38 @@ config/spellcheck/ignored_words.txt
 
 The files in this repository are organized into directories as follows:
 
-- config.
+- config:
   This directory contains configuration files that control various
   aspects of how the guidelines document is built.
-    - pandoc_templates
+    - pandoc_templates:
       This directory contains document templates used in by pandoc during
       the document build process.
-    - spellcheck
+    - spellcheck:
       The directory contains lists of additional works and ignorable errors
       for spell checking.
-- sources
+- sources:
   This directory hierarchy contains the source files for the document.
-    - css
+    - css:
       This directory contains CSS files used when building the document
       in HTML format.
-    - images
+    - images:
       This directory contains images used in the document.
-    - modules
+    - modules:
       The directory hierarchy contains the information for individual modules
       and topics.  There is one directory per module and one file per topic.
-- tools
+- tools:
   The directory hierarchy contains various scripts and other tools used for
   building and deploying the document to GitHub pages site.
-    - build
+    - build:
       This directory contains scripts used for building and deploying the
       document.
-    - old
+    - old:
       This directory hierachy needs to be reorganized.  This directory
       should probably be renamed and its contents possibly reorganized
       or relocated elsewhere.
         - tools
             - tests
                 - TEST_INPUTS
-    - pandoc_filters
+    - pandoc_filters:
       This directory contains various filters needed for pandoc.  These
       filters do things such as allow markdown-aware spell checking.
