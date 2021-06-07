@@ -82,12 +82,12 @@ The files in this repository are organized into directories as follows:
       This directory contains document templates used by pandoc during
       the document build process.
     - spellcheck:
-      The directory contains lists of additional works and ignorable errors
+      The directory contains lists of additional words and ignorable errors
       for spell checking.
 - sources:
   This directory hierarchy contains the source files for the document.
     - css:
-      This directory contains CSS files used when building the document
+      This directory contains CSS files used by the document when built
       in HTML format.
     - images:
       This directory contains images used in the document.
