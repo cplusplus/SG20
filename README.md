@@ -79,7 +79,7 @@ The files in this repository are organized into directories as follows:
   This directory contains configuration files that control various
   aspects of how the guidelines document is built.
     - pandoc_templates:
-      This directory contains document templates used in by pandoc during
+      This directory contains document templates used by pandoc during
       the document build process.
     - spellcheck:
       The directory contains lists of additional works and ignorable errors
