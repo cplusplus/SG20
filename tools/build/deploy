@@ -11,6 +11,14 @@ panic()
 	exit 1
 }
 
+join_by()
+{
+	local IFS="$1"
+	shift
+	echo "$*"
+}
+
+
 # Print usage information and exit.
 usage()
 {
@@ -67,9 +75,12 @@ github_ref=
 force=0
 prepare_only=0
 verbose=1
+deploy_mode=
 
-while getopts b:i:r:t:z:fnvq opt; do
+while getopts b:i:r:t:z:fnvqm: opt; do
 	case $opt in
+	m)
+		deploy_mode="$OPTARG";;
 	v)
 		verbose=$((verbose + 1));;
 	q)
@@ -107,9 +118,22 @@ fi
 if [ -z "$repo_name" ]; then
 	usage "no repository name specified"
 fi
-if [ -z "$DEPLOY_KEY" ]; then
-	usage "DEPLOY_KEY environment variable not set"
-fi
+
+case "$deploy_mode" in
+key)
+	if [ -z "$DEPLOY_KEY" ]; then
+		usage "DEPLOY_KEY environment variable not set"
+	fi
+	;;
+token)
+	if [ -z "$DEPLOY_TOKEN" ]; then
+		usage "DEPLOY_TOKEN environment variable not set"
+	fi
+	;;
+*)
+	usage "bad deployment mode specified $deploy_mode"
+	;;
+esac
 
 if [ "$verbose" -ge 1 ]; then
 	echo "temporary directory $tmp_dir"
@@ -139,43 +163,72 @@ fi
 tmp_dir="$tmp_dir/deploy"
 
 git_dir="$tmp_dir/git"
-ssh_dir="$HOME/.ssh"
-private_key_file="$ssh_dir/private_key"
 version_dir="$git_dir/$version"
-repo_url="ssh://git@github.com/$repo_name.git"
+github_host="github.com"
+github_user="git"
+
+################################################################################
+# Setup SSH client configuration if needed.
+################################################################################
+
+case "$deploy_mode" in
+ssh)
+
+	ssh_dir="$HOME/.ssh"
+	private_key_file="$ssh_dir/private_key"
+
+	repo_url="ssh://git@$github_host/$repo_name.git"
+
+	if [ "$force" -eq 0 -a -e "$private_key_file" ]; then
+		panic "private key file already exists"
+	fi
+
+	if [ ! -d "$ssh_dir" ]; then
+		mkdir -p "$ssh_dir" || \
+		  panic "cannot make directory $ssh_dir"
+	fi
+	if [ ! -d "$tmp_dir" ]; then
+		mkdir -p "$ssh_dir" || \
+		  panic "cannot make directory $ssh_dir"
+	fi
+
+	echo "$DEPLOY_KEY" > "$private_key_file" || \
+	  panic "cannot create private key file"
+	chmod u+rw,g=,o= "$private_key_file" || \
+	  panic "cannot set permissions for private key file"
+
+	if [ -z "$SSH_AGENT_PID" ]; then
+		eval $(ssh-agent) || \
+		  panic "cannot start ssh-agent"
+	fi
+	ssh-add "$private_key_file" || \
+	  panic "ssh-add failed"
+
+token)
+
+	git config --global credential.helper 'cache --timeout=86400' || \
+	  panic "cannot set credential helper"
+	cred_info=()
+	cred_info+=("protocol=https")
+	cred_info+=("host=$github_host")
+	cred_info+=("username=$github_user")
+	cred_info+=("password=$DEPLOY_TOKEN")
+	cred_string="$(join_by $'\n' "${pairs[@]}")" || \
+	  panic "string processing failed"
+	git credential approve <<< "$cred_string" || \
+	  panic "git credential approve failed"
+
+	repo_url="https://$github_user@$github_host/$repo_name.git"
+	;;
+
+*)
+	panic "unexpected case";;
+
+esac
 
 if [ "$verbose" -ge 1 ]; then
 	echo "repository URL: $repo_url"
 fi
-
-################################################################################
-# Setup SSH client configuration.
-################################################################################
-
-if [ "$force" -eq 0 -a -e "$private_key_file" ]; then
-	panic "private key file already exists"
-fi
-
-if [ ! -d "$ssh_dir" ]; then
-	mkdir -p "$ssh_dir" || \
-	  panic "cannot make directory $ssh_dir"
-fi
-if [ ! -d "$tmp_dir" ]; then
-	mkdir -p "$ssh_dir" || \
-	  panic "cannot make directory $ssh_dir"
-fi
-
-echo "$DEPLOY_KEY" > "$private_key_file" || \
-  panic "cannot create private key file"
-chmod u+rw,g=,o= "$private_key_file" || \
-  panic "cannot set permissions for private key file"
-
-if [ -z "$SSH_AGENT_PID" ]; then
-	eval $(ssh-agent) || \
-	  panic "cannot start ssh-agent"
-fi
-ssh-add "$private_key_file" || \
-  panic "ssh-add failed"
 
 ################################################################################
 # Add new release to GitHub pages repository.
