@@ -30,19 +30,20 @@ jobs:
     ############################################################
     # The following deploys to a different branch of the same repository
     # using an access token for authentication.
-    - name: Deploy the built document to a GitHub Pages branch.
-      env:
-        DEPLOY_TOKEN: ${{secrets.DEPLOY_TOKEN}}
-      shell: bash
-      run: |
-        tools/build/deploy \
-          -f \
-          -m token \
-          -t ${{runner.temp}}/deploy_tmp \
-          -i ${{runner.temp}}/output \
-          -r mdadams/SG20 \
-          -b gh-pages \
-          -z ${{github.ref}}
+    # Note: It is recommended that this approach not be used.
+    #- name: Deploy the built document to a GitHub Pages branch.
+    #  env:
+    #    DEPLOY_TOKEN: ${{secrets.DEPLOY_TOKEN}}
+    #  shell: bash
+    #  run: |
+    #    tools/build/deploy \
+    #      -f \
+    #      -m token \
+    #      -t ${{runner.temp}}/deploy_tmp \
+    #      -i ${{runner.temp}}/output \
+    #      -r mdadams/SG20 \
+    #      -b gh-pages \
+    #      -z ${{github.ref}}
     ############################################################
     # The following deploys to a different branch of the same repository
     # using a deploy (i.e., SSH) key for authentication.
