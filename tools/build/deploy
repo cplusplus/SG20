@@ -172,7 +172,8 @@ github_user="git"
 ################################################################################
 
 case "$deploy_mode" in
-ssh)
+
+key)
 
 	ssh_dir="$HOME/.ssh"
 	private_key_file="$ssh_dir/private_key"
@@ -226,6 +227,7 @@ token)
 	;;
 
 *)
+
 	panic "unexpected case"
 	;;
 
