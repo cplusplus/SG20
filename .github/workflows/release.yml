@@ -15,12 +15,19 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
+    ############################################################
     - name: Prepare to build the document.
       shell: bash
       run: tools/build/prebuild
+    ############################################################
+    # The following builds the document in multiple formats for deployment.
     - name: Build the document.
       shell: bash
-      run: tools/build/build -d ${{runner.temp}}/output -z ${{github.ref}}
+      run: |
+        tools/build/build \
+          -d ${{runner.temp}}/output \
+          -z ${{github.ref}}
+    ############################################################
     # The following deploys to a different branch of the same repository
     # using an access token for authentication.
     - name: Deploy the built document to a GitHub Pages branch.
@@ -34,7 +41,25 @@ jobs:
           -t ${{runner.temp}}/deploy_tmp \
           -i ${{runner.temp}}/output \
           -r mdadams/SG20 \
+          -b gh-pages \
           -z ${{github.ref}}
+    ############################################################
+    # The following deploys to a different branch of the same repository
+    # using a deploy (i.e., SSH) key for authentication.
+    - name: Deploy the built document to a GitHub Pages branch.
+      env:
+        DEPLOY_KEY: ${{secrets.DEPLOY_KEY}}
+      shell: bash
+      run: |
+        tools/build/deploy \
+          -f \
+          -m key \
+          -t ${{runner.temp}}/deploy_tmp \
+          -i ${{runner.temp}}/output \
+          -r mdadams/SG20 \
+          -b gh-pages \
+          -z ${{github.ref}}
+    ############################################################
     # The following deploys to a branch of a different repository
     # using a deploy (i.e., SSH) key authentication.
     - name: Deploy the built document to a GitHub Pages branch.
@@ -48,4 +73,6 @@ jobs:
           -t ${{runner.temp}}/deploy_tmp_2 \
           -i ${{runner.temp}}/output \
           -r mdadams/sg20_guidelines_for_teaching_cpp \
+          -b gh-pages \
           -z ${{github.ref}}
+    ############################################################

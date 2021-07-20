@@ -10,9 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    ############################################################
     - name: Prepare to build the document.
       shell: bash
       run: tools/build/prebuild
+    ############################################################
     - name: Build the document.
       shell: bash
-      run: tools/build/build -d ${{runner.temp}}/output -z ${{github.ref}} -s
+      run: |
+        tools/build/build \
+          -d ${{runner.temp}}/output \
+          -z ${{github.ref}} \
+          -s
+    ############################################################
