@@ -26,4 +26,5 @@ In general version _ver_ is available at
 https://mdadams.github.io/sg20_guidelines_for_teaching_cpp/_ver_.
 For example, version v0.1.0 (assuming that this version exists) would be
 available at
-<https://mdadams.github.io/sg20_guidelines_for_teaching_cpp/v0.1.0>.
+[later to be
+<https://mdadams.github.io/sg20_guidelines_for_teaching_cpp/v0.1.0>?].
