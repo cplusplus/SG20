@@ -203,6 +203,7 @@ ssh)
 	fi
 	ssh-add "$private_key_file" || \
 	  panic "ssh-add failed"
+	;;
 
 token)
 
@@ -222,7 +223,8 @@ token)
 	;;
 
 *)
-	panic "unexpected case";;
+	panic "unexpected case"
+	;;
 
 esac
 
