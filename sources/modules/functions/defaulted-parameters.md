@@ -1,5 +1,6 @@
 ## Functions: default argument {#func-args}
-_Skeleton instructions are typeset in italic text._
+_Skeleton descriptions are typeset in italic text,_
+_so please don't remove these descriptions when editing the topic._
 
 ### Overview
 
@@ -74,7 +75,6 @@ A student should be able to:
 A student should be able to:
 
 #### Caveats
-
 
 #### Points to cover
 

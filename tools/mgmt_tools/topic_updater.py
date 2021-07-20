@@ -388,7 +388,7 @@ def main() -> None:
 
         topic_paths = list(
             filter(exclude_non_topic_files,
-                   Path(".").glob("**/*.md")))
+                   Path("sources/modules/").glob("**/*.md")))
     else:
         topic_paths = args.topic_paths
 

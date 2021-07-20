@@ -1,4 +1,6 @@
 ## Module name: Requires Expressions {#req-expr}
+_Skeleton descriptions are typeset in italic text,_
+_so please don't remove these descriptions when editing the topic._
 
 ### Overview
 
@@ -90,7 +92,8 @@ A student should be able to:
 #### Points to cover
 
 * Compound-requirements allow the optional ability to test whether an expression is marked as `noexcept`, by using a trailing `noexcept` keyword.
-  ```
+
+```cpp
 struct S
 {
 	void foo() noexcept {}
@@ -99,7 +102,8 @@ struct S
 
 static_assert(requires(S s) { { s.foo() } noexcept; } ); // Succeeds. s.foo() is noexcept
 static_assert(requires(S s) { { s.bar() } noexcept; } ); // Fails. s.bar() is not noexcept
-  ```
+```
+  
 * If the return-type-requirement of a compound-requirement is a concept, that concept is given the resulting type as the first parameter, followed by the specified parameters in the compound-requirement. `{ ++x } -> C<int>` would substitute `C<decltype((++x)), int>` and check that concept C is satisfied for those parameters.
 
 ### Advanced {#req-expr-advanced}

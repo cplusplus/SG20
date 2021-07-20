@@ -190,7 +190,7 @@ def readme_generator_driver() -> None:
     Run the Readme.md generation process.
     """
     readme_filename = "Readme.md"
-    repo_root = Path('.')
+    repo_root = Path('sources/modules/')
     teaching_modules: List[TeachingModule] = []
 
     for directory in filter(

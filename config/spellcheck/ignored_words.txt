@@ -3,7 +3,6 @@ Bjarne
 checkmark
 constexpr
 cppreference
-decltype
 Engelhart
 EPUB
 errno
@@ -15,14 +14,12 @@ Hyland
 JC
 Krathwohl
 ness
-noexcept
 NRVO
 req
 RVO
 Sattler
 SG
 Stroustrup
-struct
 udl
 ver
 Winkel
