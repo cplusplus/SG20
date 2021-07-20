@@ -214,8 +214,11 @@ token)
 	cred_info+=("host=$github_host")
 	cred_info+=("username=$github_user")
 	cred_info+=("password=$DEPLOY_TOKEN")
-	cred_string="$(join_by $'\n' "${pairs[@]}")" || \
+	cred_string="$(join_by $'\n' "${cred_info[@]}")" || \
 	  panic "string processing failed"
+	cred_string="$(git credential fill <<< "$cred_string")" || \
+	  panic "git credential fill failed"
+
 	git credential approve <<< "$cred_string" || \
 	  panic "git credential approve failed"
 
