@@ -24,7 +24,6 @@ F Functions
 	udl y y n User-Defined Literals
 C User-Defined Types (Classes)
 	? ? ? ? Special Member Functions
-	copy-elision n y y Copy Elision and Implicit Moving (e.g., RVO and NRVO, etc.)
 	? ? ? ? Types
 	? ? ? ? Conversions
 	? ? ? ? Constructors and Destructors
