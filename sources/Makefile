@@ -19,7 +19,6 @@ SOURCES = \
   modules/compile-time-programming/requires-expressions.md \
   modules/functions/defaulted-parameters.md \
   modules/functions/user-defined-literals.md \
-  modules/object-model/copy_elision.md \
   modules/object-model/copy-semantics.md \
   course_examples.md \
   disclaimer.md \

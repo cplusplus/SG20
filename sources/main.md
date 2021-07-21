@@ -50,8 +50,6 @@ __INCLUDE__(modules/functions/defaulted-parameters.md)
 
 __INCLUDE__(modules/compile-time-programming/requires-expressions.md)
 
-__INCLUDE__(modules/object-model/copy_elision.md)
-
 __INCLUDE__(modules/meta-error-handling/static_assert.md)
 
 [//]: # ( ********** END OF DETAILED TOPIC DOCUMENTS ********** )
