@@ -1,33 +1,24 @@
-# Functions: user-defined literals
+## Functions:  user-defined literals {#udl}
 
 _Skeleton descriptions are typeset in italic text,_
 _so please don't remove these descriptions when editing the topic._
 
-## Overview
+### Overview
 
 _Provides a short natural language abstract of the module’s contents._
 _Specifies the different levels of teaching._
 
-<table>
-  <thead>
-    <th>Level</th>
-    <th>Objectives</th>
-  </thead>
-  <tr>
-    <td>Foundational</td>
-    <td>using and understanding UDLs</td>
-  </tr>
-  <tr>
-    <td>Main</td>
-    <td>implementing your own UDLs</td>
-  </tr>
-  <tr>
-    <td>Advanced</td>
-    <td>Advanced use (<code>"{}, {}!"_fmt("Hello", "World")</code>)</td>
-  </tr>
-</table>
+-------------------------------------------------------------------------
+Level            Objectives
+---------------- --------------------------------------------------------
+Foundational     using and understanding UDLs
 
-## Motivation
+Main             implementing your own UDLs
+
+Advanced         Advanced use (```"{}, {}!"_fmt("Hello", "World")```)
+-------------------------------------------------------------------------
+
+### Motivation
 
 _Why is this important?_
 _Why do we want to learn/teach this topic?_
@@ -36,17 +27,17 @@ _Why do we want to learn/teach this topic?_
 * `std::string`: `"Hello, world!"s`
 * `std::chrono`: `3h + 10min + 5s`
 
-## Topic introduction
+### Topic introduction
 
 _Very brief introduction to the topic._
 
 * Explain the existence of user defined literals. Example: `12min + 17s` is terse,
   expressive and type safe.
 
-## Foundational: Using UDLs
+### Foundational: Using UDLs {#udl-basic}
 
 
-### Background/Required Knowledge
+#### Background/Required Knowledge
 
 
 A student:
@@ -60,7 +51,7 @@ A student:
 * knows that namespaces exist, and namespace `std`.
 * knows what using-declarations and using-directives are. [[C++ object model: declarations]][2]
 
-### Student outcomes
+#### Student outcomes
 
 _A list of things "a student should be able to" after the curriculum._
 _The next word should be an action word and testable in an exam._
@@ -79,7 +70,7 @@ A student should be able to:
 
 \[1]: explain that it's okay to use a using-directive to "activate" UDLs.
 
-### Caveats
+#### Caveats
 
 _This section mentions subtle points to understand, like anything resulting in
 implementation-defined, unspecified, or undefined behavior._
@@ -89,19 +80,19 @@ implementation-defined, unspecified, or undefined behavior._
 * A student "activates" two suffixes with the same signature from different
   namespaces.
 
-### Points to cover
+#### Points to cover
 
 _This section lists important details for each point._
 
-## Main: implementing UDLs
+### Main: implementing UDLs {#udl-intermediate}
 
 
-### Background/Required Knowledge
+#### Background/Required Knowledge
 
 
 * All of the above.
 
-### Student outcomes
+#### Student outcomes
 
 _A list of things "a student should be able to" after the curriculum._
 _The next word should be an action word and testable in an exam._
@@ -112,18 +103,18 @@ A student should be able to:
 1. write a UDL operator of their own.
 2. separate unrelated UDLs into distinct namespaces.
 
-### Caveats
+#### Caveats
 
 _This section mentions subtle points to understand, like anything resulting in
 implementation-defined, unspecified, or undefined behavior._
 
 No caveats at present.
-### Points to cover
+#### Points to cover
 
 _This section lists important details for each point._
 
 No caveats at present.
-## Advanced
+### Advanced {#udl-advanced}
 
 _These are important topics that are not expected to be covered but provide
 guidance where one can continue to investigate this topic in more depth._

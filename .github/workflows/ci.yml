@@ -1,0 +1,25 @@
+# This action is used to perform a test build of the document that includes
+# performing spell checking.
+
+name: ci
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    ############################################################
+    - name: Prepare to build the document.
+      shell: bash
+      run: tools/build/prebuild
+    ############################################################
+    - name: Build the document.
+      shell: bash
+      run: |
+        tools/build/build \
+          -d ${{runner.temp}}/output \
+          -z ${{github.ref}} \
+          -s
+    ############################################################
