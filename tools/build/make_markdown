@@ -1,0 +1,115 @@
+#! /usr/bin/env bash
+# Michael Adams (mdadams@ece.uvic.ca)
+
+awk '
+function output(level, old_level, label, basic, intermediate, advanced, text) {
+	#bad_char = "🤢";
+	#bad_char = "❌";
+	bad_char = "?";
+	#check_char = "✓"
+	check_char = "✔️";
+	emdash = "—";
+
+	if (level == 1) {
+		if (label == "?") {
+			label = bad_char;
+			#basic = emdash;
+			#intermediate = emdash;
+			#advanced = emdash;
+		} else {
+			if (basic == "y") {
+				#basic = sprintf("<a href=\"#%s-basic\">%s</a>", label, check_char);
+				basic = sprintf("[%s](#%s-basic)", check_char, label);
+			} else if (basic == "n") {
+				basic = emdash;
+			}
+			if (intermediate == "y") {
+				#intermediate = sprintf("<a href=\"#%s-intermediate\">%s</a>", label, check_char);
+				intermediate = sprintf("[%s](#%s-intermediate)", check_char, label);
+			} else if (intermediate == "n") {
+				intermediate = emdash;
+			}
+			if (advanced == "y") {
+				#advanced = sprintf("<a href=\"#%s-advanced\">%s</a>", label, check_char);
+				advanced = sprintf("[%s](#%s-advanced)", check_char, label);
+			} else if (advanced == "n") {
+				advanced = emdash;
+			}
+		}
+		#label = sprintf("<a href=\"#%s\">%s</a>", label, label);
+		label = sprintf("[%s](#%s)", label, label);
+	}
+
+	if (level == 1 && old_level < 1) {
+		printf "\n| ID | Unit | Foundational | Main | Advanced |\n";
+		printf "|---|----------|---|---|---|\n";
+	}
+	if (level == 1) {
+		printf "| [%s] | %s | %s | %s | %s |\n", label, text, basic, intermediate, advanced;
+	}
+	if ((level == 0 || level == -1) && old_level > 0) {
+		printf "\n\n";
+		#printf "Note: %s indicates no entry yet available\n\n", bad_char;
+		#printf "Note: The IDs and checkmarks (%s) are linked to the corresponding sections.\n\n", check_char;
+	}
+	if (level == 0) {
+		printf "\n";
+		#printf "## [%s] %s {#%s}\n", label, text, label;
+		printf "## %s {#%s}\n", text, label;
+	}
+}
+
+BEGIN {
+	old_level = -1;
+}
+
+(NF > 0) {
+	line = $0;
+	level = 0;
+	while (substr(line, level + 1, 1) == "\t") {
+		++level;
+	}
+
+	label = "";
+	basic = "";
+	intermediate = "";
+	advanced = "";
+	text = "";
+
+	if (level == 0) {
+
+		label = $1;
+		text = substr($0, index($0, $2));
+		output(level, old_level, label, basic, intermediate, advanced, text);
+
+	} else if (level == 1) {
+
+		label = $1;
+		basic = $2;
+		intermediate = $3;
+		advanced = $4;
+		text = substr($0, index($0, $5));
+
+		output(level, old_level, label, basic, intermediate, advanced, text);
+
+	}
+
+	old_level = level;
+
+}
+
+END {
+
+	level = -1;
+
+	label = "";
+	basic = "";
+	intermediate = "";
+	advanced = "";
+	text = "";
+
+	output(level, old_level, label, basic, intermediate, advanced, text);
+
+}
+
+' -

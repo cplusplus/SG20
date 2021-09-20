@@ -1,0 +1,101 @@
+#! /usr/bin/env bash
+
+################################################################################
+# Some helper functions.
+################################################################################
+
+# Terminate with error.
+panic()
+{
+	echo "ERROR: $@" 1>&2
+	exit 1
+}
+
+# Print usage information.
+usage()
+{
+	echo "bad usage: $@"
+	cat <<- EOF
+	build - Build the document.
+
+	Usage
+	=====
+
+	$0 -d \$install_dir -z \$github_ref
+
+	Options
+	=======
+
+	-d \$install_dir
+	Set the installation directory for the built release to \$install_dir.
+
+	-z \$github_ref
+	Set the GitHub ref to $\github_ref.
+	(This is used to determine the version of the document being released.)
+
+	Examples
+	========
+
+	$0 -d /tmp/sg20_test/install -z refs/tags/v0.0.1
+	EOF
+	exit 2
+}
+
+################################################################################
+# Perform some basic initialization.
+################################################################################
+
+cmd_dir=$(dirname "$0") || panic "cannot determine directory name"
+source_dir="$cmd_dir/../.."
+
+################################################################################
+# Parse command line.
+################################################################################
+
+install_dir=
+github_ref=
+spellcheck=0
+
+while getopts d:z:s opt; do
+	case $opt in
+	d)
+		install_dir="$OPTARG";;
+	z)
+		github_ref="$OPTARG";;
+	s)
+		spellcheck=1;;
+	\?)
+		usage
+		break;;
+	esac
+done
+shift $((OPTIND - 1))
+
+if [ -z "$install_dir" ]; then
+	usage "no output directory specified"
+fi
+if [ -z "$github_ref" ]; then
+	usage "no github ref specified"
+fi
+
+################################################################################
+# Build the document.
+################################################################################
+
+version="$(awk -v FS="/" '{print $3;}' <<< "$github_ref")" || \
+  panic "cannot determine document version"
+
+if [ ! -d "$install_dir" ]; then
+	mkdir -p "$install_dir" || \
+	  panic "cannot make installation directory $install_dir"
+fi
+
+(cd "$source_dir" && make clean) || \
+  panic "cannot make clean"
+
+(cd "$source_dir" && \
+  make DOC_VERSION="$version" DOC_SPELLCHECK_MUST_PASS="$spellcheck" all) || \
+  panic "cannot build document"
+
+make INSTALL_DIR="$install_dir" install || \
+  panic "cannot install release"

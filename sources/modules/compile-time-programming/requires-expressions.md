@@ -1,30 +1,22 @@
-# Module name: Requires Expressions
-
+## Module name: Requires Expressions {#req-expr}
 _Skeleton descriptions are typeset in italic text,_
 _so please don't remove these descriptions when editing the topic._
 
-## Overview
+### Overview
 
-<table>
-  <thead>
-    <th>Level</th>
-    <th>Objectives</th>
-  </thead>
-  <tr>
-    <td>Foundational</td>
-    <td>Define and use requires-expressions to check satisfaction of expressions by given parameters</td>
-  </tr>
-  <tr>
-    <td>Main</td>
-    <td>Define and use requires-expressions to check properties of expressions</td>
-  </tr>
-  <tr>
-    <td>Advanced</td>
-    <td></td>
-  </tr>
-</table>
+-------------------------------------------------------------------------
+Level              Objectives
+------------------ ------------------------------------------------------
+Foundational       Define and use requires-expressions to check
+                   satisfaction of expressions by given parameters
 
-## Motivation
+Main               Define and use requires-expressions to check
+                   properties of expressions
+
+Advanced           ---
+-------------------------------------------------------------------------
+
+### Motivation
 
 Requires-expressions allow a developer to perform compile-time evaluation 
 on the validity of other expressions. These are fundamental to the ability 
@@ -36,9 +28,9 @@ Requires-expressions are compile-time predicates which evaluate to true
 when their specified set of expressions are all valid for a given set of 
 inputs.
 
-## Foundational: Writing requires-expressions
+### Foundational: Writing requires-expressions {#req-expr-basic}
 
-### Background/Required Knowledge
+#### Background/Required Knowledge
 
 A student is able to:
 
@@ -49,7 +41,7 @@ It is helpful if:
 
 * The student is aware that attempting to specialize the template with types or values which do not match otherwise unstated assumptions will cause errors within the template.
 
-### Student outcomes
+#### Student outcomes
 
 A student should be able to:
 
@@ -59,7 +51,7 @@ A student should be able to:
 4. Write a nested-requirement to test the constexpr value of an operation, as opposed to just the syntactic validity
 5. Use a requires-expression within a concept, requires-clause, or `if constexpr` condition
 
-### Caveats
+#### Caveats
 
 To require that expressions, which evaluate to a boolean value 
 like `sizeof(t) == 4`, evaluate to `true` a nested-requirement is needed 
@@ -67,7 +59,7 @@ like `sizeof(t) == 4`, evaluate to `true` a nested-requirement is needed
 simple-requirement, which is satisfied based purely on syntactic validity, 
 not on the result of the operation.
 
-### Points to cover
+#### Points to cover
 
 * All requires-expression requirements terminate with a semicolon.
 * simple-requirements are used to check that an expression is well-formed.
@@ -77,9 +69,9 @@ not on the result of the operation.
 * Checks are performed by the compiler, not at run time.
 * If covering usage of requires-expression with requires-clause, [[Compile-time programming: requires clause]][3] demonstrate `requires requires` and show how to ever avoid writing it by using a concept. [[Compile-time programming: concepts]][1]
 
-## Main: Advanced requirements
+### Main: Advanced requirements {#req-expr-intermediate}
 
-### Background/required knowledge
+#### Background/required knowledge
 
 * All of the above.
 * Knowledge of `noexcept`
@@ -88,16 +80,16 @@ A student is able to:
 
 * Write a concept [[Compile-time programming: concepts]][1]
 
-### Student outcomes
+#### Student outcomes
 
 A student should be able to:
 
 1. Write compound-requirements which test the `noexcept`ness of an expression.
 2. Use a concept as the target of a compound-requirement.
 
-### Caveats
+#### Caveats
 
-### Points to cover
+#### Points to cover
 
 * Compound-requirements allow the optional ability to test whether an expression is marked as `noexcept`, by using a trailing `noexcept` keyword.
 
@@ -114,7 +106,7 @@ static_assert(requires(S s) { { s.bar() } noexcept; } ); // Fails. s.bar() is no
   
 * If the return-type-requirement of a compound-requirement is a concept, that concept is given the resulting type as the first parameter, followed by the specified parameters in the compound-requirement. `{ ++x } -> C<int>` would substitute `C<decltype((++x)), int>` and check that concept C is satisfied for those parameters.
 
-## Advanced
+### Advanced {#req-expr-advanced}
 
 [1]: ../compile-time-programming/concepts.md
 [2]: ../compile-time-programming/function-templates.md

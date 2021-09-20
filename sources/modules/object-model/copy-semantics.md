@@ -1,49 +1,39 @@
-# C++ object model: copy semantics
+## C++ object model: copy semantics {#copy}
 
 _Skeleton descriptions are typeset in italic text,_
 _so please don't remove these descriptions when editing the topic._
 
-## Overview
+### Overview
 
 _Provides a short natural language abstract of the module’s contents._
 _Specifies the different levels of teaching._
 
-<table>
-  <thead>
-    <th>Level</th>
-    <th>Objectives</th>
-  </thead>
-  <tr>
-    <td>Foundational</td>
-    <td>understanding how and when are copies made</td>
-  </tr>
-  <tr>
-    <td>Main</td>
-    <td>implementing user-defined copy operations</td>
-  </tr>
-  <tr>
-    <td>Advanced</td>
-    <td>special cases: copy elision</td>
-  </tr>
-</table>
+---------------------------------------------------------
+Level         Objectives
+------------- -------------------------------------------
+Foundational  understanding how and when are copies made
 
-## Motivation
+Main          implementing user-defined copy operations
+
+Advanced      special cases: copy elision
+---------------------------------------------------------
+
+### Motivation
 
 _Why is this important?_
 _Why do we want to learn/teach this topic?_
 
 Copy semantics allows the user to define how objects of a class get replicated and interact on a value level.
 
-## Topic introduction
+### Topic introduction
 
 _Very brief introduction to the topic._
 
 Explains when and how objects are copied.
 
-## Foundational: How and when are copies made
+### Foundational: How and when are copies made {#copy-basic}
 
-
-### Background/Required Knowledge
+#### Background/Required Knowledge
 
 
 A student is able to:
@@ -55,7 +45,7 @@ It helps when a student is able to:
 * use move semantics                        [[C++ object model: move semantics]][4]
 * explain special member functions          [[C++ object model: special member functions]][5]
 
-### Student outcomes
+#### Student outcomes
 
 _A list of things "a student should be able to" after the curriculum._
 _The next word should be an action word and testable in an exam._
@@ -70,14 +60,14 @@ A student should be able to:
 
 \* In other languages these differences are sometimes referred to as shallow and deep copy.
 
-### Caveats
+#### Caveats
 
 _This section mentions subtle points to understand, like anything resulting in
 implementation-defined, unspecified, or undefined behavior._
 
 * Compiler-provided copy operations may result in ownership problems (e.g., `char*`). These ownership problems can generally be solved by using types whose copy operations have the appropriate semantics, e.g., `std::string` instead of `char*` to hold string values.
 
-### Points to cover
+#### Points to cover
 
 _This section lists important details for each point._
 
@@ -90,10 +80,10 @@ _This section lists important details for each point._
   * Strings (copies the value) 
 
 
-## Main: Implementing user-defined copy operations
+### Main: Implementing user-defined copy operations {#copy-intermediate}
 
 
-### Background/Required Knowledge
+#### Background/Required Knowledge
 
 
 A student is able to:
@@ -104,7 +94,7 @@ It helps when a student is able to:
 * explain the rule of zero                [[C++ object model: rule-of-zero]][7]
 * explain the rule of five                [[C++ object model: rule-of-five]][6]
 
-### Student outcomes
+#### Student outcomes
 
 _A list of things "a student should be able to" after the curriculum._
 _The next word should be an action word and testable in an exam._
@@ -117,7 +107,7 @@ A student should be able to:
 * implement copy operations for their own types
 * _Optional_: explain when copying with basic and strong exception guarantees is useful
 
-### Caveats
+#### Caveats
 
 _This section mentions subtle points to understand, like anything resulting in
 implementation-defined, unspecified, or undefined behavior._
@@ -125,7 +115,7 @@ implementation-defined, unspecified, or undefined behavior._
 * Intricacies when implementing copy operations:
   * Examples of how _not_ to write copy operations (e.g., C++03 `std::auto_ptr`)
 
-### Points to cover
+#### Points to cover
 
 _This section lists important details for each point._
 
@@ -136,7 +126,7 @@ _This section lists important details for each point._
   * Rule-of-five
   * Copy assignment operators can be ref-qualified to avoid assigning into temporary objects.
 
-## Advanced
+### Advanced {#copy-advanced}
 
 _These are important topics that are not expected to be covered but provide
 guidance where one can continue to investigate this topic in more depth._
