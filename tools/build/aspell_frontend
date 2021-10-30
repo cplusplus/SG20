@@ -13,4 +13,6 @@ if [ ! -f "$spellcheck_dir/$wordlist" ]; then
 	echo "ERROR"
 	exit 1
 fi
-exec aspell --home-dir="$spellcheck_dir" --personal "$wordlist" "$@"
+tmp_wordlist=$(mktemp /tmp/wordlist.XXXXXX)
+cat $spellcheck_dir/wordlist $spellcheck_dir/ignored_words.txt > $tmp_wordlist
+exec aspell --home-dir="$spellcheck_dir" --personal $tmp_wordlist --lang en "$@"

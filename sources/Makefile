@@ -163,19 +163,12 @@ guidelines.tex:
 
 spellcheck_result.txt: guidelines.html
 	rm -f $@
-	rm -f spellcheck_expected_sorted.txt
-	sort $(SPELLCHECK_DIR)/ignored_words.txt | \
-	  uniq > spellcheck_expected_sorted.txt
 	PATH="$(TOP_DIR)/tools/build:$$PATH" pandoc --from $(INPUT_FORMAT) \
 	  --lua-filter $(TOP_DIR)/tools/pandoc_filters/spellcheck.lua \
 	  main.gen.md | sort | uniq > $@
-	@status=0; \
-	  diff -q spellcheck_expected_sorted.txt $@ || \
-	  status=1; \
-	  if [ $$status -ne 0 ]; then \
+	  if [ -s $@ ]; then \
 	      echo "SPELLING ERRORS DETECTED:"; \
-	      diff -u spellcheck_expected_sorted.txt $@ | \
-		  grep '^[+-]'; \
+	      cat $@ ; \
 	      if [ $(DOC_SPELLCHECK_MUST_PASS) -ne 0 ]; then \
 	          echo "ERROR: spelling errors detected"; \
 	          exit 1; \
