@@ -107,6 +107,6 @@ make INSTALL_DIR="$install_dir/$version" install || \
 cp $source_dir/sources/index.html $install_dir
 
 pushd $install_dir
-unlink latest
-ln -s $version latest
+rm -rf latest
+ln -s $version/html latest
 popd
