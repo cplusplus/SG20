@@ -1,0 +1,763 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Guidelines for Teaching C++</title>
+
+<meta name="description" content="Guidelines for Teaching C++">
+<meta name="keywords" content="Guidelines for Teaching C++">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced.html" rel="next" title="Advanced">
+<link href="Main-Implementing-user_002ddefined-copy-operations.html" rel="prev" title="Main Implementing user-defined copy operations">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<hr>
+<span id="Background_002fRequired-Knowledge-2"></span><h4 class="subsubsection">8.1.5.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d1"></span><p>A student is able to: * identify special member functions
+<a href="../object-model/special-member-functions.md">[C++ object model:
+special member functions]</a>
+</p>
+<p>It helps when a student is able to: * use move semantics
+<a href="../object-model/move-semantics.md">[C++ object model: move
+semantics]</a> * explain the rule of zero
+<a href="../object-model/rule-of-zero.md">[C++ object model: rule-of-zero]</a>
+* explain the rule of five <a href="../object-model/rule-of-five.md">[C++
+object model: rule-of-five]</a>
+</p>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-2"></span><h4 class="subsubsection">8.1.5.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d1"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to: * explain when they have to implement the
+copy operations for their own type * Copy constructor * Copy assignment
+operator * implement copy operations for their own types *
+<em>Optional</em>: explain when copying with basic and strong exception
+guarantees is useful
+</p>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-2"></span><h4 class="subsubsection">8.1.5.3 Caveats</h4>
+<span id="g_t_0023caveats_002d1"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<ul>
+<li> Intricacies when implementing copy operations:
+<ul>
+<li> Examples of how <em>not</em> to write copy operations (e.g., C++03
+<code>std::auto_ptr</code>)
+</li></ul>
+
+</li></ul>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-2"></span><h4 class="subsubsection">8.1.5.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d1"></span><p><em>This section lists important details for each point.</em>
+</p>
+<ul>
+<li> Copy constructors and copy assignment operators
+<ul>
+<li> How compiler generates default copy operations
+</li><li> =default, =delete (No copy)
+</li><li> How-to write your own copy operations
+</li><li> Rule-of-five
+</li><li> Copy assignment operators can be ref-qualified to avoid assigning into
+temporary objects.
+</li></ul>
+
+</li></ul>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Overview-2"></span><h4 class="subsection">8.2.1 Overview</h4>
+<span id="g_t_0023overview_002d1"></span><p><em>Provides a short natural language abstract of the module&rsquo;s
+contents.</em> <em>Specifies the different levels of teaching.</em>
+</p>
+<table>
+<thead><tr><th width="23%">Level</th><th width="77%">Objectives</th></tr></thead>
+<tr><td width="23%">Foundational</td><td width="77%">using and understanding UDLs</td></tr>
+<tr><td width="23%">Main</td><td width="77%">implementing your own UDLs</td></tr>
+<tr><td width="23%">Advanced</td><td width="77%">Advanced use (<code>&quot;{}, {}!&quot;_fmt(&quot;Hello&quot;, &quot;World&quot;)</code>)</td></tr>
+</table>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Motivation-2"></span><h4 class="subsection">8.2.2 Motivation</h4>
+<span id="g_t_0023motivation_002d1"></span><p><em>Why is this important?</em> <em>Why do we want to learn/teach this
+topic?</em>
+</p>
+<ul>
+<li> Allows clearer expression of intent in C++.
+</li><li> <code>std::string</code>: <code>&quot;Hello, world!&quot;s</code>
+</li><li> <code>std::chrono</code>: <code>3h + 10min + 5s</code>
+</li></ul>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Topic-introduction-2"></span><h4 class="subsection">8.2.3 Topic introduction</h4>
+<span id="g_t_0023topic_002dintroduction_002d1"></span><p><em>Very brief introduction to the topic.</em>
+</p>
+<ul>
+<li> Explain the existence of user defined literals. Example:
+<code>12min + 17s</code> is terse, expressive and type safe.
+</li></ul>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-3"></span><h4 class="subsubsection">8.2.4.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d2"></span><p>A student: * knows how to form numeric literals, e.g., <code>1.5f</code> means
+a <code>float</code> of value <code>1.5</code>. * is familiar with the major C++
+types: * <code>bool</code> (Boolean type) * <code>int</code> (Integer type) *
+<code>double</code> (Floating-point type) * <code>std::string</code> (Text type) *
+<code>std::vector</code> (Collection type) * knows that namespaces exist, and
+namespace <code>std</code>. * knows what using-declarations and
+using-directives are.
+<a href="../compile-time-programming/function-templates.md">[C++ object
+model: declarations]</a>
+</p>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-3"></span><h4 class="subsubsection">8.2.4.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d2"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> use <code>using namespace std::string_literals</code>[1].
+</li><li> recognise UDLs in code that they are reading.
+</li><li> figure out which UDL definitions for a used type exist.
+</li><li> identify parts of the standard library that make use of UDLs.
+</li><li> prevent the dangers of temporaries created with <code>&quot;blah&quot;s</code> as well
+as with <code>std::string{&quot;blah&quot;}</code>.
+</li><li> effectively selects the right set of namespaces in using-directives from
+the sub-namespaces <code>std::literals</code>.
+</li></ol>
+
+<p>[1]: explain that it&rsquo;s okay to use a using-directive to &ldquo;activate&rdquo;
+UDLs.
+</p>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-3"></span><h4 class="subsubsection">8.2.4.3 Caveats</h4>
+<span id="g_t_0023caveats_002d2"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<ul>
+<li> A student gets confused by the similarities and differences between
+built-in suffixes and UDLs and between UDLs from different namespaces.
+</li><li> A student &ldquo;activates&rdquo; two suffixes with the same signature from
+different namespaces.
+</li></ul>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-3"></span><h4 class="subsubsection">8.2.4.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d2"></span><p><em>This section lists important details for each point.</em>
+</p>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-4"></span><h4 class="subsubsection">8.2.5.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d3"></span><ul>
+<li> All of the above.
+</li></ul>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-4"></span><h4 class="subsubsection">8.2.5.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d3"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> write a UDL operator of their own.
+</li><li> separate unrelated UDLs into distinct namespaces.
+</li></ol>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-4"></span><h4 class="subsubsection">8.2.5.3 Caveats</h4>
+<span id="g_t_0023caveats_002d3"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<p>No caveats at present. #### Points to cover
+</p>
+<p><em>This section lists important details for each point.</em>
+</p>
+<p>No caveats at present. ### Advanced {#udl-advanced}
+</p>
+<p><em>These are important topics that are not expected to be covered but
+provide guidance where one can continue to investigate this topic in
+more depth.</em>
+</p>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Overview-3"></span><h4 class="subsection">8.3.1 Overview</h4>
+<span id="g_t_0023overview_002d2"></span><p>Functions in C++ may be overloaded with different numbers and types of
+parameters. It may be of value to specify default arguments for some
+number of parameters, to allow a caller to avoid specifying arguments
+that rarely change, or to enable expanding the set of parameters while
+maintaining backward compatibility with existing callers.
+</p>
+<table>
+<thead><tr><th width="25%">Level</th><th width="75%">Objective</th></tr></thead>
+<tr><td width="25%">Foundational</td><td width="75%">Define and use functions with default arguments</td></tr>
+<tr><td width="25%">Main</td><td width="75%">&mdash;</td></tr>
+<tr><td width="25%">Advanced</td><td width="75%">refinement of default arguments through multiple declarations</td></tr>
+</table>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Motivation-3"></span><h4 class="subsection">8.3.2 Motivation</h4>
+<span id="g_t_0023motivation_002d2"></span><p>Default arguments allow the omission of arguments with obvious or common
+values. Also may be utilized to extend an existing function signature
+without forcing changes to existing calling code.
+</p>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Topic-introduction-3"></span><h4 class="subsection">8.3.3 Topic introduction</h4>
+<span id="g_t_0023topic_002dintroduction_002d2"></span><p>Explain how default arguments work and how to define them.
+</p>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-5"></span><h4 class="subsubsection">8.3.4.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d4"></span><p>A student is able to:
+</p>
+<ul>
+<li> Make calls to existing functions, passing arguments
+<a href="../compile-time-programming/concepts.md">[Functions: calling
+functions]</a>
+</li><li> Declare member and non-member functions, separate from definitions
+</li><li> Define member and non-member functions
+<a href="../compile-time-programming/function-templates.md">[Functions:
+member functions]</a>
+</li><li> Explain what a default constructor is and does
+<a href="../compile-time-programming/requires-clause.md">[C++ object model:
+constructors]</a>
+</li></ul>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-5"></span><h4 class="subsubsection">8.3.4.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d4"></span><p>A student should be able to:
+</p>
+<ol>
+<li> Call to a function with a default argument with or without that argument
+specified
+</li><li> Declare a function with a default argument, and omit the default in the
+definition&rsquo;s signature
+</li><li> Explain when the lifetime of a default argument begins and ends
+</li></ol>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-5"></span><h4 class="subsubsection">8.3.4.3 Caveats</h4>
+<span id="g_t_0023caveats_002d4"></span><ul>
+<li> When no forward-declaration exists, the definition serves as the
+declaration
+</li><li> When multiple declarations exist, only one may specify the default for
+any particular parameter, but multiple declarations may specify the
+defaults for different parameters.
+</li><li> Additional default values may be specified for other parameters in
+repeat declarations
+</li><li> Calling an overloaded function with fewer arguments may be ambiguous
+with regard to an overload with default arguments
+</li></ul>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-4"></span><h4 class="subsubsection">8.3.4.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d3"></span><ul>
+<li> Default value may only be specified once for each parameter among all
+declarations
+</li><li> Default values must start from the rightmost parameter and continue
+leftward without gaps
+</li><li> Considerations of when to use default arguments vs overload set
+</li></ul>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-6"></span><h4 class="subsubsection">8.3.5.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d5"></span><p>A student should be able to:
+</p>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-6"></span><h4 class="subsubsection">8.3.5.3 Caveats</h4>
+<span id="g_t_0023caveats_002d5"></span>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-5"></span><h4 class="subsubsection">8.3.5.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d4"></span>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Advanced-2"></span><h4 class="subsection">8.3.6 Advanced</h4>
+<span id="g_t_0023advanced_002d1"></span><p>Subsequent redeclarations of the same function may add default argument
+values, which are then usable by callers. Though a single parameter
+cannot be given a default argument twice in the same translation unit,
+it is legal, though ill-advised, to give the same function different
+default arguments in different translation units.
+</p>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Overview-4"></span><h4 class="subsection">8.4.1 Overview</h4>
+<span id="g_t_0023overview_002d3"></span><table>
+<thead><tr><th width="26%">Level</th><th width="74%">Objectives</th></tr></thead>
+<tr><td width="26%">Foundational</td><td width="74%">Define and use requires-expressions to check satisfaction of
+expressions by given parameters</td></tr>
+<tr><td width="26%">Main</td><td width="74%">Define and use requires-expressions to check properties of
+expressions</td></tr>
+<tr><td width="26%">Advanced</td><td width="74%">&mdash;</td></tr>
+</table>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Motivation-4"></span><h4 class="subsection">8.4.2 Motivation</h4>
+<span id="g_t_0023motivation_002d3"></span><p>Requires-expressions allow a developer to perform compile-time
+evaluation on the validity of other expressions. These are fundamental
+to the ability to write concepts.
+<a href="../compile-time-programming/concepts.md">[Compile-time programming:
+concepts]</a>
+</p>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Topic-introduction-4"></span><h3 class="section">8.5 Topic introduction</h3>
+<span id="g_t_0023topic_002dintroduction_002d3"></span><p>Requires-expressions are compile-time predicates which evaluate to true
+when their specified set of expressions are all valid for a given set of
+inputs.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Foundational-Writing-requires_002dexpressions.html" accesskey="1">Foundational Writing requires-expressions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Main-Advanced-requirements.html" accesskey="2">Main Advanced requirements</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Advanced.html" accesskey="3">Advanced</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-6"></span><h4 class="subsubsection">8.5.1.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d6"></span><p>A student is able to:
+</p>
+<ul>
+<li> Write and use a function template
+<a href="../compile-time-programming/function-templates.md">[Compile-time
+programming: function templates]</a>
+</li><li> Differentiate between expressions and statements
+</li></ul>
+
+<p>It is helpful if:
+</p>
+<ul>
+<li> The student is aware that attempting to specialize the template with
+types or values which do not match otherwise unstated assumptions will
+cause errors within the template.
+</li></ul>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-7"></span><h4 class="subsubsection">8.5.1.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d6"></span><p>A student should be able to:
+</p>
+<ol>
+<li> Write a simple-requirement to assert the validity of an expression
+</li><li> Write a type-requirement to check the existence of a type by its
+identifier
+</li><li> Write a compound-requirement to test the resulting type of an expression
+</li><li> Write a nested-requirement to test the constexpr value of an operation,
+as opposed to just the syntactic validity
+</li><li> Use a requires-expression within a concept, requires-clause, or
+<code>if constexpr</code> condition
+</li></ol>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-7"></span><h4 class="subsubsection">8.5.1.3 Caveats</h4>
+<span id="g_t_0023caveats_002d6"></span><p>To require that expressions, which evaluate to a boolean value like
+<code>sizeof(t) == 4</code>, evaluate to <code>true</code> a nested-requirement is
+needed (e.g., <code>requires sizeof(t) == 4;</code>). Omitting the
+<code>requires</code> results in a simple-requirement, which is satisfied
+based purely on syntactic validity, not on the result of the operation.
+</p>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-6"></span><h4 class="subsubsection">8.5.1.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d5"></span><ul>
+<li> All requires-expression requirements terminate with a semicolon.
+</li><li> simple-requirements are used to check that an expression is well-formed.
+</li><li> nested-requirements are introduced with <code>requires</code> and primarily
+used to check the result of an expression computable by the compiler,
+including concepts or other requires-expressions.
+</li><li> type-requirements are introduced with <code>typename</code> and used to verify
+the existence of a type with a particular identifier.
+</li><li> compound-requirements are enclosed in braces and can be used to check
+the resulting type of an expression.
+</li><li> Checks are performed by the compiler, not at run time.
+</li><li> If covering usage of requires-expression with requires-clause,
+<a href="../compile-time-programming/requires-clause.md">[Compile-time
+programming: requires clause]</a> demonstrate <code>requires requires</code> and
+show how to ever avoid writing it by using a concept.
+<a href="../compile-time-programming/concepts.md">[Compile-time programming:
+concepts]</a>
+</li></ul>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002frequired-knowledge-2"></span><h4 class="subsubsection">8.5.2.1 Background/required knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d7"></span><ul>
+<li> All of the above.
+</li><li> Knowledge of <code>noexcept</code>
+</li></ul>
+
+<p>A student is able to:
+</p>
+<ul>
+<li> Write a concept
+<a href="../compile-time-programming/concepts.md">[Compile-time programming:
+concepts]</a>
+</li></ul>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-8"></span><h4 class="subsubsection">8.5.2.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d7"></span><p>A student should be able to:
+</p>
+<ol>
+<li> Write compound-requirements which test the <code>noexcept</code>ness of an
+expression.
+</li><li> Use a concept as the target of a compound-requirement.
+</li></ol>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-8"></span><h4 class="subsubsection">8.5.2.3 Caveats</h4>
+<span id="g_t_0023caveats_002d7"></span>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-7"></span><h4 class="subsubsection">8.5.2.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d6"></span><ul>
+<li> Compound-requirements allow the optional ability to test whether an
+expression is marked as <code>noexcept</code>, by using a trailing
+<code>noexcept</code> keyword.
+</li></ul>
+
+<pre class="verbatim">struct S
+{
+    void foo() noexcept {}
+    void bar() {}
+};
+
+static_assert(requires(S s) { { s.foo() } noexcept; } ); // Succeeds. s.foo() is noexcept
+static_assert(requires(S s) { { s.bar() } noexcept; } ); // Fails. s.bar() is not noexcept
+</pre>
+<ul>
+<li> If the return-type-requirement of a compound-requirement is a concept,
+that concept is given the resulting type as the first parameter,
+followed by the specified parameters in the compound-requirement.
+<code>{ ++x } -&gt; C&lt;int&gt;</code> would substitute
+<code>C&lt;decltype((++x)), int&gt;</code> and check that concept C is satisfied for
+those parameters.
+</li></ul>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Advanced-3"></span><h4 class="subsection">8.5.3 Advanced</h4>
+<span id="g_t_0023advanced_002d2"></span>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Overview-5"></span><h4 class="subsection">8.6.1 Overview</h4>
+<span id="g_t_0023overview_002d4"></span><p><em>Provides a short natural language abstract of the module&rsquo;s
+contents.</em> <em>Specifies the different levels of teaching.</em>
+</p>
+<table>
+<thead><tr><th width="22%">Level</th><th width="78%">Objectives</th></tr></thead>
+<tr><td width="22%">Foundational</td><td width="78%">Calling <code>static_assert</code> with a constant expression</td></tr>
+<tr><td width="22%">Main</td><td width="78%">Using <code>static_assert</code> to detect contract violations and
+improve error messages</td></tr>
+<tr><td width="22%">Advanced</td><td width="78%">&mdash;</td></tr>
+</table>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Motivation-5"></span><h4 class="subsection">8.6.2 Motivation</h4>
+<span id="g_t_0023motivation_002d4"></span><p><em>Why is this important?</em> <em>Why do we want to learn/teach this
+topic?</em>
+</p>
+<p><code>static_assert</code> allows the developer to enforce that conditions
+which can be checked during compilation will force build errors when
+violated. Additionally, they are the best mechanism by which a developer
+can pass useful information to other developers regarding what violation
+occurred or what must be done, instead.
+</p>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Topic-introduction-5"></span><h4 class="subsection">8.6.3 Topic introduction</h4>
+<span id="g_t_0023topic_002dintroduction_002d4"></span><p><em>Very brief introduction to the topic.</em>
+</p>
+<p><code>static_assert</code> is a compile-time evaluated function that asserts
+the truth of a supplied predicate, issuing an optional user-supplied
+error message if the predicate is <code>false</code>.
+</p>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-7"></span><h4 class="subsubsection">8.6.4.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d8"></span><p>A student:
+</p>
+<ul>
+<li> Should be able to explain the difference between code evaluated at
+compile-time and run-time
+</li><li> Should be able to cite some examples of compile-time known information,
+such as <code>sizeof(T)</code>
+</li></ul>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-9"></span><h4 class="subsubsection">8.6.4.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d8"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> Assert the expected size of a structure using <code>static_assert</code>
+</li></ol>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-9"></span><h4 class="subsubsection">8.6.4.3 Caveats</h4>
+<span id="g_t_0023caveats_002d8"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-8"></span><h4 class="subsubsection">8.6.4.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d7"></span><p><em>This section lists important details for each point.</em>
+</p>
+<ul>
+<li> X
+</li><li> In addition to what is wrong, a good error message will inform the user
+of how to correct it
+</li></ul>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-8"></span><h4 class="subsubsection">8.6.5.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d9"></span><ul>
+<li> All of the above.
+</li><li> General understanding of compile-time requirements
+</li></ul>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-10"></span><h4 class="subsubsection">8.6.5.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d9"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> Utilize <code>static_assert</code> to verify preconditions of a meta-function
+</li><li> Utilize <code>static_assert</code> to verify the results of meta-functions for
+known values
+</li></ol>
+
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-10"></span><h4 class="subsubsection">8.6.5.3 Caveats</h4>
+<span id="g_t_0023caveats_002d9"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-9"></span><h4 class="subsubsection">8.6.5.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d8"></span><p><em>This section lists important details for each point.</em>
+</p>
+<ul>
+<li> When writing a meta-function, use <code>static_assert</code> to test the
+results
+</li><li> Write <code>static_assert</code> calls at the scope of the code they are
+guarding
+</li></ul>
+
+<pre class="verbatim">template&lt;typename T&gt;
+struct container {
+    std::map&lt;int, T&gt; vals;
+
+    // Test location #1
+    static_assert(
+        std::is_default_constructible_v&lt;T&gt;,
+        &quot;container type T must be default constructible&quot;);i
+
+    void add(int key, T const&amp; t) {
+        // Test location #2
+        static_assert(
+            std::is_default_constructible_v&lt;T&gt;,
+            &quot;container type T must be default constructible&quot;);
+        // std::map::operator[] requires default constructible type for 
+        // the value. This will cause a build failure deep in the 
+        // implementation of std::map, when T is not default constructible
+        vals[key] = t;
+    }
+};
+
+struct NoDefCtor {
+    NoDefCtor() = delete;
+    NoDefCtor(double d) {}
+};
+
+container&lt;NoDefCtor&gt; c; // If Test #1 was omitted, this would succeed
+// This is ill-formed. Test #2 would catch this and provide a better 
+// error message for the user
+c.add(42, NoDefCtor(1.0)); 
+</pre>
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Advanced-4"></span><h4 class="subsection">8.6.6 Advanced</h4>
+<span id="g_t_0023advanced_002d3"></span><p><em>These are important topics that are not expected to be covered but
+provide guidance where one can continue to investigate this topic in
+more depth.</em>
+</p>
+
+
+
+</body>
+</html>
