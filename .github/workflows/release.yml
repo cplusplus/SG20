@@ -47,7 +47,7 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ${{runner.temp}}/output
-        keep_files: true
+        #keep_files: true
       env:
         VERSION: ${{ steps.git_metadata.outputs.VERSION }}
 
