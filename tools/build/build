@@ -57,7 +57,7 @@ version=
 github_ref=
 spellcheck=0
 
-while getopts d:z:s opt; do
+while getopts d:z:v:s opt; do
 	case $opt in
 	d)
 		install_dir="$OPTARG";;
