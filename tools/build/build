@@ -53,6 +53,7 @@ source_dir="$cmd_dir/../.."
 ################################################################################
 
 install_dir=
+version=
 github_ref=
 spellcheck=0
 
@@ -62,6 +63,8 @@ while getopts d:z:s opt; do
 		install_dir="$OPTARG";;
 	z)
 		github_ref="$OPTARG";;
+	v)
+		version="$OPTARG";;
 	s)
 		spellcheck=1;;
 	\?)
@@ -74,16 +77,17 @@ shift $((OPTIND - 1))
 if [ -z "$install_dir" ]; then
 	usage "no output directory specified"
 fi
-if [ -z "$github_ref" ]; then
-	usage "no github ref specified"
-fi
+#if [ -z "$github_ref" ]; then
+#	usage "no github ref specified"
+#fi
 
 ################################################################################
 # Build the document.
 ################################################################################
 
-version="$(awk -v FS="/" '{print $3;}' <<< "$github_ref")" || \
-  panic "cannot determine document version"
+#version="$(awk -v FS="/" '{print $3;}' <<< "$github_ref")" || \
+#  panic "cannot determine document version"
+#version="0.2"
 
 if [ ! -d "$install_dir" ]; then
 	mkdir -p "$install_dir" || \
@@ -97,5 +101,12 @@ fi
   make DOC_VERSION="$version" DOC_SPELLCHECK_MUST_PASS="$spellcheck" all) || \
   panic "cannot build document"
 
-make INSTALL_DIR="$install_dir" install || \
+make INSTALL_DIR="$install_dir/$version" install || \
   panic "cannot install release"
+
+cp $source_dir/sources/index.html $install_dir
+
+pushd $install_dir
+unlink latest
+ln -s $version latest
+popd
