@@ -21,7 +21,7 @@ usage()
   Usage
   =====
 
-  $0 -d \$install_dir -z \$github_ref
+  $0 -d \$install_dir -v \$version
 
   Options
   =======
@@ -29,14 +29,13 @@ usage()
   -d \$install_dir
   Set the installation directory for the built release to \$install_dir.
 
-  -z \$github_ref
-  Set the GitHub ref to $\github_ref.
-  (This is used to determine the version of the document being released.)
+  -v \$version
+  Set the document version $\version.
 
   Examples
   ========
 
-  $0 -d /tmp/sg20_test/install -z refs/tags/v0.0.1
+  $0 -d /tmp/sg20_test/install -v v0.0.1
 EOF
   exit 2
 }
@@ -54,7 +53,6 @@ source_dir="$cmd_dir/../.."
 
 install_dir=
 version=
-github_ref=
 spellcheck=0
 
 while getopts d:v:s opt; do
