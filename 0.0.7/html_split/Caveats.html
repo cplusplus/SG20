@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Caveats (Guidelines for Teaching C++)</title>
+
+<meta name="description" content="Caveats (Guidelines for Teaching C++)">
+<meta name="keywords" content="Caveats (Guidelines for Teaching C++)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Foundational-How-and-when-are-copies-made.html" rel="up" title="Foundational How and when are copies made">
+<link href="Points-to-cover.html" rel="next" title="Points to cover">
+<link href="Student-outcomes.html" rel="prev" title="Student outcomes">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Caveats"></span><div class="header">
+<p>
+Next: <a href="Points-to-cover.html" accesskey="n" rel="next">Points to cover</a>, Previous: <a href="Student-outcomes.html" accesskey="p" rel="prev">Student outcomes</a>, Up: <a href="Foundational-How-and-when-are-copies-made.html" accesskey="u" rel="up">Foundational How and when are copies made</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<hr>
+<span id="Caveats-1"></span><h4 class="subsubsection">8.1.4.3 Caveats</h4>
+<span id="g_t_0023caveats"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<ul>
+<li> Compiler-provided copy operations may result in ownership problems
+(e.g., <code>char*</code>). These ownership problems can generally be solved
+by using types whose copy operations have the appropriate semantics,
+e.g., <code>std::string</code> instead of <code>char*</code> to hold string values.
+</li></ul>
+
+
+
+
+</body>
+</html>
