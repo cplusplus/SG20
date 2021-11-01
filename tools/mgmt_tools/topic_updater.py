@@ -110,7 +110,7 @@ class Skeleton:
 
     def get_title_heading(self) -> SectionHeading:
         """ The Title heading of the document. """
-        if not self.headings[0].header_text.startswith("# "):
+        if not self.headings[0].header_text.startswith("## "):
             raise AssertionError(
                 "First heading in the skeleton was not the title.")
         return self.headings[0]
@@ -221,7 +221,7 @@ class Skeleton:
         emitting_doc_text = True
 
         for line in topic_file.readlines():
-            if line.startswith("##"):
+            if line.startswith("###"):
                 next_heading = next(skeleton_headings_iter)
                 current_heading = self.lookup_heading(line.split(":")[0])
 
@@ -245,7 +245,7 @@ class Skeleton:
                 updated_topic_lines.extend(
                     current_heading.convert_meta_text_to_lines())
 
-            elif line.startswith("#"):
+            elif line.startswith("##"):
                 # Verify that the title heading has correct meta text
                 emitting_doc_text = False
                 next_heading = next(skeleton_headings_iter)
