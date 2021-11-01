@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Top (Guidelines for Teaching C++)</title>
+
+<meta name="description" content="Top (Guidelines for Teaching C++)">
+<meta name="keywords" content="Top (Guidelines for Teaching C++)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Obtaining-This-Document-The-Most-Recent-Version-and-Alternate-Formats.html" rel="next" title="Obtaining This Document The Most Recent Version and Alternate Formats">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a id="toc-Obtaining-This-Document_003a-The-Most-Recent-Version-and-Alternate" href="Obtaining-This-Document-The-Most-Recent-Version-and-Alternate-Formats.html#Obtaining-This-Document-The-Most-Recent-Version-and-Alternate-Formats">1 Obtaining This Document: The Most Recent Version and Alternate</a></li>
+  <li><a id="toc-Disclaimer-1" href="Disclaimer.html#Disclaimer">2 Disclaimer</a></li>
+  <li><a id="toc-Context-and-Aim-of-This-Guide-1" href="Context-and-Aim-of-This-Guide.html#Context-and-Aim-of-This-Guide">3 Context and Aim of This Guide</a></li>
+  <li><a id="toc-Use-of-This-Document-1" href="Use-of-This-Document.html#Use-of-This-Document">4 Use of This Document</a></li>
+  <li><a id="toc-Contributing-to-This-Document-1" href="Contributing-to-This-Document.html#Contributing-to-This-Document">5 Contributing to This Document</a></li>
+  <li><a id="toc-Organization-of-This-Document-1" href="Organization-of-This-Document.html#Organization-of-This-Document">6 Organization of This Document</a></li>
+  <li><a id="toc-Summary-of-Modules-and-Topics-1" href="Summary-of-Modules-and-Topics.html#Summary-of-Modules-and-Topics">7 Summary of Modules and Topics</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Compilation-Model-1" href="Compilation-Model.html#Compilation-Model">7.1 Compilation Model</a></li>
+    <li><a id="toc-Preprocessor-1" href="Preprocessor.html#Preprocessor">7.2 Preprocessor</a></li>
+    <li><a id="toc-Basics-Types_002c-Objects_002c-Values_002c-Expressions_002c-Statements_002c-and" href="Basics-Types-Objects-Values-Expressions-Statements-and-Control_002dFlow-Constructs.html#Basics-Types-Objects-Values-Expressions-Statements-and-Control_002dFlow-Constructs">7.3 Basics Types, Objects, Values, Expressions, Statements, and</a></li>
+    <li><a id="toc-Functions-1" href="Functions.html#Functions">7.4 Functions</a></li>
+    <li><a id="toc-User_002dDefined-Types-_0028Classes_0029" href="User_002dDefined-Types-Classes.html#User_002dDefined-Types-Classes">7.5 User-Defined Types (Classes)</a></li>
+    <li><a id="toc-Inheritance-and-Class-Hierarchies-1" href="Inheritance-and-Class-Hierarchies.html#Inheritance-and-Class-Hierarchies">7.6 Inheritance and Class Hierarchies</a></li>
+    <li><a id="toc-Compile_002dTime-Computation-1" href="Compile_002dTime-Computation.html#Compile_002dTime-Computation">7.7 Compile-Time Computation</a></li>
+    <li><a id="toc-Generic-Programming-_0028Templates_0029" href="Generic-Programming-Templates.html#Generic-Programming-Templates">7.8 Generic Programming (Templates)</a></li>
+    <li><a id="toc-Error-Handling-1" href="Error-Handling.html#Error-Handling">7.9 Error Handling</a></li>
+    <li><a id="toc-Standard-Library-1" href="Standard-Library.html#Standard-Library">7.10 Standard Library</a></li>
+    <li><a id="toc-External-_0028i_002ee_002e_002c-Non-Standard_0029-Libraries" href="External-ie-Non-Standard-Libraries.html#External-ie-Non-Standard-Libraries">7.11 External (i.e., Non Standard) Libraries</a></li>
+    <li><a id="toc-Building-1" href="Building.html#Building">7.12 Building</a></li>
+    <li><a id="toc-Testing-and-Debugging-1" href="Testing-and-Debugging.html#Testing-and-Debugging">7.13 Testing and Debugging</a></li>
+    <li><a id="toc-Tooling-1" href="Tooling.html#Tooling">7.14 Tooling</a></li>
+    <li><a id="toc-Software-Design-1" href="Software-Design.html#Software-Design">7.15 Software Design</a></li>
+  </ul></li>
+  <li><a id="toc-Detailed-Information-for-Modules-and-Topics-1" href="Detailed-Information-for-Modules-and-Topics.html#Detailed-Information-for-Modules-and-Topics">8 Detailed Information for Modules and Topics</a>
+  <ul class="no-bullet">
+    <li><a id="toc-C_002b_002b-object-model_003a-copy-semantics" href="C_002b_002b-object-model-copy-semantics.html#C_002b_002b-object-model-copy-semantics">8.1 C++ object model: copy semantics</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Overview-1" href="Overview.html#Overview">8.1.1 Overview</a></li>
+      <li><a id="toc-Motivation-1" href="Motivation.html#Motivation">8.1.2 Motivation</a></li>
+      <li><a id="toc-Topic-introduction-1" href="Topic-introduction.html#Topic-introduction">8.1.3 Topic introduction</a></li>
+      <li><a id="toc-Foundational_003a-How-and-when-are-copies-made" href="Foundational-How-and-when-are-copies-made.html#Foundational-How-and-when-are-copies-made">8.1.4 Foundational: How and when are copies made</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Background_002fRequired-Knowledge-1" href="Background_002fRequired-Knowledge.html#Background_002fRequired-Knowledge">8.1.4.1 Background/Required Knowledge</a></li>
+        <li><a id="toc-Student-outcomes-1" href="Student-outcomes.html#Student-outcomes">8.1.4.2 Student outcomes</a></li>
+        <li><a id="toc-Caveats-1" href="Caveats.html#Caveats">8.1.4.3 Caveats</a></li>
+        <li><a id="toc-Points-to-cover-1" href="Points-to-cover.html#Points-to-cover">8.1.4.4 Points to cover</a></li>
+      </ul></li>
+      <li><a id="toc-Main_003a-Implementing-user_002ddefined-copy-operations" href="Main-Implementing-user_002ddefined-copy-operations.html#Main-Implementing-user_002ddefined-copy-operations">8.1.5 Main: Implementing user-defined copy operations</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Background_002fRequired-Knowledge-2">8.1.5.1 Background/Required Knowledge</a></li>
+        <li><a id="toc-Student-outcomes-2">8.1.5.2 Student outcomes</a></li>
+        <li><a id="toc-Caveats-2">8.1.5.3 Caveats</a></li>
+        <li><a id="toc-Points-to-cover-2">8.1.5.4 Points to cover</a></li>
+      </ul></li>
+      <li><a id="toc-Advanced-1" href="Advanced.html#Advanced">8.1.6 Advanced</a></li>
+    </ul></li>
+    <li><a id="toc-Functions_003a-user_002ddefined-literals" href="Functions-user_002ddefined-literals.html#Functions-user_002ddefined-literals">8.2 Functions: user-defined literals</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Overview-2">8.2.1 Overview</a></li>
+      <li><a id="toc-Motivation-2">8.2.2 Motivation</a></li>
+      <li><a id="toc-Topic-introduction-2">8.2.3 Topic introduction</a></li>
+      <li><a id="toc-Foundational_003a-Using-UDLs" href="Foundational-Using-UDLs.html#Foundational-Using-UDLs">8.2.4 Foundational: Using UDLs</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Background_002fRequired-Knowledge-3">8.2.4.1 Background/Required Knowledge</a></li>
+        <li><a id="toc-Student-outcomes-3">8.2.4.2 Student outcomes</a></li>
+        <li><a id="toc-Caveats-3">8.2.4.3 Caveats</a></li>
+        <li><a id="toc-Points-to-cover-3">8.2.4.4 Points to cover</a></li>
+      </ul></li>
+      <li><a id="toc-Main_003a-implementing-UDLs" href="Main-implementing-UDLs.html#Main-implementing-UDLs">8.2.5 Main: implementing UDLs</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Background_002fRequired-Knowledge-4">8.2.5.1 Background/Required Knowledge</a></li>
+        <li><a id="toc-Student-outcomes-4">8.2.5.2 Student outcomes</a></li>
+        <li><a id="toc-Caveats-4">8.2.5.3 Caveats</a></li>
+      </ul></li>
+    </ul></li>
+    <li><a id="toc-Functions_003a-default-argument" href="Functions-default-argument.html#Functions-default-argument">8.3 Functions: default argument</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Overview-3">8.3.1 Overview</a></li>
+      <li><a id="toc-Motivation-3">8.3.2 Motivation</a></li>
+      <li><a id="toc-Topic-introduction-3">8.3.3 Topic introduction</a></li>
+      <li><a id="toc-Foundational_003a-Using-and-defining-functions-with-default" href="Foundational-Using-and-defining-functions-with-default-arguments.html#Foundational-Using-and-defining-functions-with-default-arguments">8.3.4 Foundational: Using and defining functions with default</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Background_002fRequired-Knowledge-5">8.3.4.1 Background/Required Knowledge</a></li>
+        <li><a id="toc-Student-outcomes-5">8.3.4.2 Student outcomes</a></li>
+        <li><a id="toc-Caveats-5">8.3.4.3 Caveats</a></li>
+        <li><a id="toc-Points-to-cover-4">8.3.4.4 Points to cover</a></li>
+      </ul></li>
+      <li><a id="toc-Main_003a-implementing-_002a" href="Main-implementing-_002a.html#Main-implementing-_002a">8.3.5 Main: implementing *</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Background_002frequired-knowledge-1" href="Background_002frequired-knowledge.html#Background_002frequired-knowledge">8.3.5.1 Background/required knowledge</a></li>
+        <li><a id="toc-Student-outcomes-6">8.3.5.2 Student outcomes</a></li>
+        <li><a id="toc-Caveats-6">8.3.5.3 Caveats</a></li>
+        <li><a id="toc-Points-to-cover-5">8.3.5.4 Points to cover</a></li>
+      </ul></li>
+      <li><a id="toc-Advanced-2">8.3.6 Advanced</a></li>
+    </ul></li>
+    <li><a id="toc-Module-name_003a-Requires-Expressions" href="Module-name-Requires-Expressions.html#Module-name-Requires-Expressions">8.4 Module name: Requires Expressions</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Overview-4">8.4.1 Overview</a></li>
+      <li><a id="toc-Motivation-4">8.4.2 Motivation</a></li>
+    </ul></li>
+    <li><a id="toc-Topic-introduction-4">8.5 Topic introduction</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Foundational_003a-Writing-requires_002dexpressions" href="Foundational-Writing-requires_002dexpressions.html#Foundational-Writing-requires_002dexpressions">8.5.1 Foundational: Writing requires-expressions</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Background_002fRequired-Knowledge-6">8.5.1.1 Background/Required Knowledge</a></li>
+        <li><a id="toc-Student-outcomes-7">8.5.1.2 Student outcomes</a></li>
+        <li><a id="toc-Caveats-7">8.5.1.3 Caveats</a></li>
+        <li><a id="toc-Points-to-cover-6">8.5.1.4 Points to cover</a></li>
+      </ul></li>
+      <li><a id="toc-Main_003a-Advanced-requirements" href="Main-Advanced-requirements.html#Main-Advanced-requirements">8.5.2 Main: Advanced requirements</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Background_002frequired-knowledge-2">8.5.2.1 Background/required knowledge</a></li>
+        <li><a id="toc-Student-outcomes-8">8.5.2.2 Student outcomes</a></li>
+        <li><a id="toc-Caveats-8">8.5.2.3 Caveats</a></li>
+        <li><a id="toc-Points-to-cover-7">8.5.2.4 Points to cover</a></li>
+      </ul></li>
+      <li><a id="toc-Advanced-3">8.5.3 Advanced</a></li>
+    </ul></li>
+    <li><a id="toc-Meta_002derror-handling_003a-static_005fassert" href="Meta_002derror-handling-static_005fassert.html#Meta_002derror-handling-static_005fassert">8.6 Meta-error handling: <code>static_assert</code></a>
+    <ul class="no-bullet">
+      <li><a id="toc-Overview-5">8.6.1 Overview</a></li>
+      <li><a id="toc-Motivation-5">8.6.2 Motivation</a></li>
+      <li><a id="toc-Topic-introduction-5">8.6.3 Topic introduction</a></li>
+      <li><a id="toc-Foundational_003a-Calling-static_005fassert-with-a-constant" href="Foundational-Calling-static_005fassert-with-a-constant-expression.html#Foundational-Calling-static_005fassert-with-a-constant-expression">8.6.4 Foundational: Calling <code>static_assert</code> with a constant</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Background_002fRequired-Knowledge-7">8.6.4.1 Background/Required Knowledge</a></li>
+        <li><a id="toc-Student-outcomes-9">8.6.4.2 Student outcomes</a></li>
+        <li><a id="toc-Caveats-9">8.6.4.3 Caveats</a></li>
+        <li><a id="toc-Points-to-cover-8">8.6.4.4 Points to cover</a></li>
+      </ul></li>
+      <li><a id="toc-Main_003a-Contracts-and-static_005fassert" href="Main-Contracts-and-static_005fassert.html#Main-Contracts-and-static_005fassert">8.6.5 Main: Contracts and <code>static_assert</code></a>
+      <ul class="no-bullet">
+        <li><a id="toc-Background_002fRequired-Knowledge-8">8.6.5.1 Background/Required Knowledge</a></li>
+        <li><a id="toc-Student-outcomes-10">8.6.5.2 Student outcomes</a></li>
+        <li><a id="toc-Caveats-10">8.6.5.3 Caveats</a></li>
+        <li><a id="toc-Points-to-cover-9">8.6.5.4 Points to cover</a></li>
+      </ul></li>
+      <li><a id="toc-Advanced-4">8.6.6 Advanced</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Examples-of-Course-Curricula-1" href="Examples-of-Course-Curricula.html#Examples-of-Course-Curricula">9 Examples of Course Curricula</a></li>
+  <li><a id="toc-License-1" href="License.html#License">10 License</a></li>
+  <li><a id="toc-Contributors-1" href="Contributors.html#Contributors">11 Contributors</a></li>
+  <li><a id="toc-How-To-Contribute-1" href="How-To-Contribute.html#How-To-Contribute">12 How To Contribute</a></li>
+  <li><a id="toc-Glossary-1" href="Glossary.html#Glossary">13 Glossary</a></li>
+  <li><a id="toc-References-1" href="References.html#References">14 References</a>
+  <ul class="no-bullet">
+    <li><a id="toc-References-on-Learning-Outcomes-1" href="References-on-Learning-Outcomes.html#References-on-Learning-Outcomes">14.1 References on Learning Outcomes</a></li>
+    <li><a id="toc-Working-Group-Documents-Related-to-C_002b_002b-Teaching-Guidelines-1" href="Working-Group-Documents-Related-to-C_002b_002b-Teaching-Guidelines.html#Working-Group-Documents-Related-to-C_002b_002b-Teaching-Guidelines">14.2 Working Group Documents Related to C++ Teaching Guidelines</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+<span id="Top"></span><div class="header">
+<p>
+Next: <a href="Obtaining-This-Document-The-Most-Recent-Version-and-Alternate-Formats.html" accesskey="n" rel="next">Obtaining This Document The Most Recent Version and Alternate Formats</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<hr>
+<span id="Guidelines-for-Teaching-C_002b_002b"></span><h1 class="top">Guidelines for Teaching C++</h1>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Obtaining-This-Document-The-Most-Recent-Version-and-Alternate-Formats.html" accesskey="1">Obtaining This Document The Most Recent Version and Alternate Formats</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Disclaimer.html" accesskey="2">Disclaimer</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Context-and-Aim-of-This-Guide.html" accesskey="3">Context and Aim of This Guide</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Use-of-This-Document.html" accesskey="4">Use of This Document</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Contributing-to-This-Document.html" accesskey="5">Contributing to This Document</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Organization-of-This-Document.html" accesskey="6">Organization of This Document</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Summary-of-Modules-and-Topics.html" accesskey="7">Summary of Modules and Topics</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Detailed-Information-for-Modules-and-Topics.html" accesskey="8">Detailed Information for Modules and Topics</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Examples-of-Course-Curricula.html" accesskey="9">Examples of Course Curricula</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="License.html">License</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Contributors.html">Contributors</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="How-To-Contribute.html">How To Contribute</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Glossary.html">Glossary</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="References.html">References</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Obtaining-This-Document-The-Most-Recent-Version-and-Alternate-Formats.html" accesskey="n" rel="next">Obtaining This Document The Most Recent Version and Alternate Formats</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+
+
+
+</body>
+</html>
