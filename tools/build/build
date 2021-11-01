@@ -93,7 +93,7 @@ fi
   make DOC_VERSION="$version" DOC_SPELLCHECK_MUST_PASS="$spellcheck" all) || \
   panic "cannot build document"
 
-make INSTALL_DIR="$install_dir/$version" install || \
+make DOC_VERSION="$version" INSTALL_DIR="$install_dir/$version" install || \
   panic "cannot install release"
 
 cp $source_dir/sources/index.html $install_dir
