@@ -1,7 +1,0 @@
-Some topics listed on GitHub are unclear as to their meaning.
-e.g.  Heterogeneous Compiling
-[Is "Heterogeneous Computing" intended or "Cross Compiling"?]
-There are others too.
-
-More thought is needed on naming conventions for labels for
-knowledge areas/units.
