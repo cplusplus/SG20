@@ -15,12 +15,10 @@ DOC_SPELLCHECK_MUST_PASS = 1
 INSTALL_DIR = $(TOP_DIR)/install
 
 # All of the Markdown source files (that are not generated during build).
-SOURCES = \
-  modules/compile-time-programming/requires-expressions.md \
-  modules/functions/defaulted-parameters.md \
-  modules/functions/user-defined-literals.md \
-  modules/object-model/copy-semantics.md \
-  course_examples.md \
+SOURCES = $(shell find . -name '*.md')
+
+# Special top-level markdown files
+EXTRA_SOURCES = course_examples.md \
   disclaimer.md \
   glossary.md \
   contributing.md \
@@ -34,6 +32,9 @@ GENERATED_MARKDOWN = \
   knowledge_areas_summary.md \
   main.gen.md \
   contributors.md \
+
+# Merge extra sources with detected sources for teaching modules
+SOURCES += $(EXTRA_SOURCES)
 
 ################################################################################
 # Define primary targets.
