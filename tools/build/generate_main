@@ -1,0 +1,66 @@
+#!/usr/bin/env python3
+"""
+Generates a complete main file that includes all teaching modules.
+"""
+import typing as tp
+from argparse import ArgumentParser
+from pathlib import Path
+
+
+def is_placeholder(module_file: Path) -> bool:
+    """
+    Checks if a given module file is only a placeholder.
+
+    Args:
+        module_file: that should be checked
+    """
+    with open(module_file, "r", encoding="UTF-8") as module:
+        for line in module.readlines()[:7]:
+            if line.startswith("This topic is currently under construction"):
+                return True
+
+    return False
+
+
+def inject_teaching_modules(main_file: tp.TextIO, module_folder: Path) -> None:
+    """
+    Injects '__INCLUDE__(module/file/path.md)' markers into the main file for
+    all modules found in the given module folder.
+
+    Args:
+        main_file: where generated input is written to
+        module_folder: location of the teaching module folder
+    """
+    for module in module_folder.glob('**/*.md'):
+        if not is_placeholder(module):
+            main_file.write(f"__INCLUDE__({module})\n\n")
+
+
+def generate_main():
+    """Generate a complete main file that includes all teaching modules."""
+    parser = ArgumentParser("topic_updater")
+    parser.add_argument("--raw",
+                        type=Path,
+                        help="The raw main file to process.")
+    parser.add_argument("--out",
+                        type=Path,
+                        help="Output filename for the generated main.")
+    parser.add_argument("--module-folder",
+                        type=Path,
+                        help="Path to the module folder.")
+
+    args = parser.parse_args()
+
+    with open(args.raw, "r",
+              encoding="UTF-8") as raw_main, open(args.out,
+                                                  "w",
+                                                  encoding="UTF-8") as main:
+        for line in raw_main.readlines():
+            if line.startswith("INJECT_TEACHING_MODULES"):
+                inject_teaching_modules(main, args.module_folder)
+            else:
+                main.write(line)
+
+
+if __name__ == "__main__":
+    generate_main()

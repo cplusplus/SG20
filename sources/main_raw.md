@@ -42,15 +42,7 @@ __INCLUDE__(knowledge_areas_summary.md)
 
 [//]: # ( ********** START OF DETAILED TOPIC DOCUMENTS ********** )
 
-__INCLUDE__(modules/object-model/copy-semantics.md)
-
-__INCLUDE__(modules/functions/user-defined-literals.md)
-
-__INCLUDE__(modules/functions/defaulted-parameters.md)
-
-__INCLUDE__(modules/compile-time-programming/requires-expressions.md)
-
-__INCLUDE__(modules/meta-error-handling/static_assert.md)
+INJECT_TEACHING_MODULES_HERE
 
 [//]: # ( ********** END OF DETAILED TOPIC DOCUMENTS ********** )
 

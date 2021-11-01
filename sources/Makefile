@@ -15,7 +15,7 @@ DOC_SPELLCHECK_MUST_PASS = 1
 INSTALL_DIR = $(TOP_DIR)/install
 
 # All of the Markdown source files (that are not generated during build).
-SOURCES = $(shell find . -name '*.md')
+SOURCES = $(shell find . -mindepth 2 -name '*.md')
 
 # Special top-level markdown files
 EXTRA_SOURCES = course_examples.md \
@@ -23,13 +23,14 @@ EXTRA_SOURCES = course_examples.md \
   glossary.md \
   contributing.md \
   introduction.md \
-  main.md \
+  main_raw.md \
   obtaining_document.md \
   references.md \
 
 # The Markdown files that are generated during the build process.
 GENERATED_MARKDOWN = \
   knowledge_areas_summary.md \
+  main.pre.md \
   main.gen.md \
   contributors.md \
 
@@ -97,6 +98,7 @@ install: all
 # Some additional configuration.
 ################################################################################
 
+MAIN_GENERATOR= $(TOP_DIR)/tools/build/generate_main
 MD_PREPROCESSOR = $(TOP_DIR)/tools/build/preprocessor
 MAKE_MARKDOWN = $(TOP_DIR)/tools/build/make_markdown
 SPELLCHECK_DIR = $(TOP_DIR)/config/spellcheck
@@ -105,8 +107,11 @@ SPELLCHECK_DIR = $(TOP_DIR)/config/spellcheck
 # Preprocessing setup.
 ################################################################################
 
-main.gen.md: $(SOURCES) contributors.md main.md
-	$(MD_PREPROCESSOR) -v $(DOC_VERSION) < main.md > main.gen.md
+main.pre.md: $(SOURCES) contributors.md main_raw.md
+	$(MAIN_GENERATOR) --raw main_raw.md --out main.pre.md --module-folder modules
+
+main.gen.md: $(SOURCES) contributors.md main.pre.md
+	$(MD_PREPROCESSOR) -v $(DOC_VERSION) < main.pre.md > main.gen.md
 
 knowledge_areas_summary.md: $(SOURCES) knowledge_areas.dat
 	$(MAKE_MARKDOWN) < knowledge_areas.dat > knowledge_areas_summary.md
