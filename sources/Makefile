@@ -169,7 +169,7 @@ spellcheck_result.txt: guidelines.html
 	  if [ -s $@ ]; then \
 	      echo "DETECTED SPELLING ERRORS:"; \
 	      cat $@ | while read line; do echo "Misspelled '$$line' in:"; \
-	      grep -R "$$line" --color=auto --include='*.md' --exclude='main.gen.md'; done; \
+	      grep -R "$$line" -n --color=auto --include='*.md' --exclude='main.gen.md'; done; \
 	      sync; \
 	      if [ $(DOC_SPELLCHECK_MUST_PASS) -ne 0 ]; then \
 	          echo "ERROR: spelling errors detected, cannot proceed!"; \
