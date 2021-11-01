@@ -31,6 +31,8 @@ to write concepts. [[Compile-time programming: concepts]][1]
 
 ## Topic introduction
 
+_Very brief introduction to the topic._
+
 Requires-expressions are compile-time predicates which evaluate to true 
 when their specified set of expressions are all valid for a given set of 
 inputs.
@@ -49,6 +51,10 @@ It is helpful if:
 * The student is aware that attempting to specialize the template with types or values which do not match otherwise unstated assumptions will cause errors within the template.
 
 #### Student outcomes
+
+_A list of things "a student should be able to" after the curriculum._
+_The next word should be an action word and testable in an exam._
+_Max 5 items._
 
 A student should be able to:
 
