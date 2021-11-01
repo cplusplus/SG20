@@ -1,8 +1,12 @@
 ## Module name: Requires Expressions {#req-expr}
+
 _Skeleton descriptions are typeset in italic text,_
 _so please don't remove these descriptions when editing the topic._
 
 ### Overview
+
+_Provides a short natural language abstract of the module’s contents._
+_Specifies the different levels of teaching._
 
 -------------------------------------------------------------------------
 Level              Objectives
@@ -17,6 +21,9 @@ Advanced           ---
 -------------------------------------------------------------------------
 
 ### Motivation
+
+_Why is this important?_
+_Why do we want to learn/teach this topic?_
 
 Requires-expressions allow a developer to perform compile-time evaluation 
 on the validity of other expressions. These are fundamental to the ability 
