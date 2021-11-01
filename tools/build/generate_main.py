@@ -36,8 +36,28 @@ def inject_teaching_modules(main_file: tp.TextIO, module_folder: Path) -> None:
             main_file.write(f"__INCLUDE__({module})\n\n")
 
 
-def generate_main():
-    """Generate a complete main file that includes all teaching modules."""
+def generate_main(raw_main_filepath: Path, output_filepath: Path,
+                  module_folder: Path) -> None:
+    """
+    Generate a complete main file that includes all teaching modules.
+
+    Args:
+        raw_main: file that will be processed
+        output_filename: where generated input should be written
+        module_folder: location of the teaching module folder
+    """
+    with open(raw_main_filepath, "r", encoding="UTF-8") as raw_main, open(
+            output_filepath, "w", encoding="UTF-8") as generated_main_file:
+
+        for line in raw_main.readlines():
+            if line.startswith("INJECT_TEACHING_MODULES"):
+                inject_teaching_modules(generated_main_file, module_folder)
+            else:
+                generated_main_file.write(line)
+
+
+def main():
+    """Parse inputs and kick of main generation."""
     parser = ArgumentParser("topic_updater")
     parser.add_argument("--raw",
                         type=Path,
@@ -51,16 +71,8 @@ def generate_main():
 
     args = parser.parse_args()
 
-    with open(args.raw, "r",
-              encoding="UTF-8") as raw_main, open(args.out,
-                                                  "w",
-                                                  encoding="UTF-8") as main:
-        for line in raw_main.readlines():
-            if line.startswith("INJECT_TEACHING_MODULES"):
-                inject_teaching_modules(main, args.module_folder)
-            else:
-                main.write(line)
+    generate_main(args.raw, args.out, args.module_folder)
 
 
 if __name__ == "__main__":
-    generate_main()
+    main()
