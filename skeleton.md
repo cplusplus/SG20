@@ -8,24 +8,16 @@ _so please don't remove these descriptions when editing the topic._
 _Provides a short natural language abstract of the module’s contents._
 _Specifies the different levels of teaching._
 
-<table>
-  <thead>
-    <th>Level</th>
-    <th>Objectives</th>
-  </thead>
-  <tr>
-    <td>Foundational</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Main</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Advanced</td>
-    <td></td>
-  </tr>
-</table>
+------------------------------------------------------------------------
+Level             Objective
+----------------- ------------------------------------------------------
+Foundational      ---
+
+Main              ---
+
+Advanced          ---
+
+------------------------------------------------------------------------
 
 ### Motivation
 
