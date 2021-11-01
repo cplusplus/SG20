@@ -1,5 +1,4 @@
 #! /usr/bin/env bash
-# Michael Adams (mdadams@ece.uvic.ca)
 
 awk '
 function output(level, old_level, label, basic, intermediate, advanced, text) {
