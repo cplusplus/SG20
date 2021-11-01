@@ -84,7 +84,7 @@ _This section lists important details for each point._
 
 ### Main: implementing * {#func-args-intermediate}
 
-#### Background/required knowledge
+#### Background/Required Knowledge
 
 * All of the above.
 
