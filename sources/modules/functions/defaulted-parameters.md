@@ -107,6 +107,9 @@ _This section lists important details for each point._
 
 ### Advanced {#func-args-advanced}
 
+_These are important topics that are not expected to be covered but provide
+guidance where one can continue to investigate this topic in more depth._
+
 Subsequent redeclarations of the same function may add default argument
 values, which are then usable by callers.
 Though a single parameter cannot be given a default argument twice in the same 
