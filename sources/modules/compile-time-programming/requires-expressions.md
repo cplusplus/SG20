@@ -89,7 +89,7 @@ _This section lists important details for each point._
 
 ### Main: Advanced requirements {#req-expr-intermediate}
 
-#### Background/required knowledge
+#### Background/Required Knowledge
 
 * All of the above.
 * Knowledge of `noexcept`
