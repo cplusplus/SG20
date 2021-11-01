@@ -10,7 +10,10 @@ following formats:
   1. online (HTML) format as a single large HTML document:
   <https://cplusplus.github.io/SG20/__VERSION__/html>
 
-  2. online (HTML) format, split across multiple HTML documents:
+  2. EPUB format:
+  <https:/cplusplus.github.io/SG20/__VERSION__/guidelines.epub>
+
+  3. online (HTML) format, split across multiple HTML documents:
   <https://cplusplus.github.io/SG20/__VERSION__/html_split/>
   **[Note: The support for this format needs more work (in order to beautify
   and fix linking issues).]**
