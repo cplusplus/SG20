@@ -24,7 +24,7 @@ to write concepts. [[Compile-time programming: concepts]][1]
 
 ## Topic introduction
 
-Requires-expressions are compile-time predicates which evaluate to true 
+Rrequires-expressions are compile-time predicates which evaluate to true 
 when their specified set of expressions are all valid for a given set of 
 inputs.
 
@@ -48,7 +48,7 @@ A student should be able to:
 1. Write a simple-requirement to assert the validity of an expression
 2. Write a type-requirement to check the existence of a type by its identifier
 3. Write a compound-requirement to test the resulting type of an expression
-4. Write a nested-requirement to test the constexpr value of an operation, as opposed to just the syntactic validity
+4. Write a nested-requirement to test the connstexpr value of an operation, as opposed to just the syntactic validity
 5. Use a requires-expression within a concept, requires-clause, or `if constexpr` condition
 
 #### Caveats

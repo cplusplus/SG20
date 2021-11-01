@@ -168,7 +168,8 @@ spellcheck_result.txt: guidelines.html
 	  main.gen.md | sort | uniq > $@
 	  if [ -s $@ ]; then \
 	      echo "SPELLING ERRORS DETECTED:"; \
-	      cat $@ ; \
+	      cat $@ | while read line; do echo "Misspelled '$$line' in:"; \
+	      grep -R "$$line" --color=auto --include='*.md' --exclude='main.gen.md'; done; \
 	      if [ $(DOC_SPELLCHECK_MUST_PASS) -ne 0 ]; then \
 	          echo "ERROR: spelling errors detected"; \
 	          exit 1; \
