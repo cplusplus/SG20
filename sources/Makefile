@@ -98,7 +98,7 @@ install: all
 # Some additional configuration.
 ################################################################################
 
-MAIN_GENERATOR= $(TOP_DIR)/tools/build/generate_main
+MAIN_GENERATOR= $(TOP_DIR)/tools/build/generate_main.py
 MD_PREPROCESSOR = $(TOP_DIR)/tools/build/preprocessor
 MAKE_MARKDOWN = $(TOP_DIR)/tools/build/make_markdown
 SPELLCHECK_DIR = $(TOP_DIR)/config/spellcheck
