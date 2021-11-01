@@ -39,7 +39,7 @@ A student is able to:
 
 It is helpful if:
 
-* The sstudent is aware that attempting to specialize the template with types or values which do not match otherwise unstated assumptions will cause errors within the template.
+* The student is aware that attempting to specialize the template with types or values which do not match otherwise unstated assumptions will cause errors within the template.
 
 #### Student outcomes
 
