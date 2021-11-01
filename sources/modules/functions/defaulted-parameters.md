@@ -36,6 +36,8 @@ without forcing changes to existing calling code.
 
 ### Topic introduction
 
+_Very brief introduction to the topic._
+
 Explain how default arguments work and how to define them.
 
 ### Foundational: Using and defining functions with default arguments {#func-args-basic}
@@ -51,6 +53,10 @@ A student is able to:
 
 #### Student outcomes
 
+_A list of things "a student should be able to" after the curriculum._
+_The next word should be an action word and testable in an exam._
+_Max 5 items._
+
 A student should be able to:
 
 1. Call to a function with a default argument with or without that argument specified
@@ -60,12 +66,17 @@ A student should be able to:
 
 #### Caveats
 
+_This section mentions subtle points to understand, like anything resulting in
+implementation-defined, unspecified, or undefined behavior._
+
 * When no forward-declaration exists, the definition serves as the declaration
 * When multiple declarations exist, only one may specify the default for any particular parameter, but multiple declarations may specify the defaults for different parameters.
 * Additional default values may be specified for other parameters in repeat declarations
 * Calling an overloaded function with fewer arguments may be ambiguous with regard to an overload with default arguments
 
 #### Points to cover
+
+_This section lists important details for each point._
 
 * Default value may only be specified once for each parameter among all declarations
 * Default values must start from the rightmost parameter and continue leftward without gaps
@@ -79,11 +90,20 @@ A student should be able to:
 
 #### Student outcomes
 
+_A list of things "a student should be able to" after the curriculum._
+_The next word should be an action word and testable in an exam._
+_Max 5 items._
+
 A student should be able to:
 
 #### Caveats
 
+_This section mentions subtle points to understand, like anything resulting in
+implementation-defined, unspecified, or undefined behavior._
+
 #### Points to cover
+
+_This section lists important details for each point._
 
 ### Advanced {#func-args-advanced}
 
