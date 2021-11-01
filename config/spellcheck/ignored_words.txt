@@ -10,6 +10,8 @@ expr
 Florian
 func
 Furst
+Hinnant
+html
 Hyland
 JC
 Krathwohl
@@ -21,7 +23,6 @@ Sattler
 SG
 Stroustrup
 udl
+Vandevoorde
 ver
 Winkel
-Hinnant
-Vandevoorde
