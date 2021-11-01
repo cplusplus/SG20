@@ -100,6 +100,10 @@ A student is able to:
 
 #### Student outcomes
 
+_A list of things "a student should be able to" after the curriculum._
+_The next word should be an action word and testable in an exam._
+_Max 5 items._
+
 A student should be able to:
 
 1. Write compound-requirements which test the `noexcept`ness of an expression.
@@ -107,7 +111,12 @@ A student should be able to:
 
 #### Caveats
 
+_This section mentions subtle points to understand, like anything resulting in
+implementation-defined, unspecified, or undefined behavior._
+
 #### Points to cover
+
+_This section lists important details for each point._
 
 * Compound-requirements allow the optional ability to test whether an expression is marked as `noexcept`, by using a trailing `noexcept` keyword.
 
