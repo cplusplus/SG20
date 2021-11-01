@@ -1,8 +1,12 @@
 ## Functions: default argument {#func-args}
+
 _Skeleton descriptions are typeset in italic text,_
 _so please don't remove these descriptions when editing the topic._
 
 ### Overview
+
+_Provides a short natural language abstract of the module’s contents._
+_Specifies the different levels of teaching._
 
 Functions in C++ may be overloaded with different numbers and types of 
 parameters. It may be of value to specify default arguments for some number 
@@ -22,6 +26,9 @@ Advanced          refinement of default arguments through multiple
 ------------------------------------------------------------------------
 
 ### Motivation
+
+_Why is this important?_
+_Why do we want to learn/teach this topic?_
 
 Default arguments allow the omission of arguments with obvious or common
 values. Also may be utilized to extend an existing function signature 
