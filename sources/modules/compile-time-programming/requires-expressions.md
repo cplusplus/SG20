@@ -1,8 +1,12 @@
 ## Module name: Requires Expressions {#req-expr}
+
 _Skeleton descriptions are typeset in italic text,_
 _so please don't remove these descriptions when editing the topic._
 
 ### Overview
+
+_Provides a short natural language abstract of the module’s contents._
+_Specifies the different levels of teaching._
 
 -------------------------------------------------------------------------
 Level              Objectives
@@ -18,11 +22,16 @@ Advanced           ---
 
 ### Motivation
 
+_Why is this important?_
+_Why do we want to learn/teach this topic?_
+
 Requires-expressions allow a developer to perform compile-time evaluation 
 on the validity of other expressions. These are fundamental to the ability 
 to write concepts. [[Compile-time programming: concepts]][1]
 
 ## Topic introduction
+
+_Very brief introduction to the topic._
 
 Requires-expressions are compile-time predicates which evaluate to true 
 when their specified set of expressions are all valid for a given set of 
@@ -43,6 +52,10 @@ It is helpful if:
 
 #### Student outcomes
 
+_A list of things "a student should be able to" after the curriculum._
+_The next word should be an action word and testable in an exam._
+_Max 5 items._
+
 A student should be able to:
 
 1. Write a simple-requirement to assert the validity of an expression
@@ -53,6 +66,9 @@ A student should be able to:
 
 #### Caveats
 
+_This section mentions subtle points to understand, like anything resulting in
+implementation-defined, unspecified, or undefined behavior._
+
 To require that expressions, which evaluate to a boolean value 
 like `sizeof(t) == 4`, evaluate to `true` a nested-requirement is needed 
 (e.g., `requires sizeof(t) == 4;`). Omitting the `requires` results in a 
@@ -60,6 +76,8 @@ simple-requirement, which is satisfied based purely on syntactic validity,
 not on the result of the operation.
 
 #### Points to cover
+
+_This section lists important details for each point._
 
 * All requires-expression requirements terminate with a semicolon.
 * simple-requirements are used to check that an expression is well-formed.
@@ -71,7 +89,7 @@ not on the result of the operation.
 
 ### Main: Advanced requirements {#req-expr-intermediate}
 
-#### Background/required knowledge
+#### Background/Required Knowledge
 
 * All of the above.
 * Knowledge of `noexcept`
@@ -82,6 +100,10 @@ A student is able to:
 
 #### Student outcomes
 
+_A list of things "a student should be able to" after the curriculum._
+_The next word should be an action word and testable in an exam._
+_Max 5 items._
+
 A student should be able to:
 
 1. Write compound-requirements which test the `noexcept`ness of an expression.
@@ -89,7 +111,12 @@ A student should be able to:
 
 #### Caveats
 
+_This section mentions subtle points to understand, like anything resulting in
+implementation-defined, unspecified, or undefined behavior._
+
 #### Points to cover
+
+_This section lists important details for each point._
 
 * Compound-requirements allow the optional ability to test whether an expression is marked as `noexcept`, by using a trailing `noexcept` keyword.
 
