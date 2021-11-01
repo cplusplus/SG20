@@ -11,7 +11,7 @@ following formats:
   <https://cplusplus.github.io/SG20/__VERSION__/html>
 
   2. EPUB format:
-  <https:/cplusplus.github.io/SG20/__VERSION__/guidelines.epub>
+  <https://cplusplus.github.io/SG20/__VERSION__/guidelines.epub>
 
   3. online (HTML) format, split across multiple HTML documents:
   <https://cplusplus.github.io/SG20/__VERSION__/html_split/>
