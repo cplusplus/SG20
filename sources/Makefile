@@ -167,12 +167,12 @@ spellcheck_result.txt: guidelines.html
 	  --lua-filter $(TOP_DIR)/tools/pandoc_filters/spellcheck.lua \
 	  main.gen.md | sort | uniq > $@
 	  if [ -s $@ ]; then \
-	      echo "SPELLING ERRORS DETECTED:"; \
+	      echo "DETECTED SPELLING ERRORS:"; \
 	      cat $@ | while read line; do echo "Misspelled '$$line' in:"; \
 	      grep -R "$$line" --color=auto --include='*.md' --exclude='main.gen.md'; done; \
 	      sync; \
 	      if [ $(DOC_SPELLCHECK_MUST_PASS) -ne 0 ]; then \
-	          echo "ERROR: spelling errors detected"; \
+	          echo "ERROR: spelling errors detected, cannot proceed!"; \
 	          exit 1; \
 	      else \
 	          echo "WARNING: spelling errors detected"; \
