@@ -66,6 +66,9 @@ A student should be able to:
 
 #### Caveats
 
+_This section mentions subtle points to understand, like anything resulting in
+implementation-defined, unspecified, or undefined behavior._
+
 To require that expressions, which evaluate to a boolean value 
 like `sizeof(t) == 4`, evaluate to `true` a nested-requirement is needed 
 (e.g., `requires sizeof(t) == 4;`). Omitting the `requires` results in a 
@@ -73,6 +76,8 @@ simple-requirement, which is satisfied based purely on syntactic validity,
 not on the result of the operation.
 
 #### Points to cover
+
+_This section lists important details for each point._
 
 * All requires-expression requirements terminate with a semicolon.
 * simple-requirements are used to check that an expression is well-formed.
