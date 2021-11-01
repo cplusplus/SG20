@@ -11,7 +11,7 @@ import unittest
 
 import mock
 
-import topic_updater as tu
+import mgmt_tools.topic_updater as tu
 
 TEST_INPUTS = Path("tests/TEST_INPUTS/")
 
@@ -78,31 +78,32 @@ class TestSkeleton(unittest.TestCase):
                                       "skeleton.md")
 
         self.assertEqual(actual_skeleton.get_title_heading().header_text,
-                         "# Module name: topic name")
+                         "## Module name: topic name")
         headings = list(
             map(lambda heading: heading.header_text, actual_skeleton.headings))
-        self.assertEqual(headings[0], "# Module name: topic name")
-        self.assertEqual(headings[1], "## Overview")
+        self.assertEqual(headings[0], "## Module name: topic name")
+        self.assertEqual(headings[1], "### Overview")
 
-        self.assertEqual(headings[-2], "### Points to cover")
-        self.assertEqual(headings[-1], "## Advanced")
+        self.assertEqual(headings[-2], "#### Points to cover")
+        self.assertEqual(headings[-1], "### Advanced")
 
     def test_heading_lookup(self):
         """
         Checks if we can lookup different section headings in the skeleton.
         """
         section_with_user_content = self.test_skeleton.lookup_heading(
-            "## Section with user content:")
+            "### Section with user content:")
         missing_mid = self.test_skeleton.lookup_heading(
-            "## Missing mid section")
+            "### Missing mid section")
 
-        self.assertEqual(section_with_user_content.header_text,
-                         "## Section with user content: provided by the user")
+        self.assertEqual(
+            section_with_user_content.header_text,
+            "### Section with user content: provided by the user")
         self.assertEqual(
             section_with_user_content.meta_text[0].rstrip(),
             "_ Example section where user text is in the header _")
 
-        self.assertEqual(missing_mid.header_text, "## Missing mid section")
+        self.assertEqual(missing_mid.header_text, "### Missing mid section")
         self.assertEqual(
             missing_mid.meta_text[0].rstrip(),
             "_ This section could be missing in the middle of the topics _")
@@ -113,18 +114,19 @@ class TestSkeleton(unittest.TestCase):
         even if the original text is wrongly capitialized.
         """
         wrong_upper_case_heading = self.test_skeleton.lookup_heading(
-            "## Section with User content:")
+            "### Section with User content:")
         wrong_lower_case_heading = self.test_skeleton.lookup_heading(
-            "## missing mid section")
+            "### missing mid section")
 
-        self.assertEqual(wrong_upper_case_heading.header_text,
-                         "## Section with user content: provided by the user")
+        self.assertEqual(
+            wrong_upper_case_heading.header_text,
+            "### Section with user content: provided by the user")
         self.assertEqual(
             wrong_upper_case_heading.meta_text[0].rstrip(),
             "_ Example section where user text is in the header _")
 
         self.assertEqual(wrong_lower_case_heading.header_text,
-                         "## Missing mid section")
+                         "### Missing mid section")
         self.assertEqual(
             wrong_lower_case_heading.meta_text[0].rstrip(),
             "_ This section could be missing in the middle of the topics _")
@@ -134,7 +136,7 @@ class TestSkeleton(unittest.TestCase):
         Checks if we get the correct title heading from the test skeleton.
         """
         self.assertEqual(self.test_skeleton.get_title_heading().header_text,
-                         "# Main Title")
+                         "## Main Title")
         self.assertEqual(
             self.test_skeleton.get_title_heading().meta_text[0],
             "_Skeleton instructions are typeset in italic text._" + os.linesep)
@@ -145,7 +147,7 @@ class TestSkeleton(unittest.TestCase):
         lines.
         """
         multi_line_meta_heading = self.test_skeleton.lookup_heading(
-            "## Meta text with line breaks")
+            "### Meta text with line breaks")
 
         self.assertEqual(multi_line_meta_heading.meta_text[0],
                          "_ Some text here" + os.linesep)
@@ -177,7 +179,8 @@ class TestSkeletonTopicUpdates(unittest.TestCase):
             start_test_scope_lines = list(
                 dropwhile(
                     lambda line: not line.startswith(
-                        "## Section with user content:"), updated_topic_lines))
+                        "### Section with user content:"),
+                    updated_topic_lines))
 
             self.assertTrue(
                 start_test_scope_lines[0].endswith(
@@ -209,7 +212,7 @@ class TestSkeletonTopicUpdates(unittest.TestCase):
             self.assertTrue(start_test_scope_lines[2].startswith("</table>"),
                             "User provided content was modified")
 
-    @mock.patch('topic_updater._cli_yn_choice')
+    @mock.patch('mgmt_tools.topic_updater._cli_yn_choice')
     def test_if_missing_section_gets_added_to_the_end(self, mock_cli_yn):
         """
         Checks if a section that is missing at the end of the topic file gets
@@ -222,13 +225,13 @@ class TestSkeletonTopicUpdates(unittest.TestCase):
                 topic_file)
 
             self.assertEqual(
-                updated_topic_lines[-3].rstrip(), "## Missing end section",
+                updated_topic_lines[-3].rstrip(), "### Missing end section",
                 "Missing section was not added to the end of the file.")
             self.assertEqual(
                 updated_topic_lines[-1].rstrip(),
                 "_ This section could be missing at the end of the document _")
 
-    @mock.patch('topic_updater._cli_yn_choice')
+    @mock.patch('mgmt_tools.topic_updater._cli_yn_choice')
     def test_if_missing_section_gets_added_in_the_middle(self, mock_cli_yn):
         """
         Checks if a section that is missing in the middle of the topic file
@@ -246,27 +249,27 @@ class TestSkeletonTopicUpdates(unittest.TestCase):
             # section.
             start_test_scope_lines = list(
                 filter(
-                    lambda line: line.startswith("##"),
+                    lambda line: line.startswith("###"),
                     dropwhile(
                         lambda line: not line.startswith(
-                            "## Section with user content"),
+                            "### Section with user content"),
                         iter(updated_topic_lines))))
 
             # Verify that the previous section is correct
             self.assertTrue(
                 start_test_scope_lines[0].startswith(
-                    "## Section with user content"),
+                    "### Section with user content"),
                 "The section before the added missing section is wrong.")
 
             # Verify the section was inserted
             self.assertEqual(
-                start_test_scope_lines[1].rstrip(), "## Missing mid section",
+                start_test_scope_lines[1].rstrip(), "### Missing mid section",
                 "The missing section was not inserted correctly.")
 
             # Verify the next section is correct
             self.assertTrue(
                 start_test_scope_lines[2].startswith(
-                    "## Italics text should be updated"),
+                    "### Italics text should be updated"),
                 "The section after the added missing section is wrong.")
 
     def test_that_meta_text_gets_updated(self):
@@ -282,11 +285,11 @@ class TestSkeletonTopicUpdates(unittest.TestCase):
             topic_lines_starting_from_italics_section = list(
                 dropwhile(
                     lambda line: not line.startswith(
-                        "## Italics text should be updated"),
+                        "### Italics text should be updated"),
                     iter(updated_topic_lines)))
             self.assertEqual(
                 topic_lines_starting_from_italics_section[0].rstrip(),
-                "## Italics text should be updated",
+                "### Italics text should be updated",
                 "Could not find italics section.")
             self.assertEqual(
                 topic_lines_starting_from_italics_section[2].rstrip(),
@@ -314,7 +317,7 @@ class TestSkeletonTopicUpdates(unittest.TestCase):
 
             start_test_scope_lines = list(
                 dropwhile(
-                    lambda line: not line.startswith("## Section with user"),
+                    lambda line: not line.startswith("### Section with user"),
                     updated_topic_lines))
             self.assertEqual(start_test_scope_lines[1], os.linesep,
                              "No newline between heading and meta text.")
