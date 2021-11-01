@@ -7,38 +7,38 @@
 # Terminate with error.
 panic()
 {
-	echo "ERROR: $@" 1>&2
-	exit 1
+  echo "ERROR: $@" 1>&2
+  exit 1
 }
 
 # Print usage information.
 usage()
 {
-	echo "bad usage: $@"
-	cat <<- EOF
-	build - Build the document.
+  echo "bad usage: $@"
+  cat <<  EOF
+  build - Build the document.
 
-	Usage
-	=====
+  Usage
+  =====
 
-	$0 -d \$install_dir -z \$github_ref
+  $0 -d \$install_dir -z \$github_ref
 
-	Options
-	=======
+  Options
+  =======
 
-	-d \$install_dir
-	Set the installation directory for the built release to \$install_dir.
+  -d \$install_dir
+  Set the installation directory for the built release to \$install_dir.
 
-	-z \$github_ref
-	Set the GitHub ref to $\github_ref.
-	(This is used to determine the version of the document being released.)
+  -z \$github_ref
+  Set the GitHub ref to $\github_ref.
+  (This is used to determine the version of the document being released.)
 
-	Examples
-	========
+  Examples
+  ========
 
-	$0 -d /tmp/sg20_test/install -z refs/tags/v0.0.1
-	EOF
-	exit 2
+  $0 -d /tmp/sg20_test/install -z refs/tags/v0.0.1
+EOF
+  exit 2
 }
 
 ################################################################################
@@ -57,41 +57,35 @@ version=
 github_ref=
 spellcheck=0
 
-while getopts d:z:v:s opt; do
-	case $opt in
-	d)
-		install_dir="$OPTARG";;
-	z)
-		github_ref="$OPTARG";;
-	v)
-		version="$OPTARG";;
-	s)
-		spellcheck=1;;
-	\?)
-		usage
-		break;;
-	esac
+while getopts d:v:s opt; do
+  case $opt in
+  d)
+    install_dir="$OPTARG";;
+  v)
+    version="$OPTARG";;
+  s)
+    spellcheck=1;;
+  \?)
+    usage
+    break;;
+  esac
 done
 shift $((OPTIND - 1))
 
 if [ -z "$install_dir" ]; then
-	usage "no output directory specified"
+  usage "no output directory specified"
 fi
-#if [ -z "$github_ref" ]; then
-#	usage "no github ref specified"
-#fi
+if [ -z "$version" ]; then
+  usage "no document version specified"
+fi
 
 ################################################################################
 # Build the document.
 ################################################################################
 
-#version="$(awk -v FS="/" '{print $3;}' <<< "$github_ref")" || \
-#  panic "cannot determine document version"
-#version="0.2"
-
 if [ ! -d "$install_dir" ]; then
-	mkdir -p "$install_dir" || \
-	  panic "cannot make installation directory $install_dir"
+  mkdir -p "$install_dir" || \
+    panic "cannot make installation directory $install_dir"
 fi
 
 (cd "$source_dir" && make clean) || \
@@ -107,6 +101,6 @@ make INSTALL_DIR="$install_dir/$version" install || \
 cp $source_dir/sources/index.html $install_dir
 
 pushd $install_dir
-rm -rf latest
+unlink latest
 ln -s $version/html latest
 popd
