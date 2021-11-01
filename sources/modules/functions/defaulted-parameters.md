@@ -1,12 +1,8 @@
 ## Functions: default argument {#func-args}
-
 _Skeleton descriptions are typeset in italic text,_
 _so please don't remove these descriptions when editing the topic._
 
 ### Overview
-
-_Provides a short natural language abstract of the module’s contents._
-_Specifies the different levels of teaching._
 
 Functions in C++ may be overloaded with different numbers and types of 
 parameters. It may be of value to specify default arguments for some number 
@@ -27,16 +23,11 @@ Advanced          refinement of default arguments through multiple
 
 ### Motivation
 
-_Why is this important?_
-_Why do we want to learn/teach this topic?_
-
 Default arguments allow the omission of arguments with obvious or common
 values. Also may be utilized to extend an existing function signature 
 without forcing changes to existing calling code.
 
 ### Topic introduction
-
-_Very brief introduction to the topic._
 
 Explain how default arguments work and how to define them.
 
@@ -53,10 +44,6 @@ A student is able to:
 
 #### Student outcomes
 
-_A list of things "a student should be able to" after the curriculum._
-_The next word should be an action word and testable in an exam._
-_Max 5 items._
-
 A student should be able to:
 
 1. Call to a function with a default argument with or without that argument specified
@@ -66,9 +53,6 @@ A student should be able to:
 
 #### Caveats
 
-_This section mentions subtle points to understand, like anything resulting in
-implementation-defined, unspecified, or undefined behavior._
-
 * When no forward-declaration exists, the definition serves as the declaration
 * When multiple declarations exist, only one may specify the default for any particular parameter, but multiple declarations may specify the defaults for different parameters.
 * Additional default values may be specified for other parameters in repeat declarations
@@ -76,39 +60,25 @@ implementation-defined, unspecified, or undefined behavior._
 
 #### Points to cover
 
-_This section lists important details for each point._
-
 * Default value may only be specified once for each parameter among all declarations
 * Default values must start from the rightmost parameter and continue leftward without gaps
 * Considerations of when to use default arguments vs overload set
 
 ### Main: implementing * {#func-args-intermediate}
 
-#### Background/Required Knowledge
+#### Background/required knowledge
 
 * All of the above.
 
 #### Student outcomes
 
-_A list of things "a student should be able to" after the curriculum._
-_The next word should be an action word and testable in an exam._
-_Max 5 items._
-
 A student should be able to:
 
 #### Caveats
 
-_This section mentions subtle points to understand, like anything resulting in
-implementation-defined, unspecified, or undefined behavior._
-
 #### Points to cover
 
-_This section lists important details for each point._
-
 ### Advanced {#func-args-advanced}
-
-_These are important topics that are not expected to be covered but provide
-guidance where one can continue to investigate this topic in more depth._
 
 Subsequent redeclarations of the same function may add default argument
 values, which are then usable by callers.
