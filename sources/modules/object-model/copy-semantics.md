@@ -80,7 +80,7 @@ _This section lists important details for each point._
   * Strings (copies the value) 
 
 
-### Main: Implementing user-defined copy operations {#copy-intermediate}
+### Main: Implementing user-defined copy operations {#copy-main}
 
 
 #### Background/Required Knowledge
