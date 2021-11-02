@@ -30,12 +30,6 @@ this is indicated by an em dash ("—").
 In the case that the information for a topic is completely
 missing, a question mark ("?") symbol is used.
 
-[**NOTE**: These topics are taken mostly from the SG20 GitHub repository.
-They are not intended to be complete in any sense.
-In fact, by gathering together all topics in one place where they are
-easily viewed, it is hoped that missing and unbalanced items will be more
-obvious.]
-
 __INCLUDE__(knowledge_areas_summary.md)
 
 # Detailed Information for Modules and Topics
