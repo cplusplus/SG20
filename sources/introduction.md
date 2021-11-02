@@ -63,7 +63,6 @@ The three proficiency levels are as follows:
 
   - foundational.  This level gives the learner the idea that a
     facility exists, what benefits it offers, and the basic ways of using it.
-    **[Note: Isn't this just "novice"/"beginner"?]**
 
   - main.  This level shows mainstream uses and techniques.
     For abstraction and organizational mechanisms it also demonstrates how to
@@ -72,8 +71,6 @@ The three proficiency levels are as follows:
     understanding of how a
     facility might be implemented so that the learner can have a first-order
     understanding of any costs involved.
-    **[Note: The term "main" is not very descriptive/helpful.  Could I suggest
-    using "intermediate"?]**
 
   - advanced.  This level gives information suitable for an expert.
     For most topics there is an expert level of knowledge that most

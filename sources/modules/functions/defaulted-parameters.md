@@ -82,7 +82,7 @@ _This section lists important details for each point._
 * Default values must start from the rightmost parameter and continue leftward without gaps
 * Considerations of when to use default arguments vs overload set
 
-### Main: implementing * {#func-args-intermediate}
+### Main: implementing * {#func-args-main}
 
 #### Background/Required knowledge
 
