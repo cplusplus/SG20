@@ -18,9 +18,7 @@ INSTALL_DIR = $(TOP_DIR)/install
 SOURCES = $(shell find . -mindepth 2 -name '*.md')
 
 # Special top-level markdown files
-EXTRA_SOURCES = course_examples.md \
-  disclaimer.md \
-  glossary.md \
+EXTRA_SOURCES = glossary.md \
   contributing.md \
   introduction.md \
   main_raw.md \
