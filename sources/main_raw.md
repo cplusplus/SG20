@@ -8,8 +8,6 @@ output: pdf_document
 
 __INCLUDE__(obtaining_document.md)
 
-__INCLUDE__(disclaimer.md)
-
 __INCLUDE__(introduction.md)
 
 # Summary of Modules and Topics
@@ -39,8 +37,6 @@ __INCLUDE__(knowledge_areas_summary.md)
 INJECT_TEACHING_MODULES_HERE
 
 [//]: # ( ********** END OF DETAILED TOPIC DOCUMENTS ********** )
-
-__INCLUDE__(course_examples.md)
 
 # License {#license}
 
