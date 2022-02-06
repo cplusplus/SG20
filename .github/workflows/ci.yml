@@ -20,6 +20,6 @@ jobs:
       run: |
         tools/build/build \
           -d ${{runner.temp}}/output \
-          -z ${{github.ref}} \
+          -v ${GITHUB_REF#refs/*/} \
           -s
     ############################################################

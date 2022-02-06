@@ -1,1 +1,13 @@
 __pycache__/
+
+# Ignore generated files
+sources/contributors.md
+sources/guidelines.epub
+sources/guidelines.html
+sources/guidelines.texi
+sources/guidelines_html/
+sources/knowledge_areas_summary.md
+sources/main.gen.md
+sources/main.pre.md
+sources/spellcheck_expected_sorted.txt
+sources/spellcheck_result.txt

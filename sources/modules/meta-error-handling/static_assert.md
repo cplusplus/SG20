@@ -69,7 +69,7 @@ _This section lists important details for each point._
 * X
 * In addition to what is wrong, a good error message will inform the user of how to correct it
 
-### Main: Contracts and `static_assert` {#static-assert-intermediate}
+### Main: Contracts and `static_assert` {#static-assert-main}
 
 #### Background/Required Knowledge
 

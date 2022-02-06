@@ -46,10 +46,6 @@ please read the section [How to Contribute](#contributing).
 The various concepts (i.e., ideas) to potentially be covered 
 are partitioned into modules.
 A module is very broad in scope and consists of numerous topics.
-**[Note: Can I suggest that we use the term "area" or "unit" instead of
-"module"?  I think that these other choices are better and also
-avoid any potential confusion over what is meant by "module"
-(i.e., C++ term versus plain English term).]**
 
 For each module, topics related to the module are identified.
 Then, for each topic, learning outcomes are specified.
@@ -61,21 +57,18 @@ This allows target audiences with different background and learning
 objectives to be accommodated.
 The three proficiency levels are as follows:
 
-  - foundational.  This level gives the learner the idea that a
+  - foundational:  This level gives the learner the idea that a
     facility exists, what benefits it offers, and the basic ways of using it.
-    **[Note: Isn't this just "novice"/"beginner"?]**
 
-  - main.  This level shows mainstream uses and techniques.
+  - main:  This level shows mainstream uses and techniques.
     For abstraction and organizational mechanisms it also demonstrates how to
     build them.
     This level should also give the learner a basic (but not detailed)
     understanding of how a
     facility might be implemented so that the learner can have a first-order
     understanding of any costs involved.
-    **[Note: The term "main" is not very descriptive/helpful.  Could I suggest
-    using "intermediate"?]**
 
-  - advanced.  This level gives information suitable for an expert.
+  - advanced:  This level gives information suitable for an expert.
     For most topics there is an expert level of knowledge that most
     programmers rarely need and techniques that require detailed understanding
     of language rules or library implementation.

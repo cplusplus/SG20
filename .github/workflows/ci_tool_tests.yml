@@ -1,0 +1,31 @@
+# This action is used to run tests to ensure all tools work like expected.
+
+name: Tool CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        python-version: [3.7, 3.8, 3.9]
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        pip install -r tools/requirements.txt
+
+    - name: Run unittests
+      run: |
+        cd tools
+        pytest

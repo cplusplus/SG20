@@ -15,25 +15,25 @@ DOC_SPELLCHECK_MUST_PASS = 1
 INSTALL_DIR = $(TOP_DIR)/install
 
 # All of the Markdown source files (that are not generated during build).
-SOURCES = \
-  modules/compile-time-programming/requires-expressions.md \
-  modules/functions/defaulted-parameters.md \
-  modules/functions/user-defined-literals.md \
-  modules/object-model/copy-semantics.md \
-  course_examples.md \
-  disclaimer.md \
-  glossary.md \
+SOURCES = $(shell find . -mindepth 2 -name '*.md')
+
+# Special top-level markdown files
+EXTRA_SOURCES = glossary.md \
   contributing.md \
   introduction.md \
-  main.md \
+  main_raw.md \
   obtaining_document.md \
   references.md \
 
 # The Markdown files that are generated during the build process.
 GENERATED_MARKDOWN = \
   knowledge_areas_summary.md \
+  main.pre.md \
   main.gen.md \
   contributors.md \
+
+# Merge extra sources with detected sources for teaching modules
+SOURCES += $(EXTRA_SOURCES)
 
 ################################################################################
 # Define primary targets.
@@ -96,6 +96,7 @@ install: all
 # Some additional configuration.
 ################################################################################
 
+MAIN_GENERATOR= $(TOP_DIR)/tools/build/generate_main.py
 MD_PREPROCESSOR = $(TOP_DIR)/tools/build/preprocessor
 MAKE_MARKDOWN = $(TOP_DIR)/tools/build/make_markdown
 SPELLCHECK_DIR = $(TOP_DIR)/config/spellcheck
@@ -104,14 +105,17 @@ SPELLCHECK_DIR = $(TOP_DIR)/config/spellcheck
 # Preprocessing setup.
 ################################################################################
 
-main.gen.md: $(SOURCES) contributors.md main.md
-	$(MD_PREPROCESSOR) -v $(DOC_VERSION) < main.md > main.gen.md
+main.pre.md: $(SOURCES) contributors.md main_raw.md
+	$(MAIN_GENERATOR) --raw main_raw.md --out main.pre.md --module-folder modules
+
+main.gen.md: $(SOURCES) contributors.md main.pre.md
+	$(MD_PREPROCESSOR) -v $(DOC_VERSION) < main.pre.md > main.gen.md
 
 knowledge_areas_summary.md: $(SOURCES) knowledge_areas.dat
 	$(MAKE_MARKDOWN) < knowledge_areas.dat > knowledge_areas_summary.md
 
 contributors.md:
-	git log --all --pretty="%an" | sort | uniq > contributors.md
+	git log --all --pretty="%aN" | sort | uniq > contributors.md
 
 ################################################################################
 # Establish Pandoc settings.
@@ -163,21 +167,16 @@ guidelines.tex:
 
 spellcheck_result.txt: guidelines.html
 	rm -f $@
-	rm -f spellcheck_expected_sorted.txt
-	sort $(SPELLCHECK_DIR)/ignored_words.txt | \
-	  uniq > spellcheck_expected_sorted.txt
 	PATH="$(TOP_DIR)/tools/build:$$PATH" pandoc --from $(INPUT_FORMAT) \
 	  --lua-filter $(TOP_DIR)/tools/pandoc_filters/spellcheck.lua \
 	  main.gen.md | sort | uniq > $@
-	@status=0; \
-	  diff -q spellcheck_expected_sorted.txt $@ || \
-	  status=1; \
-	  if [ $$status -ne 0 ]; then \
-	      echo "SPELLING ERRORS DETECTED:"; \
-	      diff -u spellcheck_expected_sorted.txt $@ | \
-		  grep '^[+-]'; \
+	  if [ -s $@ ]; then \
+	      echo "DETECTED SPELLING ERRORS:"; \
+	      cat $@ | while read line; do echo "Misspelled '$$line' in:"; \
+	      grep -R "$$line" -n --color=auto --include='*.md' --exclude='main.gen.md'; done; \
+	      sync; \
 	      if [ $(DOC_SPELLCHECK_MUST_PASS) -ne 0 ]; then \
-	          echo "ERROR: spelling errors detected"; \
+	          echo "ERROR: spelling errors detected, cannot proceed!"; \
 	          exit 1; \
 	      else \
 	          echo "WARNING: spelling errors detected"; \

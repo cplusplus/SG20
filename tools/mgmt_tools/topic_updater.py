@@ -110,7 +110,7 @@ class Skeleton:
 
     def get_title_heading(self) -> SectionHeading:
         """ The Title heading of the document. """
-        if not self.headings[0].header_text.startswith("# "):
+        if not self.headings[0].header_text.startswith("## "):
             raise AssertionError(
                 "First heading in the skeleton was not the title.")
         return self.headings[0]
@@ -132,9 +132,13 @@ class Skeleton:
         expected_meta_text: tp.List[str] = []
 
         for line in topic_file.readlines():
-            if line.startswith("#"):
+            line = line.rsplit("{#")[0]  # ignore anchors
+
+            if line.startswith("This topic is currently under construction"):
+                return True
+            if line.startswith("##"):
                 if current_heading and expected_meta_text:
-                    print("Found missing italics:")
+                    print("Missing italics detected:")
                     print(f"Expected: {expected_meta_text[0]}")
                     return False
 
@@ -144,7 +148,7 @@ class Skeleton:
                 processing_meta_text = False
 
             # Check if the required section headings are present
-            if line.startswith("##") and current_heading:
+            if line.startswith("###") and current_heading:
                 if current_heading.header_text.split(":")[0] != line.split(
                         ":")[0].strip():
                     print("Found wrong section title:")
@@ -217,7 +221,7 @@ class Skeleton:
         emitting_doc_text = True
 
         for line in topic_file.readlines():
-            if line.startswith("##"):
+            if line.startswith("###"):
                 next_heading = next(skeleton_headings_iter)
                 current_heading = self.lookup_heading(line.split(":")[0])
 
@@ -241,7 +245,7 @@ class Skeleton:
                 updated_topic_lines.extend(
                     current_heading.convert_meta_text_to_lines())
 
-            elif line.startswith("#"):
+            elif line.startswith("##"):
                 # Verify that the title heading has correct meta text
                 emitting_doc_text = False
                 next_heading = next(skeleton_headings_iter)
@@ -319,9 +323,11 @@ def check_skeletons(skeleton: Skeleton, topic_paths: tp.List[Path]) -> bool:
     all_files_matched = True
     for topic_path in topic_paths:
         with open(topic_path, "r") as topic_file:
+            print(f"Checking: {topic_path}")
             if skeleton.check_if_topic_file_matches(topic_file):
-                print(f"All meta-text in {topic_path} matched the skeleton.")
+                print(" └─> All meta-text matched the skeleton.")
             else:
+                print(" └─> Errors where found!")
                 all_files_matched = False
 
     return all_files_matched

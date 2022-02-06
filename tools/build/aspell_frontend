@@ -1,16 +1,14 @@
 #! /usr/bin/env bash
-# Michael Adams (mdadams@ece.uvic.ca)
 
 cmd_dir="$(dirname "$0")" || exit 1
-
-# Get an absolute pathname.
-#cmd_dir=$(realpath "$cmd_dir") || exit 1
 
 top_dir="$cmd_dir/../.."
 spellcheck_dir="$top_dir/config/spellcheck"
 wordlist="wordlist"
 if [ ! -f "$spellcheck_dir/$wordlist" ]; then
-	echo "ERROR"
-	exit 1
+  echo "ERROR"
+  exit 1
 fi
-exec aspell --home-dir="$spellcheck_dir" --personal "$wordlist" "$@"
+tmp_wordlist=$(mktemp /tmp/wordlist.XXXXXX)
+cat $spellcheck_dir/wordlist $spellcheck_dir/ignored_words.txt > $tmp_wordlist
+exec aspell --home-dir="$spellcheck_dir" --personal $tmp_wordlist --lang en "$@"

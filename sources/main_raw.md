@@ -8,8 +8,6 @@ output: pdf_document
 
 __INCLUDE__(obtaining_document.md)
 
-__INCLUDE__(disclaimer.md)
-
 __INCLUDE__(introduction.md)
 
 # Summary of Modules and Topics
@@ -30,31 +28,15 @@ this is indicated by an em dash ("—").
 In the case that the information for a topic is completely
 missing, a question mark ("?") symbol is used.
 
-[**NOTE**: These topics are taken mostly from the SG20 GitHub repository.
-They are not intended to be complete in any sense.
-In fact, by gathering together all topics in one place where they are
-easily viewed, it is hoped that missing and unbalanced items will be more
-obvious.]
-
 __INCLUDE__(knowledge_areas_summary.md)
 
 # Detailed Information for Modules and Topics
 
 [//]: # ( ********** START OF DETAILED TOPIC DOCUMENTS ********** )
 
-__INCLUDE__(modules/object-model/copy-semantics.md)
-
-__INCLUDE__(modules/functions/user-defined-literals.md)
-
-__INCLUDE__(modules/functions/defaulted-parameters.md)
-
-__INCLUDE__(modules/compile-time-programming/requires-expressions.md)
-
-__INCLUDE__(modules/meta-error-handling/static_assert.md)
+INJECT_TEACHING_MODULES_HERE
 
 [//]: # ( ********** END OF DETAILED TOPIC DOCUMENTS ********** )
-
-__INCLUDE__(course_examples.md)
 
 # License {#license}
 
