@@ -1,4 +1,4 @@
-## Module name: topic name
+## Module name: Headers
 
 _Skeleton descriptions are typeset in italic text,_
 _so please don't remove these descriptions when editing the topic._
@@ -74,7 +74,7 @@ _This section lists important details for each point._
 
 #### Background/Required Knowledge
 
-* All of the above.
+* All of the above
 * Define a function and write a separate, matching, declaration
 * Distinguish between a declaration and a definition
 * Compile multiple translation units and link them together into a single executable
@@ -84,14 +84,14 @@ _This section lists important details for each point._
 A student should be able to:
 
 1. Create a declaration for an existing function, placed in a separate file
-2. Include a header within the same directory
-3. Include a header locatable within the compiler's include directories
+2. Utilize double-quote inclusion to include a header from the same directory
+3. Utilize angular-bracket inclusion to include a header from standard library
 4. Explain the meaning of the one-definition rule and how it applies to headers
 5. Protect a header with include guards and explain why they are necessary
 
 #### Caveats
 
-* #pragma is useful, but not standardized and so may not be fully supported on all systems
+* `#pragma once` is useful, but not standardized and so may not be fully supported on all systems
 * Reusing the same include guards may cause confusion. Naming conventions based on file paths can help
 * Accidentally putting a definition in a header file may or may not introduce undefined behavior
 * Circular dependencies can cause confusion. Care should be taken in identifying such
@@ -99,7 +99,38 @@ A student should be able to:
 
 #### Points to cover
 
+* Angular bracket inclusion goes to the system/compiler path
+* Double quotes inclusion uses just relative paths
+
 ### Advanced
 
 _These are important topics that are not expected to be covered but provide
 guidance where one can continue to investigate this topic in more depth._
+
+Templates in headers?
+Classes in headers?
+Macros in headers?
+Modules as replacement?
+Issues with specifying default arguments in headers?
+
+
+#### Background/Required Knowledge
+
+* All of the above
+
+#### Student outcomes
+
+A student should be able to:
+
+1. Utilize angular-bracket inclusion and compiler flags to include headers from non-standard paths
+2. Identify trade-offs of aggressiveness of putting declarations in a header file without known consumer
+
+#### Caveats
+
+_This section mentions subtle points to understand, like anything resulting in
+implementation-defined, unspecified, or undefined behavior._
+
+#### Points to cover
+
+_This section lists important details for each point._
+
