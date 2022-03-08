@@ -1,4 +1,4 @@
-## C++ object model: Definitions
+## C++ object model: Definitions {#def}
 
 _Skeleton descriptions are typeset in italic text,_
 _so please don't remove these descriptions when editing the topic._
@@ -37,7 +37,7 @@ A definition extends a declaration, providing all that is needed for a complete
 entity ,e.g., allocate memory for variables, provide the implementation for
 functions, complete definitions of data and function members of a class.
 
-### Foundational: Defining variables and ODR
+### Foundational: Defining variables and ODR {#def-found}
 
 
 #### Background/Required Knowledge
@@ -74,7 +74,7 @@ _This section lists important details for each point._
 
 * One definition rule (ODR)
 
-### Main: Defining for programs
+### Main: Defining for programs {#def-main}
 
 
 #### Background/Required Knowledge
@@ -105,7 +105,7 @@ implementation-defined, unspecified, or undefined behavior._
 
 _This section lists important details for each point._
 
-### Advanced: Special cases and peculiarities
+### Advanced: Special cases and peculiarities {#def-advanced}
 
 _These are important topics that are not expected to be covered but provide
 guidance where one can continue to investigate this topic in more depth._
