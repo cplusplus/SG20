@@ -37,7 +37,9 @@ Introduce names and their associated type in a scope.
 
 ### Foundational: Declaring variables
 
+
 #### Background/Required Knowledge
+
 
 A student:
 
@@ -73,12 +75,18 @@ _This section lists important details for each point._
 
 ### Main: Declarations for programs
 
+
 #### Background/Required Knowledge
+
 
 * All of the above.
 * Basic template syntax
 
 #### Student outcomes
+
+_A list of things "a student should be able to" after the curriculum._
+_The next word should be an action word and testable in an exam._
+_Max 5 items._
 
 A student should be able to:
 
@@ -88,11 +96,16 @@ A student should be able to:
 
 #### Caveats
 
+_This section mentions subtle points to understand, like anything resulting in
+implementation-defined, unspecified, or undefined behavior._
+
 * Declaring aliases can introduce name clashes
 * Prefer using declaration’s over using directives in header files [link]
 * The order of declarations dictates the order of initialization
 
 #### Points to cover
+
+_This section lists important details for each point._
 
 ### Advanced
 
