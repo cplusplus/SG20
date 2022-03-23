@@ -13,8 +13,8 @@ Level             Objective
 ----------------- ------------------------------------------------------
 Foundational      Including code through standard library headers
 
-Main              Organize function and class declarations into reusable
-                  files for inclusion into others
+Main              Write headers to support separate compilation and code
+                  organization
 
 Advanced          --- (inlining? templates? hygiene, such as using namespace?)
 
@@ -55,7 +55,7 @@ _Max 5 items._
 
 A student should be able to:
 
-1. Include common standard library headers to get access to commonly used declarations
+1. Include common standard library headers to get access to standard library features
 
 #### Caveats
 
@@ -69,8 +69,11 @@ _This section lists important details for each point._
 * Usage of standard library code requires inclusion of various header files
 * Give examples of various header files and when they may be needed for inclusion
 * Include links to reference materials for finding out what headers are used for various feature sets
+* When using standard library facilities, can either use `using std::vector; vector<int> v;`, or `std::vector<int> v;`, or `using namespace std; vector<int> v;`, though modern practice strongly discourages invoking `using namespace std;`
 
 ### Main: Organizing function and class declarations for reuse
+
+_Description: Write headers to support separate compilation and code organization_
 
 #### Background/Required Knowledge
 
@@ -107,6 +110,7 @@ A student should be able to:
 _These are important topics that are not expected to be covered but provide
 guidance where one can continue to investigate this topic in more depth._
 
+Header-only libraries?
 Templates in headers?
 Classes in headers?
 Macros in headers?
