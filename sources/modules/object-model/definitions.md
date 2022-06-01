@@ -34,7 +34,7 @@ _Why do we want to learn/teach this topic?_
 _Very brief introduction to the topic._
 
 A definition extends a declaration, providing all that is needed for a complete
-entity ,e.g., allocate memory for variables, provide the implementation for
+entity, e.g., allocate memory for variables, provide the implementation for
 functions, complete definitions of data and function members of a class.
 
 ### Foundational: Defining variables and ODR {#def-found}
