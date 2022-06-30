@@ -94,8 +94,8 @@ A student should be able to:
 #### Caveats
 
 * The different error handling strategies have different trade-offs (runtime performance, readability, ...)
-* The tradeoff space depends on the runtime context (embedded, ...)
-* There also exist unhandable errors (e.g., ODR violations, undefined behavior)
+* The trade-off space depends on the run-time context (embedded, ...)
+* There also exist unhandleable errors (e.g., ODR violations, undefined behavior)
 
 #### Points to cover
 
