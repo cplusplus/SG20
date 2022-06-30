@@ -121,6 +121,7 @@ contributors.md:
 # Establish Pandoc settings.
 ################################################################################
 
+PANDOC_OPTIONS += --verbose
 PANDOC_OPTIONS += --toc --toc-depth 3
 PANDOC_OPTIONS += --number-sections
 PANDOC_OPTIONS += --standalone
@@ -135,6 +136,12 @@ EPUB_CSS_FILE = css/default-pandoc.css
 
 #HTML_TEMPLATE = templates/bootstrap_menu.html
 HTML_TEMPLATE = $(TOP_DIR)/config/pandoc_templates/uikit.html
+
+#MAKEINFO_OPTIONS += --no-warn
+MAKEINFO_OPTIONS += --error-limit 1000000000000
+#MAKEINFO_OPTIONS += --verbose
+MAKEINFO_OPTIONS += --no-validate
+MAKEINFO_OPTIONS += --force
 
 ################################################################################
 # Rules for generating the document in various formats.
@@ -156,7 +163,7 @@ guidelines.docbook: $(GENERATED_MARKDOWN)
 	pandoc $(PANDOC_OPTIONS) --from $(INPUT_FORMAT) -o $@ main.gen.md
 
 guidelines_html: guidelines.texi
-	makeinfo --no-validate --force --html -o guidelines_html guidelines.texi
+	makeinfo $(MAKEINFO_OPTIONS) --html -o guidelines_html guidelines.texi
 
 guidelines.tex:
 	pandoc $(PANDOC_OPTIONS) --from $(INPUT_FORMAT) --to latex -o $@ main.gen.md
