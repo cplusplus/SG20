@@ -16,8 +16,11 @@ Hyland
 JC
 Krathwohl
 ness
+nothrow
 NRVO
+RAII
 req
+Rethrowing
 RVO
 Sattler
 SG
