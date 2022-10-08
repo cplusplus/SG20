@@ -11,6 +11,7 @@ enum
 EPUB
 errno
 expr
+explorative
 extern
 Florian
 func
