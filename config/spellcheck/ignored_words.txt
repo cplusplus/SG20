@@ -1,12 +1,17 @@
 args
+asm
+baz
 Bjarne
+bool
 checkmark
 constexpr
 cppreference
 Engelhart
+enum
 EPUB
 errno
 expr
+extern
 Florian
 func
 Furst
