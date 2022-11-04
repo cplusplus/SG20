@@ -51,7 +51,7 @@ T Generic Programming (Templates)
 	? ? ? ? Requires Clauses
 	req-expr y y n Requires Expressions
 EH Error Handling
-	? ? ? ? Classes of Errors
+	coe y y n Categories of Errors
 	? ? ? ? errno
 	? ? ? ? Error Codes
 	eh y y y Exception Handling

@@ -1,8 +1,3 @@
-## Error handling: Exception handling {#eh}
-
-_Skeleton descriptions are typeset in italic text,_
-_so please don't remove these descriptions when editing the topic._
-
 ### Overview
 
 _Provides a short natural language abstract of the module’s contents._

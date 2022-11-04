@@ -4,6 +4,7 @@ baz
 Bjarne
 bool
 checkmark
+coe
 constexpr
 cppreference
 Engelhart
