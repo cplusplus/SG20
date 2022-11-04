@@ -54,7 +54,7 @@ EH Error Handling
 	? ? ? ? Classes of Errors
 	? ? ? ? errno
 	? ? ? ? Error Codes
-	? ? ? ? Exception Handling
+	eh y y y Exception Handling
 SL Standard Library
 	? ? ? ? Input/Output (I/O)
 	? ? ? ? Containers, Iterators, and Algorithms
