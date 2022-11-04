@@ -12,7 +12,8 @@ P Preprocessor
 	? ? ? ? Macros
 B Basics Types, Objects, Values, Expressions, Statements, and Control-Flow Constructs
 	? ? ? ? Constant Objects
-	? ? ? ? Declarations and Definitions
+	? ? ? ? Declarations
+	def y y y Definitions
 	? ? ? ? Selection Constructs (e.g., if, ternary)
 	? ? ? ? Looping Constructs (e.g., for, while, etc.)
 F Functions
