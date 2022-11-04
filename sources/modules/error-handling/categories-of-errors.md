@@ -39,8 +39,7 @@ This topic is an umbrella topic that refers to the different topics for types of
 
 A student:
 
-* should know the basics about compilation [[C++ compilation model: Translation units - Foundational]][1]
-* should know the basics about linkage [[C++ compilation model: Linkage - Foundational]][2]
+* should know the basics about linkage [[C++ compilation model: Linkage - Foundational]][1]
 
 #### Student outcomes
 
@@ -75,7 +74,7 @@ Errors can happen at different times during software lifetime.
 There are different types of errors
 
 * Logic errors (violations of logical preconditions)
-* Run-time errors (errors during code execution)
+* Run-time errors (errors during code execution due to causes that are external to the program)
 
 
 ### Main: Handling different categories of errors {#coe-main}
@@ -99,18 +98,17 @@ A student should be able to:
 
 #### Points to cover
 
-* Exception handling [[Error handling: Exception handling - Foundational]][3]
-* Returning a value indication failure [[Error handling: C-style error-codes - Foundational]][4]
+* Exception handling [[Error handling: Exception handling - Foundational]][2]
+* Returning a value indication failure [[Error handling: C-style error-codes - Foundational]][3]
 * Terminating the program
-* Improving error handling by having the error occur at an earlier stage in the software development cycle [[Error handling: Static assert - Foundational]][5]
+* Improving error handling by having the error occur at an earlier stage in the software development cycle [[Error handling: Static assert - Foundational]][4]
 
 ### Advanced {#coe-advanced}
 
 _These are important topics that are not expected to be covered but provide
 guidance where one can continue to investigate this topic in more depth._
 
-[1]: ../compilation-model/translation-units.md
-[2]: ../compilation-model/linkage.md
-[3]: ../error-handling/exception-handling.md
-[4]: ../error-handling/c-style-error-codes.md
-[5]: ../error-handling/static-assert.md
+[1]: ../compilation-model/linkage.md
+[2]: ../error-handling/exception-handling.md
+[3]: ../error-handling/c-style-error-codes.md
+[4]: ../error-handling/static-assert.md
