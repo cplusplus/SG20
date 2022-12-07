@@ -16,7 +16,7 @@ Foundational      Including code through standard library headers
 Main              Write headers to support separate compilation and code
                   organization
 
-Advanced          --- (inlining? templates? hygiene, such as using namespace?)
+Advanced          ---
 
 ------------------------------------------------------------------------
 
@@ -98,43 +98,9 @@ A student should be able to:
 * Reusing the same include guards may cause confusion. Naming conventions based on file paths can help
 * Accidentally putting a definition in a header file may or may not introduce undefined behavior
 * Circular dependencies can cause confusion. Care should be taken in identifying such
-* 
 
 #### Points to cover
 
 * Angular bracket inclusion goes to the system/compiler path
 * Double quotes inclusion uses just relative paths
-
-### Advanced
-
-_These are important topics that are not expected to be covered but provide
-guidance where one can continue to investigate this topic in more depth._
-
-Header-only libraries?
-Templates in headers?
-Classes in headers?
-Macros in headers?
-Modules as replacement?
-Issues with specifying default arguments in headers?
-
-
-#### Background/Required Knowledge
-
-* All of the above
-
-#### Student outcomes
-
-A student should be able to:
-
-1. Utilize angular-bracket inclusion and compiler flags to include headers from non-standard paths
-2. Identify trade-offs of aggressiveness of putting declarations in a header file without known consumer
-
-#### Caveats
-
-_This section mentions subtle points to understand, like anything resulting in
-implementation-defined, unspecified, or undefined behavior._
-
-#### Points to cover
-
-_This section lists important details for each point._
 
