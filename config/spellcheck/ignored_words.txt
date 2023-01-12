@@ -4,6 +4,7 @@ baz
 Bjarne
 bool
 checkmark
+coe
 constexpr
 cppreference
 Engelhart
@@ -11,6 +12,7 @@ enum
 EPUB
 errno
 expr
+explorative
 extern
 Florian
 func
@@ -21,8 +23,11 @@ Hyland
 JC
 Krathwohl
 ness
+nothrow
 NRVO
+RAII
 req
+Rethrowing
 RVO
 Sattler
 SG
