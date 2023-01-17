@@ -28,11 +28,19 @@ _Why do we want to learn/teach this topic?_
 
 _Very brief introduction to the topic._
 
+_TODO:
+_introduce notion of object file
+
 C++ Compilation model allows the developer to seperate their 
-declarations and definitions into vrious files to build 
-separately and potentially in parallel so as to reduce rebuild times, 
-reduce file sizes and scopes, avoid naming collisions, and producing 
-compiled libraries.
+declarations and definitions into various files so as to:
+
+* organize code logically,
+* facilitate reuse,
+* reduce rebuild times,
+* reduce file sizes and scopes,
+* avoid naming collisions,
+* and produce compiled libraries. 
+
 
 ### Foundational: Building code from multiple files
 
@@ -40,7 +48,11 @@ compiled libraries.
 
 A student:
 
-1. Knows how to define a variable, function, or class
+1. Is able to define a variable, function, or class
+2. Is able to access declarations from either module import or header inclusion
+
+Questions:
+modules and/or functions?
 
 
 #### Student outcomes
@@ -53,7 +65,7 @@ A student should be able to:
 
 1. create a declaration for variables, functions, and classes separate from their definitions
 2. compile and link code from multiple implementation files
-3. explain how includes work within their translation unit
+3. explain how includes or imports work within their translation unit
 
 #### Caveats
 
