@@ -1,4 +1,4 @@
-## C++ object model: Declarations
+## C++ object model: Definitions {#def}
 
 _Skeleton descriptions are typeset in italic text,_
 _so please don't remove these descriptions when editing the topic._
@@ -11,9 +11,9 @@ _Specifies the different levels of teaching._
 ------------------------------------------------------------------------
 Level             Objective
 ----------------- ------------------------------------------------------
-Foundational      Declaring variables
+Foundational      Defining variables and ODR
 
-Main              Declaring for programs
+Main              Defining for programs
 
 Advanced          Special cases and peculiarities
 
@@ -24,18 +24,20 @@ Advanced          Special cases and peculiarities
 _Why is this important?_
 _Why do we want to learn/teach this topic?_
 
-* Introduces a name and it’s type
-* `int baz;`
-* `void bar();`
-* `class Foo;`
+* A definition is a declaration that supplies all that is needed for a complete entity
+* `int baz = 42;`
+* `void bar() { /* implementation */ }`
+* `class Foo { /* class body */ };`
 
 ### Topic introduction
 
 _Very brief introduction to the topic._
 
-Introduce names and their associated type in a scope.
+A definition extends a declaration, providing all that is needed for a complete
+entity, e.g., allocate memory for variables, provide the implementation for
+functions, complete definitions of data and function members of a class.
 
-### Foundational: Declaring variables
+### Foundational: Defining variables and ODR {#def-found}
 
 
 #### Background/Required Knowledge
@@ -43,10 +45,7 @@ Introduce names and their associated type in a scope.
 
 A student:
 
-* is familiar with the basic C++ types:
-    * bool (Boolean type)
-    * int (Integer type)
-    * double (Floating-point type)
+* is familiar with declarations [[C++ object model: declarations]][1]
 
 #### Student outcomes
 
@@ -56,11 +55,11 @@ _Max 5 items._
 
 A student should be able to:
 
-1. declare a variable with a specific type ‘int baz;’
-2. declare a function ‘void bar();’
-3. declare a class ‘class Foo;’
-4. forward declare a user-defined type or a function
-5. explain the difference between a definition and a declaration
+1. define a variable with a specific type `int baz = 42;`
+2. define a function `void bar() {}`
+3. define a class `class Foo {};`
+4. explain the one definition rule
+
 
 #### Caveats
 
@@ -73,14 +72,16 @@ No caveats at present.
 
 _This section lists important details for each point._
 
-### Main: Declarations for programs
+* One definition rule (ODR)
+
+### Main: Defining for programs {#def-main}
 
 
 #### Background/Required Knowledge
 
 
 * All of the above.
-* Basic template syntax
+* is familiar with declarations [[C++ object model: declarations]][1]
 
 #### Student outcomes
 
@@ -90,28 +91,25 @@ _Max 5 items._
 
 A student should be able to:
 
-1. create header and source files with a declaration in the former and definition of a variable/function in the latter
-2. declare type aliases to introduce a type with an alternative name ‘using std::string;’
-3. write a forward template declaration
+1. organize variables, functions, classes into multiple translation units, describing interface with declarations and providing the implementations with definitions without violating ODR.
+2. distinguish between template declaration and definition
 
 #### Caveats
 
 _This section mentions subtle points to understand, like anything resulting in
 implementation-defined, unspecified, or undefined behavior._
 
-* Declaring aliases can introduce name clashes
-* Prefer using declaration’s over using directives in header files [link]
-* The order of declarations dictates the order of initialization
+* Putting a definition into a header file that is included more than once leads to ODR violations, possibly resulting in linker errors. 
 
 #### Points to cover
 
 _This section lists important details for each point._
 
-### Advanced
+### Advanced: Special cases and peculiarities {#def-advanced}
 
 _These are important topics that are not expected to be covered but provide
 guidance where one can continue to investigate this topic in more depth._
 
-* asm declaration
-* using-enum-declaration
-* extern "C" declarations
+* ABI Incompatibilities: Different definitions of the same type in multiple object files can lead to subtle program errors.
+
+[1]: ../object-model/declarations.md

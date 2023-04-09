@@ -12,7 +12,8 @@ P Preprocessor
 	? ? ? ? Macros
 B Basics Types, Objects, Values, Expressions, Statements, and Control-Flow Constructs
 	? ? ? ? Constant Objects
-	? ? ? ? Declarations and Definitions
+	? ? ? ? Declarations
+	def y y y Definitions
 	? ? ? ? Selection Constructs (e.g., if, ternary)
 	? ? ? ? Looping Constructs (e.g., for, while, etc.)
 F Functions
@@ -50,10 +51,10 @@ T Generic Programming (Templates)
 	? ? ? ? Requires Clauses
 	req-expr y y n Requires Expressions
 EH Error Handling
-	? ? ? ? Classes of Errors
+	coe y y n Categories of Errors
 	? ? ? ? errno
 	? ? ? ? Error Codes
-	? ? ? ? Exception Handling
+	eh y y y Exception Handling
 SL Standard Library
 	? ? ? ? Input/Output (I/O)
 	? ? ? ? Containers, Iterators, and Algorithms
