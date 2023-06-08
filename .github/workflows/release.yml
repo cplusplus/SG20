@@ -24,6 +24,7 @@ jobs:
       id: git_metadata
       run: |
         echo "${GITHUB_REF#refs/tags/v}"
+        echo "${GITHUB_REF#refs/tags/v*}"
         echo "{VERSION}={${GITHUB_REF#refs/tags/v}}" >> $GITHUB_OUTPUT
     # The following builds the document in multiple formats for deployment.
     - name: Build the document.
