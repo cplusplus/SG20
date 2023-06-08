@@ -23,10 +23,10 @@ jobs:
     - name: Collect git metadata
       id: git_metadata
       run: |
-        echo "{VERSION}={${GITHUB_REF#refs/tags/v}}" >> $GITHUB_OUTPUT
+        echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
         echo $GITHUB_OUTPUT
-        echo "${ steps.git_metadata.outputs.VERSION }"
-        echo "${ steps.git_metadata.outputs.VERSION }"
+        echo "${{ steps.git_metadata.outputs.VERSION }}"
+        echo "${{ steps.git_metadata.outputs.version }}"
     # The following builds the document in multiple formats for deployment.
     - name: Build the document.
       shell: bash
