@@ -25,11 +25,12 @@ Advanced          --- Usage of build system to compile a library or
 _Why is this important?_
 _Why do we want to learn/teach this topic?_
 
-* Building complex C++ projects by hand or writing Make files is tricky
+* Building complex C++ projects by hand is tricky
 * Build systems can help to resolve dependencies
 * Build systems can help do distribute C++ code and help other to compile the code
 * Build systems can help to find and include libraries as dependencies
-* All major C++ projects are distributed with build systems
+* Build systems faciliate project management 
+* All major C++ projects are distributed with build systems 
 
 ### Topic introduction
 
@@ -43,7 +44,7 @@ Build systems are used to configure, build, and install complex C++ projects.
 #### Background/Required Knowledge
 
 A student: 
-* Should know about build systems
+* Should know how to compile and link C++ programs
 
 
 #### Student outcomes
@@ -55,8 +56,8 @@ _Max 5 items._
 A student should be able to:
 
 1. To explain what a build system is
-2. Know that a build systems resolves dependencies
-3. Know that a build system support cross-platform compilation
+2. To explain a build systems resolves dependencies
+3. To explain a build system supports compilation for different operating systems and architectures
 
 #### Caveats
 
@@ -69,8 +70,9 @@ None
 
 _This section lists important details for each point._
 
-* Mention that many build systems are available for C++. 
+* Mention that many build systems are available for C++ 
 * Mention benefits and challenges
+* Build system help to only compile the C++ files with code changes and not the complete project
 
 ### Main: Usage of build system to compile a executable
 
@@ -82,8 +84,10 @@ _This section lists important details for each point._
 
 A student should be able to:
 
-1. Write a configuration file to compile a C++ program with a main method 
-2. Use the build system to generate the executable
+1. Download a C++ package and build the package
+2. Write a configuration file to compile a C++ executable
+3. Pass compiler options via the build system
+4. Use the build system to generate the executable
 
 #### Caveats
 
@@ -96,6 +100,8 @@ not easily transferable.
 * Adding include paths to header files 
 * Adding compiler flags
 * How to build Release and Debug builds
+* Linking external libraries to the C++ project
+* Support different operating systems, compilers, and architectures 
 
 
 ### Advanced
@@ -103,8 +109,7 @@ not easily transferable.
 _These are important topics that are not expected to be covered but provide
 guidance where one can continue to investigate this topic in more depth._
 
-* How to build libraries
-* How to include libraries to the executable
-* How to find external libraries and include them
-* How to add support for different compilers
-* How to add support for different operating systems
+* How to build libraries 
+* Write a configuration file for your own library
+* How to have external libraries be downloaded during the build process
+
