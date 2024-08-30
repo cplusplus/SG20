@@ -8,14 +8,16 @@ _so please don't remove these descriptions when editing the topic._
 _Provides a short natural language abstract of the module’s contents._
 _Specifies the different levels of teaching._
 
+This module outlines the issues involved in using separate compilation on multiple program files.
+
 ------------------------------------------------------------------------
 Level             Objective
 ----------------- ------------------------------------------------------
-Foundational      Awareness of the existence of separate compilation
+Foundational:      Awareness of the existence of separate compilation
 
-Main              Awareness of supporting mechanisms and tools
+Main:              Awareness of supporting mechanisms and tools
 
-Advanced          Awareness of technicalities and tools
+Advanced:          Awareness of technicalities and tools
 
 ------------------------------------------------------------------------
 
@@ -36,9 +38,8 @@ _Very brief introduction to the topic._
 
 A student: 
 
-1. needs to be able to split a single-file program into multiple files.
+1. needs to have the text editor skills to split a single-file program into multiple files.
 2. needs to understand the difference between declaration and definition.
-
 
 
 #### Student outcomes
@@ -55,18 +56,19 @@ A student should be able to:
 4.
 5.
 
+#### Points to cover
+
+1. Necessity of having function be declared at the locus of use
+2. Solving this by explicit declaration or by using header files.
+
 #### Caveats
 
 _This section mentions subtle points to understand, like anything resulting in
 implementation-defined, unspecified, or undefined behavior._
 
 1. Explain differences (including in desirability) between having explicit declarations of functions in the main program versus using header files or modules.
-2. Compilation on a single commandline versus multiple
+2. Compilation on a single commandline versus multiple. Resolution order when linking.
 3. What needs to be recompiled if only a function is altered? Altered in use syntax versus altered only in semantics.
-
-#### Points to cover
-
-_This section lists important details for each point._
 
 ### Main: implementing
 
@@ -78,8 +80,8 @@ _This section lists important details for each point._
 
 A student should be able to:
 
-1. Use compile flags, including `-I` and `-L` search path flags, and the relation with corresponding include directives in the source.
-2. Understand search paths to use header files of external libraries.
+1. Use compile flags, including `-I` and `-L` search path flags
+2. Understand the relation between search paths include directives of header files of external libraries.
 3. Be able to declare `extern` variables.
 4.
 5.
@@ -98,3 +100,4 @@ guidance where one can continue to investigate this topic in more depth._
 1. Language inter-operability: the `extern "C"` mechanism.
 2. Linker conventions including name mangling.
 3. The `nm` tool for inspection object files and libraries.
+4. Include guards on header files.
