@@ -56,8 +56,8 @@ _Max 5 items._
 A student should be able to:
 
 1. To explain what a build system is
-2. To explain a build systems resolves dependencies
-3. To explain a build system supports compilation for different operating systems and architectures
+2. To explain that a build systems resolves dependencies
+3. To explain that a build system supports compilation for different operating systems and architectures
 
 #### Caveats
 
