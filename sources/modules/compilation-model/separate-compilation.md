@@ -39,7 +39,7 @@ _Very brief introduction to the topic._
 A student: 
 
 1. needs to have the text editor skills to split a single-file program into multiple files.
-2. needs to understand the difference between declaration and definition.
+2. needs to be able to split function and classes into their declaration and definition.
 
 
 #### Student outcomes
@@ -52,9 +52,8 @@ A student should be able to:
 
 1. Split a single file program into main, one or more auxiliaries, and header files (or modules), all in one directory
 2. Compile and link a program that is spread over multiple files (again, all in one directory), either on the commandline or with a build system.
-3.
-4.
-5.
+3. Describe the functions of the various files involved: source, object, executable.
+
 
 #### Points to cover
 
@@ -80,17 +79,18 @@ implementation-defined, unspecified, or undefined behavior._
 
 A student should be able to:
 
-1. Use compile flags, including `-I` and `-L` search path flags
-2. Understand the relation between search paths include directives of header files of external libraries.
-3. Be able to declare `extern` variables.
-4.
-5.
+1. Use compile flags, including `-I` and `-L` search path flags.
+2. Make header files for their own code, including using header guards.
+3. Use include directives for the headers of external libraries.
+5. Be able to declare `extern` variables.
 
 #### Caveats
 
-1. CMake makes things both easier and harder. If CMake is used, cover the various `target_include/link` statements and discovery mechanisms for external libraries.
+1. Build systems make things both easier and harder.
 
 #### Points to cover
+
+1. Cover the mechanisms for include and library paths to your own code, as well as discovery mechanisms for external libraries.
 
 ### Advanced
 
@@ -99,5 +99,5 @@ guidance where one can continue to investigate this topic in more depth._
 
 1. Language inter-operability: the `extern "C"` mechanism.
 2. Linker conventions including name mangling.
-3. The `nm` tool for inspection object files and libraries.
-4. Include guards on header files.
+3. The `nm` tool for inspection object files and libraries, including de-mangling.
+4. Understand the issues involved in deciding between include guards and `#pragma once`.
