@@ -97,7 +97,7 @@ not easily transferable.
 
 #### Points to cover
 
-* Adding include paths to header files 
+* Include paths to header files to the configuration 
 * Adding compiler flags
 * How to build Release and Debug builds
 * Linking external libraries to the C++ project
