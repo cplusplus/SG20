@@ -90,7 +90,7 @@ A student should be able to:
 
 #### Points to cover
 
-1. Cover the mechanisms for include and library paths to your own code, as well as discovery mechanisms for external libraries.
+* Cover the mechanisms for include and library paths to your own code, as well as discovery mechanisms for external libraries.
 
 ### Advanced
 
