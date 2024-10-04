@@ -39,7 +39,7 @@ _Very brief introduction to the topic._
 A student: 
 
 1. needs to have the text editor skills to split a single-file program into multiple files.
-2. needs to be able to split function and classes into their declaration and definition.
+2. needs to be able to split function and classes into their declaration and definition. [[C++ object model: declarations]][1] [[C++ object model: Definitions]][2]
 
 
 #### Student outcomes
