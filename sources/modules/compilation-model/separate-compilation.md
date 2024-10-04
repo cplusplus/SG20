@@ -1,4 +1,4 @@
-## Module name: Separate Compilation
+## C++ compilation model: Separate Compilation {#separate-comp}
 
 _Skeleton descriptions are typeset in italic text,_
 _so please don't remove these descriptions when editing the topic._
