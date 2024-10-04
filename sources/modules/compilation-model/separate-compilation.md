@@ -101,3 +101,6 @@ guidance where one can continue to investigate this topic in more depth._
 2. Linker conventions including name mangling.
 3. The `nm` tool for inspection object files and libraries, including de-mangling.
 4. Understand the issues involved in deciding between include guards and `#pragma once`.
+
+[1]: ../object-model/declarations.md
+[2]: ../object-model/definitions.md
