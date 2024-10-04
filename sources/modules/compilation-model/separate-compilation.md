@@ -50,9 +50,9 @@ _Max 5 items._
 
 A student should be able to:
 
-1. Split a single file program into main, one or more auxiliaries, and header files (or modules), all in one directory
-2. Compile and link a program that is spread over multiple files (again, all in one directory), either on the commandline or with a build system.
-3. Describe the functions of the various files involved: source, object, executable.
+1. split a single file program into main, one or more auxiliaries, and header files (or modules), all in one directory
+2. compile and link a program that is spread over multiple files (again, all in one directory), either on the commandline or with a build system.
+3. describe the functions of the various files involved: source, object, executable.
 
 
 #### Points to cover
