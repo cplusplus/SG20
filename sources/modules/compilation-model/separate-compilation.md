@@ -82,7 +82,7 @@ A student should be able to:
 1. Use compile flags, including `-I` and `-L` to specify search paths.
 2. Make header files for their own code, including using header guards.
 3. Use include directives for the headers of external libraries.
-5. Be able to declare `extern` variables.
+4. Be able to declare `extern` variables.
 
 #### Caveats
 
