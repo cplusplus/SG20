@@ -57,8 +57,8 @@ A student should be able to:
 
 #### Points to cover
 
-1. Necessity of having function be declared at the locus of use
-2. Solving this by explicit declaration or by using header files.
+* Necessity of having function be declared at the locus of use
+* Solving this by explicit declaration or by using header files.
 
 #### Caveats
 
