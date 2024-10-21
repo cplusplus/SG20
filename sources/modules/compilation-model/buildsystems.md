@@ -88,6 +88,7 @@ A student should be able to:
 2. Write a configuration file to compile a C++ executable
 3. Pass compiler options via the build system
 4. Use the build system to generate the executable
+5.  Write a configuration file to compile a library and link the library to a C++ executable
 
 #### Caveats
 
@@ -110,7 +111,6 @@ _These are important topics that are not expected to be covered but provide
 guidance where one can continue to investigate this topic in more depth._
 
 * How to build libraries 
-* Write a configuration file for your own library
 * How to have external libraries be downloaded during the build process
 * Mention that build systems provide support for unit testing
 
