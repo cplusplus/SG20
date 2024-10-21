@@ -15,8 +15,7 @@ Foundational      --- Knowledge about build systems
 
 Main              --- Usage of build system to compile a executable
 
-Advanced          --- Usage of build system to compile a library or
-                      add external libraries as a dependencies  
+Advanced          --- Add external libraries as a dependencies  
 
 ------------------------------------------------------------------------
 
@@ -88,7 +87,7 @@ A student should be able to:
 2. Write a configuration file to compile a C++ executable
 3. Pass compiler options via the build system
 4. Use the build system to generate the executable
-5.  Write a configuration file to compile a library and link the library to a C++ executable
+5. Write a configuration file to compile a library and link the library to a C++ executable
 
 #### Caveats
 
