@@ -112,4 +112,5 @@ guidance where one can continue to investigate this topic in more depth._
 * How to build libraries 
 * Write a configuration file for your own library
 * How to have external libraries be downloaded during the build process
+* Mention that build systems provide support for unit testing
 
