@@ -101,7 +101,7 @@ not easily transferable.
 * Adding compiler flags
 * How to build Release and Debug builds
 * Linking external libraries to the C++ project
-* Support different operating systems, compilers, and architectures 
+* Support compilation on different operating systems, compilers, and architectures 
 
 
 ### Advanced
