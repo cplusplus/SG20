@@ -32,7 +32,7 @@ Any non-trivial program will span more than one source file. This makes separate
 
 _Very brief introduction to the topic._
 
-### Foundational: Using
+### Foundational: Basic use of separate compilation
 
 #### Background/Required Knowledge
 
