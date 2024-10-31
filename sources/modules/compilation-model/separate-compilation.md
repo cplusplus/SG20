@@ -11,11 +11,11 @@ _Specifies the different levels of teaching._
 ------------------------------------------------------------------------
 Level             Objective
 ----------------- ------------------------------------------------------
-Foundational:      Awareness of the existence of separate compilation
+Foundational:      Basic use of separate compilation
 
-Main:              Awareness of supporting mechanisms and tools
+Main:              Command of supporting mechanisms and tools
 
-Advanced:          Awareness of technicalities and tools
+Advanced:          Technicalities and tools
 
 ------------------------------------------------------------------------
 
@@ -95,7 +95,7 @@ A student should be able to:
 
 * Cover the mechanisms for include and library paths to your own code, as well as discovery mechanisms for external libraries.
 
-### Technicalities and tools
+### Advanced: Technicalities and tools
 
 _These are important topics that are not expected to be covered but provide
 guidance where one can continue to investigate this topic in more depth._
