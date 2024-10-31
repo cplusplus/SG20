@@ -8,8 +8,6 @@ _so please don't remove these descriptions when editing the topic._
 _Provides a short natural language abstract of the module’s contents._
 _Specifies the different levels of teaching._
 
-This module outlines the issues involved in using separate compilation on multiple program files.
-
 ------------------------------------------------------------------------
 Level             Objective
 ----------------- ------------------------------------------------------
@@ -25,6 +23,8 @@ Advanced:          Awareness of technicalities and tools
 
 _Why is this important?_
 _Why do we want to learn/teach this topic?_
+
+This module outlines the issues involved in using separate compilation on multiple program files.
 
 Any non-trivial program will span more than one source file. This makes separate compilation necessary. Separate compilation also leads to quick build times in projects under development.
 
