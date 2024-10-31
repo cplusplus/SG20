@@ -68,7 +68,7 @@ implementation-defined, unspecified, or undefined behavior._
 * Compilation on a single commandline versus using multiple commands.
 * What needs to be recompiled if only a function is altered? Altered in use syntax versus altered only in semantics.
 
-### Main: implementing
+### Main: Command of supporting mechanisms and tools
 
 #### Background/Required Knowledge
 
