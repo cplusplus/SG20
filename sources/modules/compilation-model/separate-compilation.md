@@ -64,9 +64,9 @@ A student should be able to:
 _This section mentions subtle points to understand, like anything resulting in
 implementation-defined, unspecified, or undefined behavior._
 
-1. Explain differences (including in desirability) between having explicit declarations of functions in the main program versus using header files or modules.
-2. Compilation on a single commandline versus multiple. Resolution order when linking.
-3. What needs to be recompiled if only a function is altered? Altered in use syntax versus altered only in semantics.
+* Explain differences (including in desirability) between having explicit declarations of functions in the main program versus using header files or modules.
+* Compilation on a single commandline versus multiple. Resolution order when linking.
+* What needs to be recompiled if only a function is altered? Altered in use syntax versus altered only in semantics.
 
 ### Main: implementing
 
