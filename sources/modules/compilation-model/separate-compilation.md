@@ -85,7 +85,11 @@ A student should be able to:
 
 #### Caveats
 
-1. Build systems make things both easier and harder.
+* Build systems make things both easier and harder.
+  * Student does not have to set include/library paths.
+  * Build systems prevent unnecessary recompilation.
+  * Build systems have a separate learning curve.
+  * Build systems will pay off when using libraries, less with self-contained student code.
 
 #### Points to cover
 
