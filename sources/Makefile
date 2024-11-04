@@ -115,7 +115,7 @@ knowledge_areas_summary.md: $(SOURCES) knowledge_areas.dat
 	$(MAKE_MARKDOWN) < knowledge_areas.dat > knowledge_areas_summary.md
 
 contributors.md:
-	git log --all --pretty="%aN" | sort | uniq > contributors.md
+	git log --format="%aN%n%(trailers:key=Co-authored-by,valueonly=true)" | sed 's/ <.*>//g' | sort | uniq > contributors.md
 
 ################################################################################
 # Establish Pandoc settings.
