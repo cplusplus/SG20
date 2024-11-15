@@ -1,0 +1,2465 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Guidelines for Teaching C++</title>
+
+<meta name="description" content="Guidelines for Teaching C++">
+<meta name="keywords" content="Guidelines for Teaching C++">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<hr>
+<span id="Background_002fRequired-Knowledge-2"></span><h4 class="subsubsection">7.1.5.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d1"></span><ul>
+<li> All of the above.
+</li><li> General understanding of compile-time requirements
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-2"></span><h4 class="subsubsection">7.1.5.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d1"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> Utilize <code>static_assert</code> to verify preconditions of a meta-function
+</li><li> Utilize <code>static_assert</code> to verify the results of meta-functions for
+known values
+</li></ol>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-2"></span><h4 class="subsubsection">7.1.5.3 Caveats</h4>
+<span id="g_t_0023caveats_002d1"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-2"></span><h4 class="subsubsection">7.1.5.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d1"></span><p><em>This section lists important details for each point.</em>
+</p>
+<ul>
+<li> When writing a meta-function, use <code>static_assert</code> to test the
+results
+</li><li> Write <code>static_assert</code> calls at the scope of the code they are
+guarding
+</li></ul>
+
+<pre class="verbatim">template&lt;typename T&gt;
+struct container {
+    std::map&lt;int, T&gt; vals;
+
+    // Test location #1
+    static_assert(
+        std::is_default_constructible_v&lt;T&gt;,
+        &quot;container type T must be default constructible&quot;);i
+
+    void add(int key, T const&amp; t) {
+        // Test location #2
+        static_assert(
+            std::is_default_constructible_v&lt;T&gt;,
+            &quot;container type T must be default constructible&quot;);
+        // std::map::operator[] requires default constructible type for 
+        // the value. This will cause a build failure deep in the 
+        // implementation of std::map, when T is not default constructible
+        vals[key] = t;
+    }
+};
+
+struct NoDefCtor {
+    NoDefCtor() = delete;
+    NoDefCtor(double d) {}
+};
+
+container&lt;NoDefCtor&gt; c; // If Test #1 was omitted, this would succeed
+// This is ill-formed. Test #2 would catch this and provide a better 
+// error message for the user
+c.add(42, NoDefCtor(1.0)); 
+</pre>
+<hr>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Overview-2"></span><h4 class="subsection">7.2.1 Overview</h4>
+<span id="g_t_0023overview_002d1"></span><p><em>Provides a short natural language abstract of the module&rsquo;s
+contents.</em> <em>Specifies the different levels of teaching.</em>
+</p>
+<table>
+<thead><tr><th width="25%">Level</th><th width="75%">Objective</th></tr></thead>
+<tr><td width="25%">Foundational</td><td width="75%">Handling error codes with <code>std::error_code</code></td></tr>
+<tr><td width="25%">Main</td><td width="75%">Designing APIs around <code>std::error_code</code></td></tr>
+<tr><td width="25%">Advanced</td><td width="75%">&mdash;</td></tr>
+</table>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Motivation-2"></span><h4 class="subsection">7.2.2 Motivation</h4>
+<span id="g_t_0023motivation_002d1"></span><p><em>Why is this important?</em> <em>Why do we want to learn/teach this
+topic?</em>
+</p>
+<p>C++ offers a type safe way of passing around errors, contrary to the
+C-style of error handling, by this, we prevent bugs when passing error
+codes. Furthermore, error handling with error codes is more commonly
+used than exception handling, which only should be used in exceptional
+situations and in some environments is not feasible at all, e.g., in
+embedded or performance critical software.
+</p>
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Topic-introduction-2"></span><h4 class="subsection">7.2.3 Topic introduction</h4>
+<span id="g_t_0023topic_002dintroduction_002d1"></span><p><em>Very brief introduction to the topic.</em>
+</p>
+<p>C++ offers <code>std::error_code</code>, which encapsulates error codes in a
+type safe way. This topic describes how to use these error codes.
+</p>
+<hr>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-3"></span><h4 class="subsubsection">7.2.4.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d2"></span><p>A student:
+</p>
+<ul>
+<li> should know that there are different ways of error handling
+<a href="../object-model/types.md">[Error handling: Categories of errors]</a>
+</li><li> should know function return values
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-3"></span><h4 class="subsubsection">7.2.4.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d2"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> write code to handle errors with <code>std::error_code</code>, e.g., obtain
+the message of the error code or check if an error occurred.
+</li><li> distinguish between the different categories and make justified
+decisions when to use which
+</li></ol>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-3"></span><h4 class="subsubsection">7.2.4.3 Caveats</h4>
+<span id="g_t_0023caveats_002d2"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-3"></span><h4 class="subsubsection">7.2.4.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d2"></span><p><em>This section lists important details for each point.</em>
+</p>
+<ul>
+<li> a brief overview of <code>std::error_code</code> and how to use it
+</li></ul>
+
+<hr>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-4"></span><h4 class="subsubsection">7.2.5.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d3"></span><ul>
+<li> should know how to use reference parameters as an output parameter
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-4"></span><h4 class="subsubsection">7.2.5.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d3"></span><p>A student should be able to:
+</p>
+<ol>
+<li> create an <code>error_code</code> and design API that work with
+<code>std:error_code</code>
+</li><li> write code that utilizes <code>std::error_category</code>
+</li><li> explain the difference between C-style error handling with errno and
+<code>std::error_code</code>
+</li><li> make effective use of the interface of <code>std::error_code</code>
+</li></ol>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-4"></span><h4 class="subsubsection">7.2.5.3 Caveats</h4>
+<span id="g_t_0023caveats_002d3"></span><ul>
+<li> reset errno before calling a function that might set errno (better pass
+an input parameter <code>std::error_code</code>)
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-4"></span><h4 class="subsubsection">7.2.5.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d3"></span><ul>
+<li> provide a full picture of <code>std::error_code</code> and it&rsquo;s APIs
+</li><li> <code>std::error_category</code> (explorative)
+</li></ul>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Advanced-2"></span><h4 class="subsection">7.2.6 Advanced</h4>
+<span id="g_t_0023advanced"></span><p><em>These are important topics that are not expected to be covered but
+provide guidance where one can continue to investigate this topic in
+more depth.</em>
+</p>
+<ul>
+<li> implementing your own <code>error_category</code>
+</li></ul>
+
+<hr>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Overview-3"></span><h4 class="subsection">7.3.1 Overview</h4>
+<span id="g_t_0023overview_002d2"></span><p><em>Provides a short natural language abstract of the module&rsquo;s
+contents.</em> <em>Specifies the different levels of teaching.</em>
+</p>
+<table>
+<thead><tr><th width="25%">Level</th><th width="75%">Objective</th></tr></thead>
+<tr><td width="25%">Foundational</td><td width="75%">Categories of errors</td></tr>
+<tr><td width="25%">Main</td><td width="75%">Handling different categories of errors</td></tr>
+<tr><td width="25%">Advanced</td><td width="75%">&mdash;</td></tr>
+</table>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Motivation-3"></span><h4 class="subsection">7.3.2 Motivation</h4>
+<span id="g_t_0023motivation_002d2"></span><p><em>Why is this important?</em> <em>Why do we want to learn/teach this
+topic?</em>
+</p>
+<p>Programs can run in a normal state or erroneous state. Students should
+be able to identify different types of erroneous state and how to best
+handle them.
+</p>
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Topic-introduction-3"></span><h4 class="subsection">7.3.3 Topic introduction</h4>
+<span id="g_t_0023topic_002dintroduction_002d2"></span><p><em>Very brief introduction to the topic.</em>
+</p>
+<p>This topic is an umbrella topic that refers to the different topics for
+types of errors and error handling.
+</p>
+<hr>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-5"></span><h4 class="subsubsection">7.3.4.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d4"></span><p>A student:
+</p>
+<ul>
+<li> should know the basics about linkage <a href="../object-model/types.md">[C++
+compilation model: Linkage - Foundational]</a>
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-5"></span><h4 class="subsubsection">7.3.4.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d4"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> Describe different kinds of errors and exceptional situations that
+require different approaches of error handling.
+</li><li> Provide some examples of the different error categories.
+</li><li> Identify potential erroneous code sections and attribute them to
+different error categories.
+</li></ol>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-5"></span><h4 class="subsubsection">7.3.4.3 Caveats</h4>
+<span id="g_t_0023caveats_002d4"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<p>No caveats at present.
+</p>
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-5"></span><h4 class="subsubsection">7.3.4.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d4"></span><p><em>This section lists important details for each point.</em>
+</p>
+<p>Errors can happen at different times during software lifetime.
+</p>
+<ul>
+<li> Compile-time errors
+</li><li> Link-time errors
+</li><li> Execution-time errors
+</li></ul>
+
+<p>There are different types of errors
+</p>
+<ul>
+<li> Logic errors (violations of logical preconditions)
+</li><li> Run-time errors (errors during code execution due to causes that are
+external to the program)
+</li></ul>
+
+<hr>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-6"></span><h4 class="subsubsection">7.3.5.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d5"></span>
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-6"></span><h4 class="subsubsection">7.3.5.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d5"></span><p>A student should be able to:
+</p>
+<ol>
+<li> pick the right error handling approach for a given problem.
+</li><li> enumerate different error handling strategies.
+</li><li> make a clear distinction between error-handling code and normal-case
+handling code
+</li></ol>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-6"></span><h4 class="subsubsection">7.3.5.3 Caveats</h4>
+<span id="g_t_0023caveats_002d5"></span><ul>
+<li> The different error handling strategies have different trade-offs
+(runtime performance, readability, &hellip;)
+</li><li> The trade-off space depends on the run-time context (embedded, &hellip;)
+</li><li> There also exist unhandleable errors (e.g., ODR violations, undefined
+behavior)
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-6"></span><h4 class="subsubsection">7.3.5.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d5"></span><ul>
+<li> Exception handling <a href="../object-model/objects.md">[Error handling:
+Exception handling - Foundational]</a>
+</li><li> Returning a value indication failure
+<a href="../object-model/constant-objects.md">[Error handling: C-style
+error-codes - Foundational]</a>
+</li><li> Terminating the program
+</li><li> Improving error handling by having the error occur at an earlier stage
+in the software development cycle
+<a href="../object-model/move-semantics.md">[Error handling: Static assert -
+Foundational]</a>
+</li></ul>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Advanced-3"></span><h4 class="subsection">7.3.6 Advanced</h4>
+<span id="g_t_0023coe_002dadvanced"></span><p><em>These are important topics that are not expected to be covered but
+provide guidance where one can continue to investigate this topic in
+more depth.</em>
+</p>
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Overview-4"></span><h4 class="subsection">7.3.7 Overview</h4>
+<span id="g_t_0023overview_002d3"></span><p><em>Provides a short natural language abstract of the module&rsquo;s
+contents.</em> <em>Specifies the different levels of teaching.</em>
+</p>
+<table>
+<thead><tr><th width="25%">Level</th><th width="75%">Objective</th></tr></thead>
+<tr><td width="25%">Foundational</td><td width="75%">Standards exception hierarchy</td></tr>
+<tr><td width="25%">Main</td><td width="75%">Exception guarantees</td></tr>
+<tr><td width="25%">Advanced</td><td width="75%">&mdash;</td></tr>
+</table>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Motivation-4"></span><h4 class="subsection">7.3.8 Motivation</h4>
+<span id="g_t_0023motivation_002d3"></span><p><em>Why is this important?</em> <em>Why do we want to learn/teach this
+topic?</em>
+</p>
+<p>Exception handling is used to be able to continue the program in case of
+exceptional situations (like requesting a ridiculous amount of memory:
+<code>bad_alloc</code>).
+</p>
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Topic-introduction-4"></span><h4 class="subsection">7.3.9 Topic introduction</h4>
+<span id="g_t_0023topic_002dintroduction_002d3"></span><p><em>Very brief introduction to the topic.</em>
+</p>
+<p>There are other forms of handling difficult situations, but here we
+concentrate on exception handling and the peculiarities/characteristics
+of it. Because there are different forms, we should know when to use
+which type of handling special situations.
+</p>
+<hr>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-7"></span><h4 class="subsubsection">7.3.10.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d6"></span><p>A student:
+</p>
+<ul>
+<li> should know about basic and user-defined types
+<a href="../object-model/types.md">[Type system: fundamental types]</a>
+<a href="../object-model/objects.md">[Type system: user-defined types]</a>
+</li><li> should know about flow of control [???]
+</li><li> should know about blocks and statements [???]
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-7"></span><h4 class="subsubsection">7.3.10.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d6"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> Explain how some <code>std::</code> calls may cause an exception
+</li><li> Discern the different standard exception types
+</li><li> Write simple try &hellip; except code (e.g., out of memory, vector at
+indexing)
+</li><li> Explain on a &ldquo;simplified&rdquo; conceptual level what happens when an
+exception is thrown and is bubbled up through the callers until it is
+caught
+</li></ol>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-7"></span><h4 class="subsubsection">7.3.10.3 Caveats</h4>
+<span id="g_t_0023caveats_002d6"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<ul>
+<li> Exceptions should be used for exceptional situations and should not be
+used to manage normal control flow.
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-7"></span><h4 class="subsubsection">7.3.10.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d6"></span><p><em>This section lists important details for each point.</em>
+</p>
+<ul>
+<li> Exception hierarchy from the standard library
+</li><li> Common library functions that may throw exceptions
+</li><li> Basic handling exceptions: try/catch/throw
+</li><li> How exceptions bubble up until caught
+</li></ul>
+
+<hr>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-8"></span><h4 class="subsubsection">7.3.11.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d7"></span><ul>
+<li> RAII
+</li><li> Order of construction/destruction of class members
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-8"></span><h4 class="subsubsection">7.3.11.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d7"></span><p>A student should be able to:
+</p>
+<ol>
+<li> Explain the four different exception guarantees
+</li><li> Explain the exception guarantees that the standard library containers
+offer.
+</li><li> Explain what happens when a exception is thrown in constructor
+</li></ol>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-8"></span><h4 class="subsubsection">7.3.11.3 Caveats</h4>
+<span id="g_t_0023caveats_002d7"></span><ul>
+<li> Make sure code is designed with RAII in mind to prevent resources
+leaking during exception handling, when the stack is unwound.
+</li><li> Care should be taken in constructor design to make all fully constructed
+members deleted when the stack unwinding mechanism is activated.
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-8"></span><h4 class="subsubsection">7.3.11.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d7"></span><ul>
+<li> Exception guarantees: Nothrow/Strong/Basic/No
+</li><li> Rethrowing an exception
+</li></ul>
+
+<hr>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Overview-5"></span><h4 class="subsection">7.4.1 Overview</h4>
+<span id="g_t_0023overview_002d4"></span><p><em>Provides a short natural language abstract of the module&rsquo;s
+contents.</em> <em>Specifies the different levels of teaching.</em>
+</p>
+<table>
+<thead><tr><th width="26%">Level</th><th width="74%">Objectives</th></tr></thead>
+<tr><td width="26%">Foundational</td><td width="74%">Define and use requires-expressions to check satisfaction of
+expressions by given parameters</td></tr>
+<tr><td width="26%">Main</td><td width="74%">Define and use requires-expressions to check properties of
+expressions</td></tr>
+<tr><td width="26%">Advanced</td><td width="74%">&mdash;</td></tr>
+</table>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Motivation-5"></span><h4 class="subsection">7.4.2 Motivation</h4>
+<span id="g_t_0023motivation_002d4"></span><p><em>Why is this important?</em> <em>Why do we want to learn/teach this
+topic?</em>
+</p>
+<p>Requires-expressions allow a developer to perform compile-time
+evaluation on the validity of other expressions. These are fundamental
+to the ability to write concepts.
+<a href="../object-model/types.md">[Compile-time programming: concepts]</a>
+</p>
+<hr>
+</div>
+<div class="section">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Topic-introduction-5"></span><h3 class="section">7.5 Topic introduction</h3>
+<span id="g_t_0023topic_002dintroduction_002d4"></span><p><em>Very brief introduction to the topic.</em>
+</p>
+<p>Requires-expressions are compile-time predicates which evaluate to true
+when their specified set of expressions are all valid for a given set of
+inputs.
+</p>
+
+<ul class="section-toc">
+<li><a href="Foundational-Writing-requires_002dexpressions.html" accesskey="1">Foundational: Writing requires-expressions</a></li>
+<li><a href="Main-Advanced-requirements.html" accesskey="2">Main: Advanced requirements</a></li>
+<li>Advanced</li>
+</ul>
+<hr>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-9"></span><h4 class="subsubsection">7.5.1.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d8"></span><p>A student is able to:
+</p>
+<ul>
+<li> Write and use a function template
+<a href="../object-model/objects.md">[Compile-time programming: function
+templates]</a>
+</li><li> Differentiate between expressions and statements
+</li></ul>
+
+<p>It is helpful if:
+</p>
+<ul>
+<li> The student is aware that attempting to specialize the template with
+types or values which do not match otherwise unstated assumptions will
+cause errors within the template.
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-9"></span><h4 class="subsubsection">7.5.1.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d8"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> Write a simple-requirement to assert the validity of an expression
+</li><li> Write a type-requirement to check the existence of a type by its
+identifier
+</li><li> Write a compound-requirement to test the resulting type of an expression
+</li><li> Write a nested-requirement to test the constexpr value of an operation,
+as opposed to just the syntactic validity
+</li><li> Use a requires-expression within a concept, requires-clause, or
+<code>if constexpr</code> condition
+</li></ol>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-9"></span><h4 class="subsubsection">7.5.1.3 Caveats</h4>
+<span id="g_t_0023caveats_002d8"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<p>To require that expressions, which evaluate to a boolean value like
+<code>sizeof(t) == 4</code>, evaluate to <code>true</code> a nested-requirement is
+needed (e.g., <code>requires sizeof(t) == 4;</code>). Omitting the
+<code>requires</code> results in a simple-requirement, which is satisfied
+based purely on syntactic validity, not on the result of the operation.
+</p>
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-9"></span><h4 class="subsubsection">7.5.1.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d8"></span><p><em>This section lists important details for each point.</em>
+</p>
+<ul>
+<li> All requires-expression requirements terminate with a semicolon.
+</li><li> simple-requirements are used to check that an expression is well-formed.
+</li><li> nested-requirements are introduced with <code>requires</code> and primarily
+used to check the result of an expression computable by the compiler,
+including concepts or other requires-expressions.
+</li><li> type-requirements are introduced with <code>typename</code> and used to verify
+the existence of a type with a particular identifier.
+</li><li> compound-requirements are enclosed in braces and can be used to check
+the resulting type of an expression.
+</li><li> Checks are performed by the compiler, not at run time.
+</li><li> If covering usage of requires-expression with requires-clause,
+<a href="../object-model/constant-objects.md">[Compile-time programming:
+requires clause]</a> demonstrate <code>requires requires</code> and show how to
+ever avoid writing it by using a concept.
+<a href="../object-model/types.md">[Compile-time programming: concepts]</a>
+</li></ul>
+
+<hr>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-10"></span><h4 class="subsubsection">7.5.2.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d9"></span><ul>
+<li> All of the above.
+</li><li> Knowledge of <code>noexcept</code>
+</li></ul>
+
+<p>A student is able to:
+</p>
+<ul>
+<li> Write a concept <a href="../object-model/types.md">[Compile-time
+programming: concepts]</a>
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-10"></span><h4 class="subsubsection">7.5.2.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d9"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> Write compound-requirements which test the <code>noexcept</code>ness of an
+expression.
+</li><li> Use a concept as the target of a compound-requirement.
+</li></ol>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-10"></span><h4 class="subsubsection">7.5.2.3 Caveats</h4>
+<span id="g_t_0023caveats_002d9"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-10"></span><h4 class="subsubsection">7.5.2.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d9"></span><p><em>This section lists important details for each point.</em>
+</p>
+<ul>
+<li> Compound-requirements allow the optional ability to test whether an
+expression is marked as <code>noexcept</code>, by using a trailing
+<code>noexcept</code> keyword.
+</li></ul>
+
+<pre class="verbatim">struct S
+{
+    void foo() noexcept {}
+    void bar() {}
+};
+
+static_assert(requires(S s) { { s.foo() } noexcept; } ); // Succeeds. s.foo() is noexcept
+static_assert(requires(S s) { { s.bar() } noexcept; } ); // Fails. s.bar() is not noexcept
+</pre>
+<ul>
+<li> If the return-type-requirement of a compound-requirement is a concept,
+that concept is given the resulting type as the first parameter,
+followed by the specified parameters in the compound-requirement.
+<code>{ ++x } -&gt; C&lt;int&gt;</code> would substitute
+<code>C&lt;decltype((++x)), int&gt;</code> and check that concept C is satisfied for
+those parameters.
+</li></ul>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Advanced-4"></span><h4 class="subsection">7.5.3 Advanced</h4>
+<span id="g_t_0023req_002dexpr_002dadvanced"></span>
+<hr>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Overview-6"></span><h4 class="subsection">7.6.1 Overview</h4>
+<span id="g_t_0023overview_002d5"></span><p><em>Provides a short natural language abstract of the module&rsquo;s
+contents.</em> <em>Specifies the different levels of teaching.</em>
+</p>
+<p>Functions in C++ may be overloaded with different numbers and types of
+parameters. It may be of value to specify default arguments for some
+number of parameters, to allow a caller to avoid specifying arguments
+that rarely change, or to enable expanding the set of parameters while
+maintaining backward compatibility with existing callers.
+</p>
+<table>
+<thead><tr><th width="25%">Level</th><th width="75%">Objective</th></tr></thead>
+<tr><td width="25%">Foundational</td><td width="75%">Define and use functions with default arguments</td></tr>
+<tr><td width="25%">Main</td><td width="75%">&mdash;</td></tr>
+<tr><td width="25%">Advanced</td><td width="75%">refinement of default arguments through multiple declarations</td></tr>
+</table>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Motivation-6"></span><h4 class="subsection">7.6.2 Motivation</h4>
+<span id="g_t_0023motivation_002d5"></span><p><em>Why is this important?</em> <em>Why do we want to learn/teach this
+topic?</em>
+</p>
+<p>Default arguments allow the omission of arguments with obvious or common
+values. Also may be utilized to extend an existing function signature
+without forcing changes to existing calling code.
+</p>
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Topic-introduction-6"></span><h4 class="subsection">7.6.3 Topic introduction</h4>
+<span id="g_t_0023topic_002dintroduction_002d5"></span><p><em>Very brief introduction to the topic.</em>
+</p>
+<p>Explain how default arguments work and how to define them.
+</p>
+<hr>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-11"></span><h4 class="subsubsection">7.6.4.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d10"></span><p>A student is able to:
+</p>
+<ul>
+<li> Make calls to existing functions, passing arguments
+<a href="../object-model/types.md">[Functions: calling functions]</a>
+</li><li> Declare member and non-member functions, separate from definitions
+</li><li> Define member and non-member functions
+<a href="../object-model/objects.md">[Functions: member functions]</a>
+</li><li> Explain what a default constructor is and does
+<a href="../object-model/constant-objects.md">[C++ object model:
+constructors]</a>
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-11"></span><h4 class="subsubsection">7.6.4.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d10"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> Call to a function with a default argument with or without that argument
+specified
+</li><li> Declare a function with a default argument, and omit the default in the
+definition&rsquo;s signature
+</li><li> Explain when the lifetime of a default argument begins and ends
+</li></ol>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-11"></span><h4 class="subsubsection">7.6.4.3 Caveats</h4>
+<span id="g_t_0023caveats_002d10"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<ul>
+<li> When no forward-declaration exists, the definition serves as the
+declaration
+</li><li> When multiple declarations exist, only one may specify the default for
+any particular parameter, but multiple declarations may specify the
+defaults for different parameters.
+</li><li> Additional default values may be specified for other parameters in
+repeat declarations
+</li><li> Calling an overloaded function with fewer arguments may be ambiguous
+with regard to an overload with default arguments
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-11"></span><h4 class="subsubsection">7.6.4.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d10"></span><p><em>This section lists important details for each point.</em>
+</p>
+<ul>
+<li> Default value may only be specified once for each parameter among all
+declarations
+</li><li> Default values must start from the rightmost parameter and continue
+leftward without gaps
+</li><li> Considerations of when to use default arguments vs overload set
+</li></ul>
+
+<hr>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-12"></span><h4 class="subsubsection">7.6.5.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d11"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-12"></span><h4 class="subsubsection">7.6.5.3 Caveats</h4>
+<span id="g_t_0023caveats_002d11"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-12"></span><h4 class="subsubsection">7.6.5.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d11"></span><p><em>This section lists important details for each point.</em>
+</p>
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Advanced-5"></span><h4 class="subsection">7.6.6 Advanced</h4>
+<span id="g_t_0023func_002dargs_002dadvanced"></span><p><em>These are important topics that are not expected to be covered but
+provide guidance where one can continue to investigate this topic in
+more depth.</em>
+</p>
+<p>Subsequent redeclarations of the same function may add default argument
+values, which are then usable by callers. Though a single parameter
+cannot be given a default argument twice in the same translation unit,
+it is legal, though ill-advised, to give the same function different
+default arguments in different translation units.
+</p>
+<hr>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Overview-7"></span><h4 class="subsection">7.7.1 Overview</h4>
+<span id="g_t_0023overview_002d6"></span><p><em>Provides a short natural language abstract of the module&rsquo;s
+contents.</em> <em>Specifies the different levels of teaching.</em>
+</p>
+<p>Literals are a way to write values in the code, such as strings and
+numbers. User-defined literals (UDL) allow to add a suffix to a string
+or number to change the meaning. The suffix selects a function (an
+operator) that can alter the value and type of the literal. The C++
+library provides certain operators already and a user can add more by
+providing such operators.
+</p>
+<table>
+<thead><tr><th width="23%">Level</th><th width="77%">Objectives</th></tr></thead>
+<tr><td width="23%">Foundational</td><td width="77%">using and understanding UDLs</td></tr>
+<tr><td width="23%">Main</td><td width="77%">implementing your own UDLs</td></tr>
+<tr><td width="23%">Advanced</td><td width="77%">Advanced use (<code>&quot;{}, {}!&quot;_fmt(&quot;Hello&quot;, &quot;World&quot;)</code>)</td></tr>
+</table>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Motivation-7"></span><h4 class="subsection">7.7.2 Motivation</h4>
+<span id="g_t_0023motivation_002d6"></span><p><em>Why is this important?</em> <em>Why do we want to learn/teach this
+topic?</em>
+</p>
+<ul>
+<li> Allows clearer expression of intent in C++.
+</li><li> <code>std::string</code>: <code>&quot;Hello, world!&quot;s</code>
+</li><li> <code>std::chrono</code>: <code>3h + 10min + 5s</code>
+</li></ul>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Topic-introduction-7"></span><h4 class="subsection">7.7.3 Topic introduction</h4>
+<span id="g_t_0023topic_002dintroduction_002d6"></span><p><em>Very brief introduction to the topic.</em>
+</p>
+<ul>
+<li> Explain the existence of user defined literals. Example:
+<code>12min + 17s</code> is terse, expressive and type safe.
+</li></ul>
+
+<hr>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-12"></span><h4 class="subsubsection">7.7.4.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d12"></span><p>A student: * knows how to form numeric literals, e.g., <code>1.5f</code> means
+a <code>float</code> of value <code>1.5</code>. * is familiar with the major C++
+types: * <code>bool</code> (Boolean type) * <code>int</code> (Integer type) *
+<code>double</code> (Floating-point type) * <code>std::string</code> (Text type) *
+<code>std::vector</code> (Collection type) * knows that namespaces exist, and
+namespace <code>std</code>. * knows what using-declarations and
+using-directives are. <a href="../object-model/objects.md">[C++ object
+model: declarations]</a>
+</p>
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-13"></span><h4 class="subsubsection">7.7.4.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d12"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> use <code>using namespace std::string_literals</code>[1].
+</li><li> recognise UDLs in code that they are reading.
+</li><li> figure out which UDL definitions for a used type exist.
+</li><li> identify parts of the standard library that make use of UDLs.
+</li><li> prevent the dangers of temporaries created with <code>&quot;blah&quot;s</code> as well
+as with <code>std::string{&quot;blah&quot;}</code>.
+</li><li> effectively selects the right set of namespaces in using-directives from
+the sub-namespaces <code>std::literals</code>.
+</li></ol>
+
+<p>[1]: explain that it&rsquo;s okay to use a using-directive to &ldquo;activate&rdquo;
+UDLs.
+</p>
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-13"></span><h4 class="subsubsection">7.7.4.3 Caveats</h4>
+<span id="g_t_0023caveats_002d12"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<ul>
+<li> A student gets confused by the similarities and differences between
+built-in suffixes and UDLs and between UDLs from different namespaces.
+</li><li> A student &ldquo;activates&rdquo; two suffixes with the same signature from
+different namespaces.
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-13"></span><h4 class="subsubsection">7.7.4.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d12"></span><p><em>This section lists important details for each point.</em>
+</p>
+<hr>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-13"></span><h4 class="subsubsection">7.7.5.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d13"></span><ul>
+<li> All of the above.
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-14"></span><h4 class="subsubsection">7.7.5.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d13"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> write a UDL operator of their own.
+</li><li> separate unrelated UDLs into distinct namespaces.
+</li></ol>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-14"></span><h4 class="subsubsection">7.7.5.3 Caveats</h4>
+<span id="g_t_0023caveats_002d13"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<p>No caveats at present. #### Points to cover
+</p>
+<p><em>This section lists important details for each point.</em>
+</p>
+<p>No caveats at present. ### Advanced {#udl-advanced}
+</p>
+<p><em>These are important topics that are not expected to be covered but
+provide guidance where one can continue to investigate this topic in
+more depth.</em>
+</p>
+<hr>
+<div class="section">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Overview-8"></span><h3 class="section">8.1 Overview</h3>
+<span id="g_t_0023overview_002d7"></span><p><em>Provides a short natural language abstract of the module&rsquo;s
+contents.</em> <em>Specifies the different levels of teaching.</em>
+</p>
+<p>Level
+Objectives
+Foundational
+Defining and calling functions with values
+Main
+Advanced
+</p>
+<hr>
+</div>
+<div class="section">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Motivation-8"></span><h3 class="section">8.2 Motivation</h3>
+<span id="g_t_0023motivation_002d7"></span><p><em>Why is this important?</em> <em>Why do we want to learn/teach this
+topic?</em>
+</p>
+<p>The fundamental element for code-reuse is a function. For functions to
+be useful, we need to parameterize them. Understanding how to do such is
+thus fundamental to programming in any language.
+</p>
+<hr>
+</div>
+<div class="section">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Topic-introduction-8"></span><h3 class="section">8.3 Topic introduction</h3>
+<span id="g_t_0023topic_002dintroduction_002d7"></span><p><em>Very brief introduction to the topic.</em>
+</p>
+<p>Explain how to define functions with parameters and call them with
+values.
+</p>
+<hr>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-14"></span><h4 class="subsection">8.4.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d14"></span><p>A student is able to:
+</p>
+<ul>
+<li> Explain what a function is
+</li></ul>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-15"></span><h4 class="subsection">8.4.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d14"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> Call a function with any number of parameters using the same number of
+arguments
+</li><li> Define a function with any number of parameters
+</li></ol>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-15"></span><h4 class="subsection">8.4.3 Caveats</h4>
+<span id="g_t_0023caveats_002d14"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-14"></span><h4 class="subsection">8.4.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d13"></span><p><em>This section lists important details for each point.</em>
+</p>
+<ul>
+<li> A function is called by invoking the name of the function, followed by
+parentheses
+</li><li> For each parameter in the function signature, a value must be provided,
+and in the same order
+</li><li> Multiple values passed to a function are comma-separated
+</li><li> When defining a function, you must list the parameters with the type
+first, and parameter name second
+</li></ul>
+
+<hr>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-15"></span><h4 class="subsection">8.5.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d15"></span>
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-16"></span><h4 class="subsection">8.5.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d15"></span>
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-16"></span><h4 class="subsection">8.5.3 Caveats</h4>
+<span id="g_t_0023caveats_002d15"></span>
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-15"></span><h4 class="subsection">8.5.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d14"></span>
+<hr>
+</div>
+<div class="section">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Advanced-6"></span><h3 class="section">8.6 Advanced</h3>
+<span id="g_t_0023advanced_002d1"></span><p><em>These are important topics that are not expected to be covered but
+provide guidance where one can continue to investigate this topic in
+more depth.</em>
+</p>
+<hr>
+<div class="section">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Overview-9"></span><h3 class="section">9.1 Overview</h3>
+<span id="g_t_0023overview_002d8"></span><p><em>Provides a short natural language abstract of the module&rsquo;s
+contents.</em> <em>Specifies the different levels of teaching.</em>
+</p>
+<p>Level
+Objectives
+Foundational
+Avoiding copies using const-reference modifiers
+Main
+Using references to modify external data
+Advanced
+</p>
+<hr>
+</div>
+<div class="section">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Motivation-9"></span><h3 class="section">9.2 Motivation</h3>
+<span id="g_t_0023motivation_002d8"></span><p><em>Why is this important?</em> <em>Why do we want to learn/teach this
+topic?</em>
+</p>
+<hr>
+</div>
+<div class="section">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Topic-introduction-9"></span><h3 class="section">9.3 Topic introduction</h3>
+<span id="g_t_0023topic_002dintroduction_002d8"></span><p><em>Very brief introduction to the topic.</em>
+</p>
+<p>Explain what a reference type is and how it constrasts with a value
+type.
+</p>
+<hr>
+</div>
+<div class="section">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Foundational_003a-Using-reference-types-to-avoid-copies-1"></span><h3 class="section">9.4 Foundational: Using reference types to avoid copies</h3>
+<span id="g_t_0023foundational_002dusing_002dreference_002dtypes_002dto_002davoid_002dcopies_002d1"></span>
+
+<ul class="section-toc">
+<li>Background/Required Knowledge</li>
+<li>Student outcomes</li>
+<li>Caveats</li>
+<li>Points to cover</li>
+</ul>
+<hr>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-16"></span><h4 class="subsection">9.4.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d16"></span><p>A student is able to:
+</p>
+<ul>
+<li> Define and call a function with parameters
+</li></ul>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-17"></span><h4 class="subsection">9.4.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d16"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> Use const-refernce types for function arguments
+</li><li> Explain what considerations to take when deciding whether or not to use
+a const-reference type
+</li></ol>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-17"></span><h4 class="subsection">9.4.3 Caveats</h4>
+<span id="g_t_0023caveats_002d16"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-16"></span><h4 class="subsection">9.4.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d15"></span><p><em>This section lists important details for each point.</em>
+</p>
+<ul>
+<li> No copy of the data is made when taken by constant reference
+</li><li> A constant reference value cannot be modified
+</li><li> The lifetime of a constant reference cannot be expected to extend beyond
+the lifetime of the function, so the reference should not be saved off
+for future use.
+</li><li> Taking a reference is not always a time or space savings. Modern
+machines may use 8-bytes to reference a 4-byte integer, for instance.
+</li></ul>
+
+<hr>
+</div>
+</div>
+<div class="section">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Main_003a-Using-references-to-modify-external-data-1"></span><h3 class="section">9.5 Main: Using references to modify external data</h3>
+<span id="g_t_0023main_002dusing_002dreferences_002dto_002dmodify_002dexternal_002ddata_002d1"></span>
+
+<ul class="section-toc">
+<li>Background/Required Knowledge</li>
+<li>Student outcomes</li>
+<li>Caveats</li>
+<li>Points to cover</li>
+</ul>
+<hr>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-17"></span><h4 class="subsection">9.5.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d17"></span><ul>
+<li> All of the above
+</li></ul>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-18"></span><h4 class="subsection">9.5.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d17"></span><p>A student should be able to:
+</p>
+<ol>
+<li> Define and utilize a non-const reference for passing values out of a
+function
+</li></ol>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-18"></span><h4 class="subsection">9.5.3 Caveats</h4>
+<span id="g_t_0023caveats_002d17"></span>
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-17"></span><h4 class="subsection">9.5.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d16"></span><ul>
+<li> If the function does not intend to modify the value, const-references
+should be preferred
+</li><li> A reference value may be modified
+</li><li> The lifetime of a reference cannot be expected to extend beyond the
+lifetime of the function, so the reference should not be saved off for
+future use.
+</li><li> Taking a reference is not always a time or space savings. Modern
+machines may use 8-bytes to reference a 4-byte integer, for instance.
+</li></ul>
+
+<hr>
+</div>
+</div>
+<div class="section">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Advanced-7"></span><h3 class="section">9.6 Advanced</h3>
+<span id="g_t_0023advanced_002d2"></span><p><em>These are important topics that are not expected to be covered but
+provide guidance where one can continue to investigate this topic in
+more depth.</em>
+</p>
+<hr>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Overview-10"></span><h4 class="subsection">9.7.1 Overview</h4>
+<span id="g_t_0023overview_002d9"></span><p><em>Provides a short natural language abstract of the module&rsquo;s
+contents.</em> <em>Specifies the different levels of teaching.</em>
+</p>
+<table>
+<thead><tr><th width="25%">Level</th><th width="75%">Objective</th></tr></thead>
+<tr><td width="25%">Foundational</td><td width="75%">&mdash; Knowledge about build systems</td></tr>
+<tr><td width="25%">Main</td><td width="75%">&mdash; Usage of build system to compile a executable</td></tr>
+<tr><td width="25%">Advanced</td><td width="75%">&mdash; Add external libraries as a dependencies</td></tr>
+</table>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Motivation-10"></span><h4 class="subsection">9.7.2 Motivation</h4>
+<span id="g_t_0023motivation_002d9"></span><p><em>Why is this important?</em> <em>Why do we want to learn/teach this
+topic?</em>
+</p>
+<ul>
+<li> Building complex C++ projects by hand is tricky
+</li><li> Build systems can help to resolve dependencies
+</li><li> Build systems can help do distribute C++ code and help other to compile
+the code
+</li><li> Build systems can help to find and include libraries as dependencies
+</li><li> Build systems faciliate project management
+</li><li> All major C++ projects are distributed with build systems
+</li></ul>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Topic-introduction-10"></span><h4 class="subsection">9.7.3 Topic introduction</h4>
+<span id="g_t_0023topic_002dintroduction_002d9"></span><p><em>Very brief introduction to the topic.</em>
+</p>
+<p>Build systems are used to configure, build, and install complex C++
+projects.
+</p>
+<hr>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-18"></span><h4 class="subsubsection">9.7.4.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d18"></span><p>A student: * Should know how to compile and link C++ programs
+</p>
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-19"></span><h4 class="subsubsection">9.7.4.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d18"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> To explain what a build system is
+</li><li> To explain that a build systems resolves dependencies
+</li><li> To explain that a build system supports compilation for different
+operating systems and architectures
+</li></ol>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-19"></span><h4 class="subsubsection">9.7.4.3 Caveats</h4>
+<span id="g_t_0023caveats_002d18"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<p>None
+</p>
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-18"></span><h4 class="subsubsection">9.7.4.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d17"></span><p><em>This section lists important details for each point.</em>
+</p>
+<ul>
+<li> Mention that many build systems are available for C++
+</li><li> Mention benefits and challenges
+</li><li> Build system help to only compile the C++ files with code changes and
+not the complete project
+</li></ul>
+
+<hr>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-19"></span><h4 class="subsubsection">9.7.5.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d19"></span><ul>
+<li> All of the above.
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-20"></span><h4 class="subsubsection">9.7.5.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d19"></span><p>A student should be able to:
+</p>
+<ol>
+<li> Download a C++ package and build the package
+</li><li> Write a configuration file to compile a C++ executable
+</li><li> Pass compiler options via the build system
+</li><li> Use the build system to generate the executable
+</li><li> Write a configuration file to compile a library and link the library to
+a C++ executable
+</li></ol>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-20"></span><h4 class="subsubsection">9.7.5.3 Caveats</h4>
+<span id="g_t_0023caveats_002d19"></span><p>The instructions are restricted to the chosen build system and not
+easily transferable.
+</p>
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-19"></span><h4 class="subsubsection">9.7.5.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d18"></span><ul>
+<li> Include paths to header files to the configuration
+</li><li> Adding compiler flags
+</li><li> How to build Release and Debug builds
+</li><li> Linking external libraries to the C++ project
+</li><li> Support compilation on different operating systems, compilers, and
+architectures
+</li></ul>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Advanced-8"></span><h4 class="subsection">9.7.6 Advanced</h4>
+<span id="g_t_0023advanced_002d3"></span><p><em>These are important topics that are not expected to be covered but
+provide guidance where one can continue to investigate this topic in
+more depth.</em>
+</p>
+<ul>
+<li> How to build libraries
+</li><li> How to have external libraries be downloaded during the build process
+</li><li> Mention that build systems provide support for unit testing
+</li></ul>
+
+<p>See <a href="../functions/user-defined-literals.md">user-defined-literals</a>.
+</p>
+<hr>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Overview-11"></span><h4 class="subsection">9.8.1 Overview</h4>
+<span id="g_t_0023overview_002d10"></span><p><em>Provides a short natural language abstract of the module&rsquo;s
+contents.</em> <em>Specifies the different levels of teaching.</em>
+</p>
+<table>
+<thead><tr><th width="25%">Level</th><th width="75%">Objective</th></tr></thead>
+<tr><td width="25%">Foundational</td><td width="75%">Defining variables and ODR</td></tr>
+<tr><td width="25%">Main</td><td width="75%">Defining for programs</td></tr>
+<tr><td width="25%">Advanced</td><td width="75%">Special cases and peculiarities</td></tr>
+</table>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Motivation-11"></span><h4 class="subsection">9.8.2 Motivation</h4>
+<span id="g_t_0023motivation_002d10"></span><p><em>Why is this important?</em> <em>Why do we want to learn/teach this
+topic?</em>
+</p>
+<ul>
+<li> A definition is a declaration that supplies all that is needed for a
+complete entity
+</li><li> <code>int baz = 42;</code>
+</li><li> <code>void bar() { /* implementation */ }</code>
+</li><li> <code>class Foo { /* class body */ };</code>
+</li></ul>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Topic-introduction-11"></span><h4 class="subsection">9.8.3 Topic introduction</h4>
+<span id="g_t_0023topic_002dintroduction_002d10"></span><p><em>Very brief introduction to the topic.</em>
+</p>
+<p>A definition extends a declaration, providing all that is needed for a
+complete entity, e.g., allocate memory for variables, provide the
+implementation for functions, complete definitions of data and function
+members of a class.
+</p>
+<hr>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-20"></span><h4 class="subsubsection">9.8.4.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d20"></span><p>A student:
+</p>
+<ul>
+<li> is familiar with declarations <a href="../object-model/types.md">[C++ object
+model: declarations]</a>
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-21"></span><h4 class="subsubsection">9.8.4.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d20"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> define a variable with a specific type <code>int baz = 42;</code>
+</li><li> define a function <code>void bar() {}</code>
+</li><li> define a class <code>class Foo {};</code>
+</li><li> explain the one definition rule
+</li></ol>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-21"></span><h4 class="subsubsection">9.8.4.3 Caveats</h4>
+<span id="g_t_0023caveats_002d20"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<p>No caveats at present.
+</p>
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-20"></span><h4 class="subsubsection">9.8.4.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d19"></span><p><em>This section lists important details for each point.</em>
+</p>
+<ul>
+<li> One definition rule (ODR)
+</li></ul>
+
+<hr>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-21"></span><h4 class="subsubsection">9.8.5.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d21"></span><ul>
+<li> All of the above.
+</li><li> is familiar with declarations <a href="../object-model/types.md">[C++ object
+model: declarations]</a>
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-22"></span><h4 class="subsubsection">9.8.5.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d21"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> organize variables, functions, classes into multiple translation units,
+describing interface with declarations and providing the implementations
+with definitions without violating ODR.
+</li><li> distinguish between template declaration and definition
+</li></ol>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-22"></span><h4 class="subsubsection">9.8.5.3 Caveats</h4>
+<span id="g_t_0023caveats_002d21"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<ul>
+<li> Putting a definition into a header file that is included more than once
+leads to ODR violations, possibly resulting in linker errors.
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-21"></span><h4 class="subsubsection">9.8.5.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d20"></span><p><em>This section lists important details for each point.</em>
+</p>
+<hr>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Overview-12"></span><h4 class="subsection">9.9.1 Overview</h4>
+<span id="g_t_0023overview_002d11"></span><p><em>Provides a short natural language abstract of the module&rsquo;s
+contents.</em> <em>Specifies the different levels of teaching.</em>
+</p>
+<table>
+<thead><tr><th width="19%">Level</th><th width="61%">Objectives</th></tr></thead>
+<tr><td width="19%">Foundational</td><td width="61%">understanding how and when are copies made</td></tr>
+<tr><td width="19%">Main</td><td width="61%">implementing user-defined copy operations</td></tr>
+<tr><td width="19%">Advanced</td><td width="61%">special cases: copy elision</td></tr>
+</table>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Motivation-12"></span><h4 class="subsection">9.9.2 Motivation</h4>
+<span id="g_t_0023motivation_002d11"></span><p><em>Why is this important?</em> <em>Why do we want to learn/teach this
+topic?</em>
+</p>
+<p>Copy semantics allows the user to define how objects of a class get
+replicated and interact on a value level.
+</p>
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Topic-introduction-12"></span><h4 class="subsection">9.9.3 Topic introduction</h4>
+<span id="g_t_0023topic_002dintroduction_002d11"></span><p><em>Very brief introduction to the topic.</em>
+</p>
+<p>Explains when and how objects are copied.
+</p>
+<hr>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-22"></span><h4 class="subsubsection">9.9.4.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d22"></span><p>A student is able to: * explain what a C++ type is?
+<a href="../object-model/types.md">[C++ object model: types]</a> * explain what
+an object is? <a href="../object-model/objects.md">[C++ object model:
+objects]</a>, <a href="../object-model/constant-objects.md">[C++ object model:
+constant objects]</a> * define and understand class invariants?
+</p>
+<p>It helps when a student is able to: * use move semantics
+<a href="../object-model/move-semantics.md">[C++ object model: move
+semantics]</a> * explain special member functions
+<a href="../object-model/special-member-functions.md">[C++ object model:
+special member functions]</a>
+</p>
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-23"></span><h4 class="subsubsection">9.9.4.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d22"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> explain what copy semantics accomplish
+</li></ol>
+
+<ul>
+<li> establishing &ldquo;equivalent&rdquo; object state in another object
+</li></ul>
+
+<ol start="2">
+<li> explain difference between copying a reference and copying a value*
+</li><li> explain where copies are made
+</li></ol>
+
+<p>* In other languages these differences are sometimes referred to as
+shallow and deep copy.
+</p>
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-23"></span><h4 class="subsubsection">9.9.4.3 Caveats</h4>
+<span id="g_t_0023caveats_002d22"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<ul>
+<li> Compiler-provided copy operations may result in ownership problems
+(e.g., <code>char*</code>). These ownership problems can generally be solved
+by using types whose copy operations have the appropriate semantics,
+e.g., <code>std::string</code> instead of <code>char*</code> to hold string values.
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-22"></span><h4 class="subsubsection">9.9.4.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d21"></span><p><em>This section lists important details for each point.</em>
+</p>
+<ul>
+<li> Principle of copying
+<ul>
+<li> Copying of types, which follow the rule of zero
+</li><li> Copying of types, with user defined copy operations
+</li><li> Copying an object does not change the original
+</li></ul>
+
+</li><li> Practical applications
+<ul>
+<li> <code>std::unique_ptr</code> (has no copy)
+</li><li> Strings (copies the value)
+</li></ul>
+
+</li></ul>
+
+<hr>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-23"></span><h4 class="subsubsection">9.9.5.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d23"></span><p>A student is able to: * identify special member functions
+<a href="../object-model/special-member-functions.md">[C++ object model:
+special member functions]</a>
+</p>
+<p>It helps when a student is able to: * use move semantics
+<a href="../object-model/move-semantics.md">[C++ object model: move
+semantics]</a> * explain the rule of zero
+<a href="../object-model/rule-of-zero.md">[C++ object model: rule-of-zero]</a>
+* explain the rule of five <a href="../object-model/rule-of-five.md">[C++
+object model: rule-of-five]</a>
+</p>
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-24"></span><h4 class="subsubsection">9.9.5.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d23"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to: * explain when they have to implement the
+copy operations for their own type * Copy constructor * Copy assignment
+operator * implement copy operations for their own types *
+<em>Optional</em>: explain when copying with basic and strong exception
+guarantees is useful
+</p>
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-24"></span><h4 class="subsubsection">9.9.5.3 Caveats</h4>
+<span id="g_t_0023caveats_002d23"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<ul>
+<li> Intricacies when implementing copy operations:
+<ul>
+<li> Examples of how <em>not</em> to write copy operations (e.g., C++03
+<code>std::auto_ptr</code>)
+</li></ul>
+
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-23"></span><h4 class="subsubsection">9.9.5.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d22"></span><p><em>This section lists important details for each point.</em>
+</p>
+<ul>
+<li> Copy constructors and copy assignment operators
+<ul>
+<li> How compiler generates default copy operations
+</li><li> =default, =delete (No copy)
+</li><li> How-to write your own copy operations
+</li><li> Rule-of-five
+</li><li> Copy assignment operators can be ref-qualified to avoid assigning into
+temporary objects.
+</li></ul>
+
+</li></ul>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Advanced-9"></span><h4 class="subsection">9.9.6 Advanced</h4>
+<span id="g_t_0023copy_002dadvanced"></span><p><em>These are important topics that are not expected to be covered but
+provide guidance where one can continue to investigate this topic in
+more depth.</em>
+</p>
+<p>When can copies be elided and when does the standard guarantee copy
+elision. References: * <a href="https://abseil.io/tips/166">Abseil tip of
+the Week #166</a> *
+<a href="https://en.cppreference.com/w/cpp/language/copy_elision">cppreference
+- Copy elision</a>
+</p>
+<hr>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Overview-13"></span><h4 class="subsection">9.10.1 Overview</h4>
+<span id="g_t_0023overview_002d12"></span><p><em>Provides a short natural language abstract of the module&rsquo;s
+contents.</em> <em>Specifies the different levels of teaching.</em>
+</p>
+<table>
+<thead><tr><th width="25%">Level</th><th width="75%">Objective</th></tr></thead>
+<tr><td width="25%">Foundational</td><td width="75%">Declaring variables</td></tr>
+<tr><td width="25%">Main</td><td width="75%">Declaring for programs</td></tr>
+<tr><td width="25%">Advanced</td><td width="75%">Special cases and peculiarities</td></tr>
+</table>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Motivation-13"></span><h4 class="subsection">9.10.2 Motivation</h4>
+<span id="g_t_0023motivation_002d12"></span><p><em>Why is this important?</em> <em>Why do we want to learn/teach this
+topic?</em>
+</p>
+<ul>
+<li> Introduces a name and it&rsquo;s type
+</li><li> <code>int baz;</code>
+</li><li> <code>void bar();</code>
+</li><li> <code>class Foo;</code>
+</li></ul>
+
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Topic-introduction-13"></span><h4 class="subsection">9.10.3 Topic introduction</h4>
+<span id="g_t_0023topic_002dintroduction_002d12"></span><p><em>Very brief introduction to the topic.</em>
+</p>
+<p>Introduce names and their associated type in a scope.
+</p>
+<hr>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-24"></span><h4 class="subsubsection">9.10.4.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d24"></span><p>A student:
+</p>
+<ul>
+<li> is familiar with the basic C++ types:
+<ul>
+<li> bool (Boolean type)
+</li><li> int (Integer type)
+</li><li> double (Floating-point type)
+</li></ul>
+
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-25"></span><h4 class="subsubsection">9.10.4.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d24"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> declare a variable with a specific type &lsquo;int baz;&rsquo;
+</li><li> declare a function &lsquo;void bar();&rsquo;
+</li><li> declare a class &lsquo;class Foo;&rsquo;
+</li><li> forward declare a user-defined type or a function
+</li><li> explain the difference between a definition and a declaration
+</li></ol>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-25"></span><h4 class="subsubsection">9.10.4.3 Caveats</h4>
+<span id="g_t_0023caveats_002d24"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<p>No caveats at present.
+</p>
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-24"></span><h4 class="subsubsection">9.10.4.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d23"></span><p><em>This section lists important details for each point.</em>
+</p>
+<hr>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Background_002fRequired-Knowledge-25"></span><h4 class="subsubsection">9.10.5.1 Background/Required Knowledge</h4>
+<span id="g_t_0023backgroundrequired_002dknowledge_002d25"></span><ul>
+<li> All of the above.
+</li><li> Basic template syntax
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Student-outcomes-26"></span><h4 class="subsubsection">9.10.5.2 Student outcomes</h4>
+<span id="g_t_0023student_002doutcomes_002d25"></span><p><em>A list of things &ldquo;a student should be able to&rdquo; after the
+curriculum.</em> <em>The next word should be an action word and testable
+in an exam.</em> <em>Max 5 items.</em>
+</p>
+<p>A student should be able to:
+</p>
+<ol>
+<li> create header and source files with a declaration in the former and
+definition of a variable/function in the latter
+</li><li> declare type aliases to introduce a type with an alternative name &lsquo;using
+std::string;&rsquo;
+</li><li> write a forward template declaration
+</li></ol>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Caveats-26"></span><h4 class="subsubsection">9.10.5.3 Caveats</h4>
+<span id="g_t_0023caveats_002d25"></span><p><em>This section mentions subtle points to understand, like anything
+resulting in implementation-defined, unspecified, or undefined
+behavior.</em>
+</p>
+<ul>
+<li> Declaring aliases can introduce name clashes
+</li><li> Prefer using declaration&rsquo;s over using directives in header files [link]
+</li><li> The order of declarations dictates the order of initialization
+</li></ul>
+
+<hr>
+</div>
+<div class="subsubsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Points-to-cover-25"></span><h4 class="subsubsection">9.10.5.4 Points to cover</h4>
+<span id="g_t_0023points_002dto_002dcover_002d24"></span><p><em>This section lists important details for each point.</em>
+</p>
+<hr>
+</div>
+<div class="subsection">
+<div class="header">
+<p>
+ &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Advanced-10"></span><h4 class="subsection">9.10.6 Advanced</h4>
+<span id="g_t_0023advanced_002d4"></span><p><em>These are important topics that are not expected to be covered but
+provide guidance where one can continue to investigate this topic in
+more depth.</em>
+</p>
+<ul>
+<li> asm declaration
+</li><li> using-enum-declaration
+</li><li> extern &ldquo;C&rdquo; declarations
+</li></ul>
+
+<p>See <a href="../compile-time-programmings/concepts.md">concepts</a>.
+</p>
+</div>
+
+
+
+</body>
+</html>
