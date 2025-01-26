@@ -1,4 +1,4 @@
-## Module name: Headers
+## C++ compilation model: Headers {#headers}
 
 _Skeleton descriptions are typeset in italic text,_
 _so please don't remove these descriptions when editing the topic._
@@ -38,7 +38,7 @@ The contents of header files are injected into a source file to allow
 multiple distinct source files to share a single source of common 
 declarations. 
 
-### Foundational: Including code through standard library headers
+### Foundational: Including code through standard library headers {#headers-found}
 
 #### Background/Required Knowledge
 
@@ -55,12 +55,14 @@ _Max 5 items._
 
 A student should be able to:
 
-1. Include common standard library headers to get access to standard library features
+1. include common standard library headers to get access to standard library features
 
 #### Caveats
 
 _This section mentions subtle points to understand, like anything resulting in
 implementation-defined, unspecified, or undefined behavior._
+
+* The include directly actually copies the header file into the file it is included in.
 
 #### Points to cover
 
@@ -71,7 +73,7 @@ _This section lists important details for each point._
 * Include links to reference materials for finding out what headers are used for various feature sets
 * When using standard library facilities, can either use `using std::vector; vector<int> v;`, or `std::vector<int> v;`, or `using namespace std; vector<int> v;`, though modern practice strongly discourages invoking `using namespace std;`
 
-### Main: Organizing function and class declarations for reuse
+### Main: Organizing function and class declarations for reuse  {#headers-main}
 
 _Description: Write headers to support separate compilation and code organization_
 
@@ -86,11 +88,11 @@ _Description: Write headers to support separate compilation and code organizatio
 
 A student should be able to:
 
-1. Create a declaration for an existing function, placed in a separate file
-2. Utilize double-quote inclusion to include a header from the same directory
-3. Utilize angular-bracket inclusion to include a header from standard library
-4. Explain the meaning of the one-definition rule and how it applies to headers
-5. Protect a header with include guards and explain why they are necessary
+1. create a declaration for an existing function, placed in a separate file
+2. utilize double-quote inclusion to include a header from the same directory
+3. utilize angular-bracket inclusion to include a header from standard library
+4. explain the meaning of the one-definition rule and how it applies to headers
+5. protect a header with include guards and explain why they are necessary
 
 #### Caveats
 
