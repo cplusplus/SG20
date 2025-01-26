@@ -71,7 +71,7 @@ _This section lists important details for each point._
 * Usage of standard library code requires inclusion of various header files
 * Give examples of various header files and when they may be needed for inclusion
 * Include links to reference materials for finding out what headers are used for various feature sets
-* When using standard library facilities, can either use `using std::vector; vector<int> v;`, or `std::vector<int> v;`, or `using namespace std; vector<int> v;`, though modern practice strongly discourages invoking `using namespace std;`
+* When using standard library facilities, one can either use `using std::vector; vector<int> v;`, or `std::vector<int> v;`, or `using namespace std; vector<int> v;`, though modern practice strongly discourages invoking `using namespace std;`
 
 ### Main: Organizing function and class declarations for reuse  {#headers-main}
 
