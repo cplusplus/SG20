@@ -77,7 +77,7 @@ if [ -z "$version" ]; then
   usage "no document version specified"
 fi
 
-version=PR_${version%/*}
+version=${version%/*}
 
 ################################################################################
 # Build the document.
