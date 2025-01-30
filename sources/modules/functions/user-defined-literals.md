@@ -1,4 +1,4 @@
-## Functions:  user-defined literals {#udl}
+## Functions:  user-defined literals (UDL) {#udl}
 
 _Skeleton descriptions are typeset in italic text,_
 _so please don't remove these descriptions when editing the topic._
@@ -7,6 +7,11 @@ _so please don't remove these descriptions when editing the topic._
 
 _Provides a short natural language abstract of the module’s contents._
 _Specifies the different levels of teaching._
+
+Literals are a way to write values in the code, such as strings and numbers.
+User-defined literals (UDL) allow to add a suffix to a string or number to change the meaning.
+The suffix selects a function (an operator) that can alter the value and type of the literal.
+The C++ library provides certain operators already and a user can add more by providing such operators.
 
 -------------------------------------------------------------------------
 Level            Objectives
