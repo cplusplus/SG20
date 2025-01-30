@@ -25,11 +25,11 @@ Advanced          Generic lambdas, utilizing mutable state, mapping
 _Why is this important?_
 _Why do we want to learn/teach this topic?_
 
-* function objects in relation to the standard library...
+* Function objects in relation to the standard library, e.g. for passing functions to the standard algorithms or auxiliary functions
 * Allows the developer to define and pass functionality as values/data/information
 * Allows developer to operate in a functional-programming mindset
-* Improves code readdability by localizing the code
-* Effective means to help refactoring code from long functions to re-usable functions
+* Improves code readability by localizing the code
+* Making code more compact by writing functions in-place 
 * Library designs taking callables allows the library to be customizable for the consumer, while lambdas make this usage approachable
 
 ### Topic introduction
@@ -44,7 +44,7 @@ Lambdas were added in C++11 and have grown in power and functionality ever since
 
 A student:
 _TODO: Add cross-reference to these
-Explain capture-by-value and capture-by-reference
+Explain function argument  passing by value or by reference
 
 #### Student outcomes
 
@@ -55,10 +55,11 @@ _Max 5 items._
 A student should be able to:
 
 1. Use a lambda taking a concrete type as a parameter and return a value
-2. transform a function definition into a lambda and use it
-3. enumerate trade-offs of code-locality using lambdas vs code reuse with free-functions
-4. assign a lambda to a variable for multiple calls
-5. named lambdas to increase code readability
+2. Transform a function definition into a lambda and use it
+3. Enumerate trade-offs of code-locality using lambdas vs code reuse with free-functions
+4. Assign a lambda to a variable for multiple calls
+5. Named lambdas to increase code readability
+6. Explain capture-by-value and capture-by-reference
 
 
 
@@ -83,9 +84,10 @@ A student should be able to:
 
 1. Utilize `std::function` as a means to hold and transfer lambdas
 2. Define a function-template taking a lambda as a template parameter
-3. specify, per parameter, whether to capture by reference or value
-4. specify the default capture type for a lambda
-5. use a lambda in a class, capturing and utilizing class data via `this`
+3. Specify, per parameter, whether to capture by reference or value
+4. Specify the default capture type for a lambda
+5. Specify the return type for a lamda function, if not detected by the compiler
+5. Use a lambda in a class, capturing and utilizing class data via `this`
 
 #### Caveats
 
@@ -111,25 +113,25 @@ guidance where one can continue to investigate this topic in more depth._
 A student should be able to:
 
 1. Use a lambda to introduce a new identifier for use within the body of the lambda
-2. explain the relationships between generic lambdas and templates
-3. construct an object with choice between 2 identifiers, using immediately-dispathced lambda
-4. utilize an immediately dispatched lambda to encode multiple statements where the language requires an expression
-5. use the `mutable` keyword to allow changing a captured-by-value or lambda-local value within the lambda body
-6. explicitly specify the return type for a lambda
-7. explain under what conditions an explicit return type is necessary
- 
+2. Explain the relationships between generic lambdas and templates
+3. Construct an object with choice between 2 constructors, using immediately-dispatched lambda (see first listing)
+4. Utilize an immediately dispatched lambda to encode multiple statements where the language requires an expression
+5. Use the `mutable` keyword to allow changing a captured-by-value or lambda-local value within the lambda body
+6. Explicitly specify the return type for a lambda
+7. Explain under what conditions an explicit return type is necessary
+
 #### Caveats
 
 #### Points to cover
 
-Construct an object with choice between 2 identifiers:
+Construct an object with choice between 2 constructors:
 ```
 class X;
 bool b;
 X x = [c = b](){ if (c) return X(5, 10) else X("a", "b"); }();
 ```
 
-multiple statements in a single expression
+Todo add caption
 ```
 assert([](){
 	std::vector v{1, 2, 3, 4, 5};
@@ -137,12 +139,14 @@ assert([](){
 }());
 ```
 
-Capture can introduce new names
+
+Capture can introduce new names by initializing them as `capture-default`
 ```
 char const* const s = "5";
 [x=atoi(s)](){}
 ```
 
+`Capture-default` variables can be altered by the lambda body if the lamda is marked as `mutable`
 ```
 std::ranges::for_each(
 	std::vector{1,2,3,4,5},
