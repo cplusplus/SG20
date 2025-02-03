@@ -55,6 +55,8 @@ EH Error Handling
 	? ? ? ? errno
 	? ? ? ? Error Codes
 	eh y y y Exception Handling
+PD Program Design
+	cont y y y Containers
 SL Standard Library
 	? ? ? ? Input/Output (I/O)
 	? ? ? ? Containers, Iterators, and Algorithms
