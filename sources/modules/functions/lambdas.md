@@ -161,6 +161,14 @@ std::ranges::for_each(
 	});
 ```
 
+In a context where only one expression is allowed, like `assert`, one can use an immediately lambda to write multiple statements.
+```
+assert([](){
+	std::vector v{1, 2, 3, 4, 5};
+	for (auto x: v) std::cout << v << std::endl;
+}());
+```
+
 When to use lambdas or not:
 forcing code into a lambda can prevent some features
 ```
