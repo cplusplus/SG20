@@ -57,6 +57,10 @@ EH Error Handling
 	eh y y y Exception Handling
 PD Program Design
 	it y y n Iterators
+	cont y y y Containers
+DE Debugging Errors
+	compiletimeerr y y y Compile-Time Errors
+	runtimeerr y y y Run-time Errors
 SL Standard Library
 	? ? ? ? Input/Output (I/O)
 	? ? ? ? Containers, Iterators, and Algorithms
