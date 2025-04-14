@@ -40,7 +40,7 @@ _Very brief introduction to the topic._
 A student:
 * containers [[Program Design: Containers - Foundational]][1]
 * for loops
-* [Maybe] [[Object Model: Value Semantics - Foundational]][2][[Object Model: Reference Semantics - Foundational]][3] TODO: revisited after ref/value semantics 
+* [Maybe] [[Object Model: Value Semantics - Foundational]][2][[Object Model: Reference Semantics - Foundational]][3]
 
 #### Student outcomes
 
@@ -104,7 +104,7 @@ A student should be able to:
 
 #### Caveats
 
-* Beware when using iterators in a multi-threaded environment as both the iterator and the data structure need to be correctly synchronized (see XYZ). TODO: find reference
+* Beware when using iterators in a multi-threaded environment as both the iterator and the data structure need to be correctly synchronized (see [XYZ](https://)).
 * Make sure that the implementation of the iterator offers at least the interface and guarantees that its category offers.
 
 
