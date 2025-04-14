@@ -58,6 +58,7 @@ EH Error Handling
 PD Program Design
 	cont y y y Containers
 DE Debugging Errors
+  builderr y y n Build Errors
 	compiletimeerr y y y Compile-Time Errors
 	runtimeerr y y y Run-time Errors
 SL Standard Library
