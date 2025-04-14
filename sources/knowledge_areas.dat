@@ -56,6 +56,7 @@ EH Error Handling
 	? ? ? ? Error Codes
 	eh y y y Exception Handling
 PD Program Design
+	it y y n Iterators
 	cont y y y Containers
 DE Debugging Errors
 	compiletimeerr y y y Compile-Time Errors
