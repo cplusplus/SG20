@@ -106,6 +106,7 @@ A student should be able to:
 #### Points to cover
 
 * Discuss the role that name mangling in error messages and problems
+  * mention ways to turn the mangled name back into a user readable form (e.g., `c++filt`, `nm -C`, `cxxabi.h`, or `std::type_info`)
 * Mention that more specialized forms of debugging exist [[Debugging Errors: Compile-Time Debugging]][1]
 * Linking order problems, e.g., static initialization order (i.e., global initialization order depends on linking order)
 * Discuss how one could debug/detect ODR violations
