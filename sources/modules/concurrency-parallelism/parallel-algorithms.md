@@ -81,41 +81,51 @@ _This section lists important details for each point._
 
 A student should be able to:
 
-1. Do define a function or lambda for the computational task
-2. Launch the function or lambda asynchronous and obtain the results
+1. Do define a function or lambda for the compute kernel 
+2. Split the work in independent tasks to avoid race conditions
+3. Explain the meaning of the four policies (`std::execution::seq`, `std::execution::par`, `std::execution::par_unseq`, and `std::execution::unseq`) 
 
 #### Caveats
 
-The concept of asynchronous programming is no easy digestible for most students.
+The concept of parallel programming introduces bugs introdcues via race conditions
 
 
 #### Points to cover
 
-* The header `<future>` needs to be includes
-* The return type of the function or lambda will the the template type of the future
-* The first argument of `std::async` is the function or lambda and after that all arguments are provided
+* The header `<execution>` needs to be included
+* The first argument of the algorithm is the execution policy
 
 Example using a function
 ```
-void print_square(double a)
+std::vector<double> values = {1,2,3,4,5,6};
+void square(double& a)
 {
- std::cout << "Result=" << a * a << std::endl;
+    a =  a * a;
 }
 
-std::future<void> f = std::async(print,5.0);
-// We could do other work here
-f.get()
+// Parallel execution
+std::for_each(std::execution::par_unseq,std::begin(values),std::end(values),square);
+
+// Serial execution
+std::for_each(std::execution::seq,std::begin(values),std::end(values),square);
 ```
 
-Example using lambdas
+Example using a predefined algorithm
 ```
-// Compute the sum
-std::future<double> f1 = std::async([](double a, double b){ return a + b;});
-// Compute the square
-std::future<double> f2 = std::async([](double a){ return a * a;});
+std::vector<int> values(10000);
 
-// Gather the results and add them up
-double res = f1.get() + f2.get();
+// Seed the random number generator
+std::random_device rd;
+std::mt19937 gen(rd());
+
+// Define the range for the random numbers
+std::uniform_int_distribution<> distrib(1, 100); // Generates numbers between 1 and 100
+
+// Fill the vector with random numbers
+std::generate(random_vector.begin(), random_vector.end(), [&]() { return distrib(gen); });
+
+// Sort the vector in parallel
+std::sort(std::exeuction::par,values.begin(),values.end())
 ```
 
 ### Advanced
@@ -123,6 +133,8 @@ double res = f1.get() + f2.get();
 _These are important topics that are not expected to be covered but provide
 guidance where one can continue to investigate this topic in more depth._
 
+* If the implementation cannot parallelize or vectorize (e.g. due to lack of resources), all standard execution policies can fall back to sequential execution. 
+* None of the execution policies allow for reproducibilty. This is obvious for the parallel execution policies. But even `std::ececution::seq` can execute the iterations in any order.
 * Nvidia supports to run `std::execution::par` on Nvidia GPUs. However, that is not yet in the C++ standard and will only work with Nvidia's HPC compiler.
 * Currently, parallel algorithms are implemented using Intel's TBB library in GCC. You can set the number of used cores using `tbb::global_control(tbb::global_control::max_allowed_parallelism, nthreads);` provided by the header `#include "tbb/tbb.h"`.
 
