@@ -11,7 +11,7 @@ _Specifies the different levels of teaching._
 ------------------------------------------------------------------------
 Level             Objective
 ----------------- ------------------------------------------------------
-Foundational:      Declaration of constructors
+Foundational:      Basic usage of constructors
 
 Main:              Initialization and overloading   
 
@@ -36,7 +36,7 @@ _Very brief introduction to the topic._
 
 A student:
 
-1. should know the notion of classes and structs 
+1. should know the notion of classes and structs %todo link to classes 
 
 #### Student outcomes
 
@@ -54,49 +54,56 @@ A student should be able to:
 #### Points to cover
 
 * Overloading of constructors and default arguments
-* Copy constrcutor and destructor
+* Copy constructor and destructor
 * Constructors can be used to initialize class members 
-* 
 
 #### Caveats
 
 _This section mentions subtle points to understand, like anything resulting in
 implementation-defined, unspecified, or undefined behavior._
 
-* programming user interfaces in C++ and in general require plenty of boiler plate code
-* API calls are specific to one library and might not be transferable to other libraries
-* Some libraries are written in C
+* None
 
-### Main: Command of supporting mechanisms and tools
+### Main: 
 
 #### Background/Required Knowledge
 
 * All of the above.
+* Class inheritance %todo check for link
+* Dynamic memory
+* Difference between shared and unique pointers
 
 #### Student outcomes
 
 A student should be able to:
 
-1. add more advanced elements, like tables or images
-2. handle multiple windows
-3. show error and warning popups
-4. use different forms of IO, like keyboard, mouse, or touch pad
-5. explain basic of fonts and accessibility
+1. Explain the differences between the big five, namely, copy constructor, move constrcutor, copy/assign, move/assign, destructor, and constructor.
+2. Construct a initializer list and explain conditions when it is necessary
+3. Delegate to the constructor of the base class
+4. Demonstrate and explain safe memory handling using shared or unique pointers
+5. Define what RAII is and the role of the constructor 
 
 #### Caveats
 
-*  programming user interfaces is rather complex and might not applicable for most students
+* Order of construction should match the initalizer list order
 
 #### Points to cover
 
-* More advanced API calls and design patterns
+* Not calling virtual functions from the base class
+* Do not initialze data outside of the constructor (two face initialization)
+* Difference between assignment and deep copy
 
-### Advanced: Technicalities and tools
+### Advanced: 
 
 _These are important topics that are not expected to be covered but provide
 guidance where one can continue to investigate this topic in more depth._
 
-* Internationalization
-* Font designers
-* Hardware acceleration
-* Custom widget generation
+* Error handling within constructors
+* Non-static data initialziers 
+* Constructors with member references
+* Purposes for protected constructors
+* What does delete vs private means
+* What does it mean to have an explicit constructor 
+* Impact on const expr on constructor %extend later
+* Rules on memory ordering %extend later
+* Define constructor outside of the body of the class %extend later
