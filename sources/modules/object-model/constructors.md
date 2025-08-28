@@ -24,7 +24,7 @@ Advanced:          TBD
 _Why is this important?_
 _Why do we want to learn/teach this topic?_
 
-Constructors are fundamental to generate objects from classes and structs, so understanding them is essential to work with objcets.
+Constructors are fundamental to generate objects from classes and structs, so understanding them is essential to work with objects.
 
 ### Topic introduction
 
@@ -77,11 +77,11 @@ implementation-defined, unspecified, or undefined behavior._
 
 A student should be able to:
 
-1. Explain the differences between the big five, namely, copy constructor, move constrcutor, copy/assign, move/assign, destructor, and constructor.
+1. Explain the differences between the big five, namely, copy constructor, move constructor, copy/assign, move/assign, destructor, and constructor.
 2. Construct a initializer list and explain conditions when it is necessary
 3. Delegate to the constructor of the base class
 4. Demonstrate and explain safe memory handling using shared or unique pointers
-5. Define what RAII is and the role of the constructor 
+5. Define what RAII is, the role of the constructor in it; and the relationship with its destructor 
 
 #### Caveats
 
@@ -90,20 +90,23 @@ A student should be able to:
 #### Points to cover
 
 * Not calling virtual functions from the base class
-* Do not initialze data outside of the constructor (two face initialization)
+* Do not initialize data outside of the constructor (two face initialization)
+* All objects should be initialized within the constructor and should have a well-defined state
 * Difference between assignment and deep copy
+
+For more details, we refer to the [C++ core guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 
 ### Advanced: 
 
 _These are important topics that are not expected to be covered but provide
 guidance where one can continue to investigate this topic in more depth._
 
-* Error handling within constructors
-* Non-static data initialziers 
-* Constructors with member references
-* Purposes for protected constructors
-* What does delete vs private means
-* What does it mean to have an explicit constructor 
-* Impact on const expr on constructor %extend later
-* Rules on memory ordering %extend later
-* Define constructor outside of the body of the class %extend later
+* Member references must be initialized in the constructor   
+* Member classes not initialized explicitly will be initialized using the default constructor
+* Exceptions thrown in constructor (needs to be extended)
+* Protected constructor prevents direct construction of a base class
+* Explicit constructor prevents implicit type conversion of a single argument 
+* Member classes are constructed in the order they are declared
+* Constructors for classes with static members must be defined outside of the body of the class
+* Non-state data member can be given a default value at initialization, but constructor take 
+
