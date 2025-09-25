@@ -83,7 +83,7 @@ A student should be able to:
 4. Demonstrate and explain safe memory handling using shared or unique pointers
 5. Define what RAII is, the role of the constructor in it; and the relationship with its destructor 
 6. Use the explicit keyword to prevent accidental type conversion from a single argument, see [C.46](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-explicit) 
-7. Initialze data members with default values outside of the constructor and explain the benefit of why, see [C.48](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-explicit)  
+7. Initialize data members with default values outside of the constructor and explain the benefit of why, see [C.48](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-explicit)  
 
 #### Caveats
 
@@ -104,7 +104,7 @@ _These are important topics that are not expected to be covered but provide
 guidance where one can continue to investigate this topic in more depth._
 
 * Initialization requirements of data members not explicitly initialized via the initializer-list or NSDMIs, including references and non-trivial types
-* Exceptions thrown in constructor, see [Execption handling](../error-handling/exception-handling.md)
+* Exceptions thrown in constructor, see [Exception handling](../error-handling/exception-handling.md)
 * Protected constructor prevents direct construction
 * Constructors for classes with static members must be defined outside of the body of the class
 * Non-static data member can be given a default value at initialization, but constructor take precedence 
