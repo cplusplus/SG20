@@ -77,11 +77,13 @@ implementation-defined, unspecified, or undefined behavior._
 
 A student should be able to:
 
-1. Explain the differences between the big five, namely, copy constructor, move constructor, copy/assign, move/assign, destructor, and constructor.
+1. Explain the differences between the big five, namely, copy constructor, move constructor, copy/assign, move/assign, destructor, and constructor, see [move semantics](move-semantics.md)
 2. Construct a initializer list and explain conditions when it is necessary
 3. Delegate to the constructor of the base class
 4. Demonstrate and explain safe memory handling using shared or unique pointers
 5. Define what RAII is, the role of the constructor in it; and the relationship with its destructor 
+6. Use the explicit keyword to prevent accidental type conversion from a single argument, see [C.46](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-explicit) 
+7. Initialze data members with default values outside of the constructor and explain the benefit of why, see [C.48](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-explicit)  
 
 #### Caveats
 
@@ -101,12 +103,9 @@ For more details, we refer to the [C++ core guidelines](https://isocpp.github.io
 _These are important topics that are not expected to be covered but provide
 guidance where one can continue to investigate this topic in more depth._
 
-* Member references must be initialized in the constructor   
-* Member classes not initialized explicitly will be initialized using the default constructor
-* Exceptions thrown in constructor (needs to be extended)
-* Protected constructor prevents direct construction of a base class
-* Explicit constructor prevents implicit type conversion of a single argument 
-* Member classes are constructed in the order they are declared
+* Initialization requirements of data members not explicitly initialized via the initializer-list or NSDMIs, including references and non-trivial types
+* Exceptions thrown in constructor, see [Execption handling](../error-handling/exception-handling.md)
+* Protected constructor prevents direct construction
 * Constructors for classes with static members must be defined outside of the body of the class
-* Non-state data member can be given a default value at initialization, but constructor take 
+* Non-static data member can be given a default value at initialization, but constructor take precedence 
 
