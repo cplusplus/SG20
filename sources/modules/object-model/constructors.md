@@ -36,7 +36,7 @@ _Very brief introduction to the topic._
 
 A student:
 
-1. should know the notion of classes and structs %todo link to classes 
+1. should know the notion of classes and structs, see [declarations](declarations.md) 
 
 #### Student outcomes
 
@@ -68,8 +68,8 @@ implementation-defined, unspecified, or undefined behavior._
 
 #### Background/Required Knowledge
 
-* All of the above.
-* Class inheritance %todo check for link
+* All of the above
+* Class inheritance
 * Dynamic memory
 * Difference between shared and unique pointers
 
