@@ -11,7 +11,7 @@ _Specifies the different levels of teaching._
 ------------------------------------------------------------------------
 Level             Objective
 ----------------- ------------------------------------------------------
-Foundational      --- Knowledge about build systems
+Foundational      Knowledge about build systems
 
 Main              --- Usage of build system to compile a executable
 
