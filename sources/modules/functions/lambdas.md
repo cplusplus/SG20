@@ -105,7 +105,6 @@ guidance where one can continue to investigate this topic in more depth._
 
 #### Background/Required Knowledge
 
-* All of the above.
 
 #### Student outcomes
 
