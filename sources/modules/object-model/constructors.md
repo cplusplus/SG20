@@ -64,7 +64,7 @@ implementation-defined, unspecified, or undefined behavior._
 
 * None
 
-### Main: 
+### Main: Pratical usage of constructors 
 
 #### Background/Required Knowledge
 
@@ -76,11 +76,11 @@ implementation-defined, unspecified, or undefined behavior._
 
 A student should be able to:
 
-1. Explain the differences between the big five, namely, copy constructor, move constructor, copy/assign, move/assign, destructor, and constructor, see [move semantics](move-semantics.md)
+1. Explain the differences between the [big five](rule-of-five.md), namely, copy constructor, move constructor, copy/assign, move/assign, destructor, and constructor, see [move semantics](move-semantics.md)
 2. Construct a initializer list and explain conditions when it is necessary
 3. Delegate to the constructor of the base class
 4. Demonstrate and explain safe memory handling using shared or unique pointers
-5. Define what RAII is, the role of the constructor in it; and the relationship with its destructor 
+5. Define what [RAII](../error-handling/exception-handling.md) is, the role of the constructor in it; and the relationship with its destructor 
 6. Use the explicit keyword to prevent accidental type conversion from a single argument, see [C.46](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-explicit) 
 7. Initialize data members with default values outside of the constructor and explain the benefit of why, see [C.48](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-explicit)  
 
@@ -94,6 +94,8 @@ A student should be able to:
 * Do not initialize data outside of the constructor (two face initialization)
 * All objects should be initialized within the constructor and should have a well-defined state
 * Difference between assignment and deep copy
+* Difference between shared and unique pointers from the STL.
+* Relationship with between resources, objects, constructors, and destructors.
 
 For more details, we refer to the [C++ core guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 
