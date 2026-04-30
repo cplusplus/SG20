@@ -93,7 +93,10 @@ A student should be able to:
 
 #### Points to cover
 
-* Cover the mechanisms for include and library paths to your own code, as well as discovery mechanisms for external libraries.
+* Explain definition of translation unit, and the difference between translation unit and header file.
+* Aspects of header files such as guards.
+* Explain compiler mechanisms for specifying include and library locations.
+    (Flags such as `-I`, `-isystem`, environment variables such as `INCLUDE`, .... )
 
 ### Advanced: Technicalities and tools
 
