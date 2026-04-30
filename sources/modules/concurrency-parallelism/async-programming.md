@@ -15,7 +15,7 @@ Foundational      Knowledge about build systems
 
 Main              Usage of build system to compile a executable
 
-Advanced          --- Add external libraries as a dependencies  
+Advanced          Add external libraries as a dependencies  
 
 ------------------------------------------------------------------------
 
