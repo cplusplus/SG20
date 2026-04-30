@@ -68,7 +68,6 @@ implementation-defined, unspecified, or undefined behavior._
 
 #### Background/Required Knowledge
 
-* All of the above
 * Class inheritance
 * Dynamic memory
 * Difference between shared and unique pointers
